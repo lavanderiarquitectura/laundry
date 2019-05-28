@@ -1,11 +1,13 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
+import Navbar from './components/Navbar'
 
 class App extends React.Component{
   render(){
     return(
-      <div>
+      <div >
+      <Navbar/>
       <Switch>
         <Route exact path="/" component={Home} />
       </Switch>
