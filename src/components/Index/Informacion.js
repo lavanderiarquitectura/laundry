@@ -3,26 +3,11 @@ import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
-
-class Login extends React.Component{
-
-   
+class Informacion extends React.Component{
     
     render(){
 
-        const theme = createMuiTheme({
-            overrides: {
-              MuiInputLabel: {
-                outline: {
-                  transform: "translate(14px, 13px) scale(1)"
-                }
-              }
-            }
-          });
-    
-        
         const styles ={
             divLogin :{
                 padding: "15px 15px 8px 15px",
@@ -63,7 +48,7 @@ class Login extends React.Component{
         }
 
         return(
-            <div className="container col-3" style={styles.divLogin} theme={theme}>
+            <div className="container col-3" style={styles.divLogin}>
                 <form>
                 <div className="form-group" style={styles.divInput}>
                     <img id="logo" src={logo} style={styles.logo}></img>
@@ -91,8 +76,7 @@ class Login extends React.Component{
                 <div className="form-group" style={styles.divInput}>                
                     <Link to='/'><Button onClick={this.props.onChange} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
                 </div>
-                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
-                <div className="form-group" style={styles.olvidaste}><a>Don't an account? </a><Link to='/'><a>Sign Up</a></Link></div>
+                <div className="form-group" style={styles.olvidaste}><a>¿Olvidaste tu </a><Link to='/'><a>contraseña</a></Link><a>?</a></div>
                </form>
                 
             </div>
@@ -100,4 +84,4 @@ class Login extends React.Component{
     }
 }
 
-export default Login;
+export default Informacion;

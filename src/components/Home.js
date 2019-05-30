@@ -11,7 +11,7 @@ class Home extends React.Component{
         super(props);
         this.state = {
           login: 'block',
-          register: 'block',
+          register: 'none',
         };
         this.changeState = this.changeState.bind(this);
     }

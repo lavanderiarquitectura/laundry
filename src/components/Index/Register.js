@@ -5,7 +5,66 @@ import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 
 
+
 class Register extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            name: "",
+            lastname:"",
+            idnumber:"",
+            room:"",
+            password:""
+        }
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleChangeLastname = this.handleChangeLastname.bind(this);
+        this.handleChangeIdNumber = this.handleChangeIdNumber.bind(this);
+        this.handleChangeRoom = this.handleChangeRoom.bind(this);
+        this.handleChangePass = this.handleChangePass.bind(this);
+    }
+
+    handleChangeName(event){        
+        this.setState({name: event.target.value})
+    }
+    handleChangeLastname(event){
+        this.setState({lastname: event.target.value})
+    }
+    handleChangeIdNumber(event){
+        this.setState({idnumber: event.target.value})
+    }
+    handleChangeRoom(event){
+        this.setState({room: event.target.value})
+    }
+    handleChangePass(event){
+        this.setState({password: event.target.value})
+    }
+
+    /*validateSingup(){
+        const data = {
+        name: this.state.name,
+        last_name: this.state.lastname,
+        personal_id: this.state.idnumber,
+        room_id: this.state.room,
+        idActive: true,
+        password: this.state.password,
+        }
+        console.log(data);
+        
+        axios({
+            method: 'post',
+            url: '/localhost:8085/api/users',
+            data: data
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }*/
+
+
 
     render(){
 
@@ -71,6 +130,7 @@ class Register extends React.Component{
                         autoFocus
                         id="name"
                         label="Name"
+                        onChange={this.handleChangeName}
                         margin="normal"
                         style = {styles.inputs}
                         variant="outlined"
@@ -80,6 +140,7 @@ class Register extends React.Component{
                     <TextField
                         id="lastname"
                         label="Lastname"
+                        onChange={this.handleChangeLastName}
                         margin="normal"
                         style = {styles.inputs}
                         variant="outlined"
@@ -89,6 +150,7 @@ class Register extends React.Component{
                     <TextField
                         id="idnumber"
                         label="Identificacion number"
+                        onChange={this.handleChangeIdNumber}
                         margin="normal"
                         style = {styles.inputs}
                         variant="outlined"
@@ -99,8 +161,7 @@ class Register extends React.Component{
                         id="room"
                         label="Number Room"
                         margin="normal"
-                        min="100"
-                        max="799"
+                        onChange={this.handleChangeRoom}
                         style = {styles.inputs}
                         variant="outlined"
                     />
@@ -110,6 +171,7 @@ class Register extends React.Component{
                         id="password"
                         label="Password"
                         type="password"
+                        onChange={this.handleChangePass}
                         style = {styles.inputs}
                         margin="normal"
                         variant="outlined"
@@ -117,7 +179,7 @@ class Register extends React.Component{
                 </div>
                 <div className="form-group" style={styles.divInput}>                
                     <Link to='/'>
-                    <Button variant="outlined" onChange={this.props.onChange} focusVisible style={styles.botonInicio} color="primary">Register</Button></Link>
+                    <Button variant="outlined" onClick={()=>this.validateSingup()}  style={styles.botonInicio} color="primary">Register</Button></Link>
                 </div>
                 <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a> Sign in</a></Link></div>
                 

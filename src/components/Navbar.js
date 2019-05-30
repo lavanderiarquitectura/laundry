@@ -1,37 +1,57 @@
 import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
+MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon ,MDBBtn} from "mdbreact";
 
-class Navbar extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-          menu: false
-        };
-        this.toggleMenu = this.toggleMenu.bind(this);
-      }
-    
-    toggleMenu(){
-        this.setState({ menu: !this.state.menu })
-      }
+class Navbar extends React.Component {
 
-    render(){
-        
-        const show = (this.state.menu) ? "show" : "" ;
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+    this.toggleCollapse = this.toggleCollapse.bind(this);
+}
 
-        return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="/">Lavanderia</a>
-            <button className="navbar-toggler" data-toggle="collapse" type="button" onClick={ this.toggleMenu }>
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className={"collapse navbar-collapse " + show}>
-              <div className="navbar-nav">
-                <a className="nav-item nav-link" href="/"> <span class="sr-only">(current)</span></a>
-              </div>
-            </div>
-          </nav>
-        );
-    }
+toggleCollapse = () => {
+  this.setState({ isOpen: !this.state.isOpen });
+}
+
+
+render() {
+
+
+  const styles ={
+    icon :{
+        marginRight: "10px",
+    },
+    signup :{
+      marginRight: "5px",
+  }
+  }
+
+  return (
+    <MDBNavbar color="grey lighten-5" dark expand="md" >
+      <MDBNavbarBrand>
+        <strong className="indigo-text">Cruise Laundry</strong>
+      </MDBNavbarBrand>
+      <MDBNavbarToggler onClick={this.toggleCollapse} />
+      <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+        <MDBNavbarNav left>
+ 
+        </MDBNavbarNav>
+        <MDBNavbarNav right>
+          <MDBNavItem active style={styles.signup} >
+            <MDBNavLink to="/informacion" className="indigo-text">Sign Up</MDBNavLink>
+          </MDBNavItem>         
+          <MDBNavItem active style={styles.signup} >
+            <MDBNavLink to="#!" className="indigo-text">Operator</MDBNavLink>
+          </MDBNavItem>  
+        </MDBNavbarNav>
+      </MDBCollapse>
+    </MDBNavbar>
+    );
+  }
 }
 
 export default Navbar;
