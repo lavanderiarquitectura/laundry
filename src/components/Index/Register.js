@@ -118,6 +118,8 @@ class Register extends React.Component{
         }
         
         return(
+            <div className='container'>
+                <div className="row">
             <div className="container col-3" style={styles.divLogin}>
                 <form>
                 <div className="form-group" style={styles.divInput}>
@@ -179,13 +181,15 @@ class Register extends React.Component{
                 </div>
                 <div className="form-group" style={styles.divInput}>                
                     <Link to='/'>
-                    <Button variant="outlined" onClick={()=>this.validateSingup()}  style={styles.botonInicio} color="primary">Register</Button></Link>
+                    <Button variant="outlined" onClick=""  style={styles.botonInicio} color="primary">Register</Button></Link>
                 </div>
                 <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a> Sign in</a></Link></div>
                 
                </form>
                 
             </div>
+            </div>
+        </div>
         )
     }
 }

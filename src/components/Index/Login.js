@@ -55,10 +55,17 @@ class Login extends React.Component{
             },
             olvidaste:{
                 fontSize:"12px",
+                marginBottom: "0px",
+                marginTop:"5px",
+                marginRight:'16px',
+                textAlign: "right",
+            },
+            signup:{
+                fontSize:"12px",
                 marginBottom: "5px",
                 marginTop:"5px",
                 textAlign: "center",
-            },
+            }
 
         }
 
@@ -88,11 +95,11 @@ class Login extends React.Component{
                         variant="outlined"
                     />
                </div>
+               <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Link to='/'><Button onClick={this.props.onChange} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
+                    <Link to='/'><Button onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
                 </div>
-                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
-                <div className="form-group" style={styles.olvidaste}><a>Don't an account? </a><Link to='/'><a>Sign Up</a></Link></div>
+               <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>
                 
             </div>
