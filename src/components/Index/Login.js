@@ -10,16 +10,18 @@ class Login extends React.Component{
 
         const styles ={
             divLogin :{
-                padding: "15px 15px",
+                padding: "15px 15px 8px 15px",
                 borderRadius: "10px",
                 marginTop: "20px",
                 backgroundColor: "#FAFAFA",
+                display: this.props.display,
 
             },
             botonInicio:{
                 width: '90%',
                 height: '40px',
                 marginBottom: '5px',
+                marginTop:'8px',
             },
             label:{
                 color: 'white',
@@ -30,7 +32,8 @@ class Login extends React.Component{
             },
             inputs:{
                 marginTop: '8px',
-                height: '50px',
+                height: '40px',
+                marginBottom: '0',
             },
             logo:{
                 width: '60%',
@@ -38,8 +41,8 @@ class Login extends React.Component{
             olvidaste:{
                 fontSize:"12px",
                 marginBottom: "5px",
-                marginRight: "15px",
-                textAlign: "right",
+                marginTop:"5px",
+                textAlign: "center",
             },
 
         }
@@ -69,11 +72,11 @@ class Login extends React.Component{
                         margin="normal"
                         variant="outlined"
                     />
-                <div style={styles.olvidaste}><a>¿Olvidaste tu </a><Link to='/'><a>contraseña</a></Link><a>?</a></div>
-                </div>
+               </div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Link to='/'><Button variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
+                    <Link to='/'><Button onChange={this.props.onChange} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
                 </div>
+                <div className="form-group" style={styles.olvidaste}><a>¿Olvidaste tu </a><Link to='/'><a>contraseña</a></Link><a>?</a></div>
                </form>
                 
             </div>
