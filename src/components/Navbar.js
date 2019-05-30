@@ -19,7 +19,7 @@ toggleCollapse = () => {
 
 
 render() {
-
+  
 
   const styles ={
     icon :{
@@ -30,7 +30,13 @@ render() {
     },
     logo :{
       padding: "0",
+
+    },
+    text :{
+      fontFamily: 'Lato',
     }
+
+
   }
 
   return (

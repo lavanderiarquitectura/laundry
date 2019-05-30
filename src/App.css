@@ -30,3 +30,9 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url(./fonts/Lato.woff) format('woff');
+}
+
