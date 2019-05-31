@@ -4,8 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 
-
-
 class Register extends React.Component{
 
     constructor(props){
@@ -63,8 +61,6 @@ class Register extends React.Component{
             console.log(error);
         });
     }*/
-
-
 
     render(){
 
