@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Login from './Index/Login';
 import Register from './Index/Register';
-import Machines from './Index/Table';
+import Table from './Index/Table';
 
 
 
@@ -57,7 +57,7 @@ class Home extends React.Component{
             <div className='container'>
                 <div className="row">
                 <Register display={this.state.register} onChange={this.changeState}/>
-				<Machines headings={headings} rows={rows} />
+				<Table headings={headings} rows={rows} tableType='-Table' />
                 </div>
                 
             </div>

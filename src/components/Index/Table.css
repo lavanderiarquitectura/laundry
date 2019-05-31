@@ -9,3 +9,11 @@
   padding: 4px;
   text-align: left;
 }
+
+.Data-Table {
+  max-width: 100vw;
+}
+
+.ScrollContainer {
+  overflow-x: auto;
+}

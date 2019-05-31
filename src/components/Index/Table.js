@@ -9,7 +9,7 @@ import logo from '../../img/logo.png';
 class Table extends React.Component{
 
     render(){
-		const {headings, rows} = this.props;
+		const {headings, rows, tableType} = this.props;
 
 		this.renderHeadingRow = this.renderHeadingRow.bind(this);
 		this.renderRow = this.renderRow.bind(this);
@@ -104,6 +104,13 @@ class Table extends React.Component{
 	
 	renderRow = (_row, rowIndex) => {
 		const {rows} = this.props;
+		const {tableType} = this.props;
+		let extraButton;
+			if(tableType === 'Machine-Table') {
+				extraButton = (<td>
+					<input id="edit" type="submit" name="edit" value="Change availability" />
+				</td>);
+			}
 		return (
 		  <tr key={`row-${rowIndex}`}>
 			{rows[rowIndex].map((element) => {
@@ -114,6 +121,7 @@ class Table extends React.Component{
 				/>
 			  )
 			})}
+			{extraButton}
 		  </tr>
 		)
 	};
