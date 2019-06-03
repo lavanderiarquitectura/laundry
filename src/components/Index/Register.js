@@ -178,11 +178,16 @@ request.post('http://localhost:8085/api/users', {
             title:{
                 textAlign: 'center',
                 marginBottom: '0',
+                fontFamily : 'Sanchez',
+                color: "#020347"
             },
             text:{
                 textAlign: 'center',
                 fontSize: '11px',
                 marginBottom: '5px',
+
+                fontFamily : 'Sanchez',
+                color: "#020347"
             }
 
 
@@ -196,8 +201,8 @@ request.post('http://localhost:8085/api/users', {
                 <div className="form-group" style={styles.divInput}>
                     <img id="logo" src={logo} style={styles.logo}></img>
                 </div>    
-               <h3 style={styles.title}>Register</h3>
-               <h4 style={styles.text}>Create an account for use own services.</h4>
+               <h3 className="font" style={styles.title}>Register</h3>
+               <h4 style={styles.text}>Create an account for use our services.</h4>
                <div className="form-group" style={styles.divInput}>
                     <TextField
                         autoFocus

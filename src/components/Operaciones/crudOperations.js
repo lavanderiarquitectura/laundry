@@ -60,7 +60,9 @@ render(){
     const styles={
         selector:{
             width: "150px",
-            margin: "0 0 5px 0"
+            margin: "0 0 5px 0",
+            color: "#020347",
+            fontFamily : 'Sanchez',
         },
         button:{
             width: '150px'
@@ -68,6 +70,8 @@ render(){
         title:{
             textAlign: "center",
             margin:"5px",
+            color: "#020347",
+            fontFamily : 'Sanchez',
         },
     }
 
@@ -77,7 +81,7 @@ render(){
                 <div className='col' id="lavado" style={{textAlign: "center"}}>                
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                    Device Allowed
+                    Available Washers
                     </InputLabel>
                     <Select
                     value={this.state.devices}
@@ -93,7 +97,7 @@ render(){
 
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                    Lote in wait
+                    Waiting Lot
                     </InputLabel>
                     <Select
                     value={this.state.lote}
@@ -113,7 +117,7 @@ render(){
             <div className='col' id="planchado" style={{textAlign: "center"}}>                
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                    Device Allowed
+                    Available Irons
                     </InputLabel>
                     <Select
                     value={this.state.devicesP}
@@ -129,7 +133,7 @@ render(){
 
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                    Lote in wait
+                    Waiting Lot
                     </InputLabel>
                     <Select
                     value={this.state.loteP}
@@ -151,7 +155,7 @@ render(){
            
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                    Lote in wait
+                        Finished Lots
                     </InputLabel>
                     <Select
                     value={this.state.loteF}

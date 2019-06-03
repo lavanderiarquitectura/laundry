@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
+import NavbarLog from './components/NavbarLog'
 import Informacion from './components/Index/Informacion';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -17,6 +18,7 @@ class App extends React.Component{
           overflowX: "hidden",
       }
     }
+    
 
     
     

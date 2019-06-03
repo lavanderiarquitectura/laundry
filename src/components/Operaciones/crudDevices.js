@@ -6,7 +6,7 @@ import logo from '../../img/logo.png';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import Table from "../../components/Index/Table";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -15,10 +15,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 
+import { ThemeProvider } from '@material-ui/styles';
+import green from '@material-ui/core/colors/green';
+import orange from '@material-ui/core/colors/orange';
+import blue from '@material-ui/core/colors/blue';
+
 import Input from '@material-ui/core/Input';
 
 import AddCircle from '@material-ui/icons/AddCircle';
-
 
 class crudDevices extends React.Component{
 
@@ -42,11 +46,23 @@ class crudDevices extends React.Component{
     }
     
 render(){
+    const ColorButtonB = withStyles(theme => ({
+        root: {
+          color: 'white',
+          backgroundColor: blue[500],
+          '&:hover': {
+            backgroundColor: blue[700],
+          },
+        },
+      }))(Button);
 
     const styles ={
         title:{
             textAlign: "center",
             margin:"5px",
+
+            color: "#020347",
+            fontFamily : 'Sanchez',
         },
         add:{
             textAlign: "right"
@@ -80,12 +96,17 @@ render(){
     },text:{
         margin: "15px 0 0 0",
         padding: "0",
-        fontSize:"22px"
+        fontSize:"22px",
+        color: "#020347",
+        fontFamily : 'Sanchez',
     }, selector:{
         width: "150px",
         margin: "0 0 5px 0"
     }
     }
+
+ 
+
     const headings = [
         'ID',
         'Type',
@@ -113,6 +134,8 @@ render(){
     true,
     ],
     ];
+
+    
 
     return(
         <div className="container" style={{display: this.props.display}}>
@@ -149,8 +172,8 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>Lavadora</MenuItem>
-                    <MenuItem value={2}>Plancha</MenuItem>
+                    <MenuItem value={1}>Washer</MenuItem>
+                    <MenuItem value={2}>Iron</MenuItem>
                     </Select>
                 </FormControl>
                </div>
@@ -173,7 +196,7 @@ render(){
                </div>
                
                <div className="form-group col-2" style={styles.divB}>
-                 <Button  color="primary"  onClick={this.changeState} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
+                 <ColorButtonB  color="primary"  onClick={this.changeState} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB>
                  </div>            
              
                </form>

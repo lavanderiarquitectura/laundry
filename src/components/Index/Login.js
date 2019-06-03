@@ -21,6 +21,10 @@ class Login extends React.Component{
         this.handleChangeUser = this.handleChangeUser.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
+        this.validate = this.validate.bind(this);
+        this.obtenerAuth = this.obtenerAuth.bind(this);
+    
+        this.getUser = this.getUser.bind(this);
         
     }
 
@@ -31,12 +35,70 @@ class Login extends React.Component{
         this.setState({password: event.target.value})
     }
 
-   handleAuthentication(){
+
+    getUser(){
+        var cedula = this.state.personal_id
+        var password = this.state.password
+         axios.get("http://localhost:3000/api/users/".concat(cedula,"/",password))
+          .then((res) => {
+            this.setState({ autenticacion: res });
+          })
+        }
+
+    async obtenerAuth() {
+
        var cedula = this.state.personal_id
        var password = this.state.password
-       var url = "http://localhost:3030/api/users/".concat(cedula,"/",password)
+        return fetch("http://localhost:3000/api/users/".concat(cedula,"/",password), {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {
+            console.log("Auth:");
+            console.log(json);
+          
+            return json;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
 
-     axios.get(url).then(res => {
+    async validate(){
+
+       var cedula = this.state.personal_id
+       var password = this.state.password
+       const request = require('request')
+       request.get("http://localhost:3000/api/users/".concat(cedula,"/",password))
+       .end((err, resp) => {
+           if(!err){
+            this.setState({ autentication: resp.text })
+           }
+       })
+    }
+
+
+
+   handleAuthentication(){
+
+    var cedula = this.state.personal_id
+    var password = this.state.password
+       var url = "http://localhost:3000/api/users/".concat(cedula,"/",password)
+
+     axios.get(url,{
+        headers: 'Access-Control-Allow-Origin',
+       
+     }).then(res => {
          console.log(res)
          this.setState({autentication: res})                 
        })
@@ -114,7 +176,7 @@ class Login extends React.Component{
                         id="idnumber"
                         value={this.state.personal_id}
                         onChange={this.handleChangeUser}
-                        label="Número de Cedula"
+                        label="Personal Id"
                         margin="normal"
                         style = {styles.inputs}
                         variant="outlined"
@@ -123,7 +185,7 @@ class Login extends React.Component{
                 <div className="form-group" style={styles.divInput}>                
                 <TextField
                         id="password"
-                        label="Contraseña"
+                        label="Password"
                         value={this.state.password}
                         onChange={this.handleChangePass}
                         type="password"
@@ -134,7 +196,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Button onClick={this.handleAuthentication} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button>
+                    <Button onClick={this.getUser} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>

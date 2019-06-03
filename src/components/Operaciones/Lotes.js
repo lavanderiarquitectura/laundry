@@ -37,6 +37,8 @@ render(){
         title:{
             textAlign: "center",
             margin:"5px",
+            color: "#020347",
+            fontFamily : 'Sanchez',
         },
         add:{
             textAlign: "right"

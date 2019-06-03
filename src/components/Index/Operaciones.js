@@ -24,6 +24,7 @@ import Lote from '../../components/Operaciones/Lotes';
 class Operaciones extends React.Component{
 
 
+ 
     constructor(props) {
         super(props);
         this.state = {
@@ -32,11 +33,32 @@ class Operaciones extends React.Component{
           cloths: '2',
           operation: 'none',
           devices: 'none',
-          lote: 'none'
+          lote: 'none',
+          user: '',
+          password: '',
+          display: "none",
+          displayL: "block"
         };
        this.changeStateD = this.changeStateD.bind(this);
        this.changeStateL = this.changeStateL.bind(this);
        this.changeStateO = this.changeStateO.bind(this);
+       this.handleChangeUser = this.handleChangeUser.bind(this);
+       this.handleChangePass = this.handleChangePass.bind(this);
+
+       this.validate = this.validate.bind(this);
+    }
+
+    handleChangeUser(event){        
+        this.setState({user: event.target.value})
+    }
+    handleChangePass(event){
+        this.setState({password: event.target.value})
+    }
+
+    validate(){
+        if(this.state.user == 'admin' && this.state.password == "admin123"){
+            this.setState({display: "block", displayL:"none"})
+        }
     }
 
     changeStateD(){
@@ -117,9 +139,14 @@ class Operaciones extends React.Component{
                 padding: "15px 15px 8px 15px",
                 borderRadius: "10px",
                 marginTop: "20px",
-                backgroundColor: "#FAFAFA",
-                display: this.props.display,
-
+                backgroundColor: "#FAFAFA",                
+                display: this.state.display,
+            },
+            botonI:{
+                width: '100%',
+                height: '45px',
+                marginBottom: '0px',
+                marginTop:'5px',
             },
             botonInicio:{
                 width: '90%',
@@ -200,44 +227,101 @@ class Operaciones extends React.Component{
                 textAlign:"center",
                 marginTop:"10px",
             },
+            text:{
+                fontFamily : 'Sanchez',
+                margin: "0"
+            },
+            divLogin :{
+                padding: "15px 15px 8px 15px",
+                borderRadius: "10px",
+                marginTop: "20px",
+                backgroundColor: "#FAFAFA",
+                display: this.state.displayL,
+
+            },
 
         }
 
-        return(
-  
-            <div className="container col-5" style={styles.div}>               
-                <div className='row' style={styles.row}>
-                    <div className='col-2'>
-                        <img id="logo" src={logo} style={styles.logo}></img>
+        const loginOperator = (
+            <div className="container col-2" style={styles.divLogin}>
+                <form>
+                <div className='form-group' style={{textAlign:"center", margin:'auto'}}>
+                     <h3 style={styles.text}>Operations</h3>
+                </div>
+                <div className="form-group" style={styles.divInput}>
+                    <TextField
+                        autoFocus
+                        id="user"
+                        value={this.state.user}
+                        onChange={this.handleChangeUser}
+                        label="User"
+                        margin="normal"
+                        style = {styles.inputs}
+                        variant="outlined"
+                    />
+               </div>
+                <div className="form-group" style={styles.divInput}>                
+                <TextField
+                        id="password"
+                        label="Password"
+                        value={this.state.password}
+                        onChange={this.handleChangePass}
+                        type="password"
+                        style = {styles.inputs}
+                        margin="normal"
+                        variant="outlined"
+                    />
+               </div>
+                <div className="form-group" style={styles.divInput}>                
+                    <Button onClick={this.validate} variant="outlined" focusVisible style={styles.botonI} color="primary">Login</Button>
+                </div>
+              </form>
+                
+            </div>
+        )
+
+        const Operations =(
+            <div className="container col-5" style={styles.div}>
+            <div className='row' style={styles.row}>
+                <div className='col-2'>
+                    <img id="logo" src={logo} style={styles.logo}></img>
+                </div>
+                <div className='col' style={{textAlign:"center", margin:'auto'}}>
+                 <h3 style={styles.text}>Operations in Progress</h3>
+               </div>
+               <div className='col-2'> </div>
+            </div>
+            <div className='row' style={styles.rowBottom}>
+                <div className='col' style={{textAlign:"center", margin:'5px 0px 0px 0px'}}>
+                <Table headings={headings} rows={rows} style={{width:"100%"}} />
+               </div>
+            </div>
+            <div className='row' style={styles.rowBottom}>
+                    <div className="col" style={styles.divButton}>               
+                    <Link to='#'><ColorButtonB onClick={this.changeStateL} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lotes</ColorButtonB></Link>
                     </div>
-                    <div className='col' style={{textAlign:"center", margin:'auto'}}>
-                     <h3 style={{ margin:'0'}}>Operaciones en curso</h3>
-                   </div>
-                   <div className='col-2'> </div>
-                </div>
-                <div className='row' style={styles.rowBottom}>
-                    <div className='col' style={{textAlign:"center", margin:'5px 0px 0px 0px'}}>
-                    <Table headings={headings} rows={rows} style={{width:"100%"}} />
-                   </div>
-                </div>
-                <div className='row' style={styles.rowBottom}>
-                        <div className="col" style={styles.divButton}>               
-                        <Link to='#'><ColorButtonB onClick={this.changeStateL} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lotes</ColorButtonB></Link>
-                        </div>
-                        <div className="col" style={styles.divButton}>                
-                        <Link to='#'><ColorButtonB onClick={this.changeStateO} variant="outlined" focusVisible style={styles.botonInicio} color="green">Operations</ColorButtonB></Link>
-                        </div>
-                        <div className="col" style={styles.divButton}>                
-                        <Link to='#'><ColorButtonB onClick={this.changeStateD} variant="outlined" focusVisible style={styles.botonInicio} color="orange">Devices</ColorButtonB></Link>
-                        
+                    <div className="col" style={styles.divButton}>                
+                    <Link to='#'><ColorButtonB onClick={this.changeStateO} variant="outlined" focusVisible style={styles.botonInicio} color="green">Operations</ColorButtonB></Link>
                     </div>
+                    <div className="col" style={styles.divButton}>                
+                    <Link to='#'><ColorButtonB onClick={this.changeStateD} variant="outlined" focusVisible style={styles.botonInicio} color="orange">Devices</ColorButtonB></Link>
+                    
                 </div>
-                <div className='row' style={styles.rowBottom}>
-                    <CrudDevices display={this.state.devices}/>
-                    <CrudOperations display={this.state.operation}/> 
-                    <Lote display={this.state.lote}/>        
-                </div>
-            </div>            
+            </div>
+            <div className='row' style={styles.rowBottom}>
+                <CrudDevices display={this.state.devices}/>
+                <CrudOperations display={this.state.operation}/> 
+                <Lote display={this.state.lote}/>        
+            </div>
+        </div> 
+        )
+
+        return(          
+            <div>
+                {Operations}
+                {loginOperator}
+            </div>  
+                   
             )
     }
 }

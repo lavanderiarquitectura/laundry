@@ -6,10 +6,16 @@ import logo from '../../img/logo.png';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Table from "../Index/Table";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MonetizacionOn from '@material-ui/icons/MonetizationOn';
+import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from '@material-ui/styles';
+import red from '@material-ui/core/colors/red';
+
+
+import PDF from '@material-ui/icons/PictureAsPdf';
+
 
 
 class Factura extends React.Component{
@@ -29,6 +35,8 @@ render(){
         title:{
             textAlign: "center",
             margin:"5px",
+            color: "#020347",
+            fontFamily : 'Sanchez',
         },
         textR:{
             marginBottom:"3px",
@@ -82,11 +90,21 @@ render(){
         ];
 
 
+        const ColorButtonB = withStyles(theme => ({
+            root: {
+              color: 'white',
+              backgroundColor: red[500],
+              '&:hover': {
+                backgroundColor: red[700],
+              },
+            },
+          }))(Button);
+    
     return(
         <div className="container"style={{display: this.props.display}}>
             <div className="row" id="Head">
                 <div className="col" id="title">
-                    <h3 style={styles.title}>Invoice</h3>
+                    <h3 style={styles.title}>Bill</h3>
                 </div>               
             </div>
             <div className="row" id="table">
@@ -98,7 +116,7 @@ render(){
              </div>
 
                 <div className="col" style={styles.totalDiv}>
-                <Link to='#'><Button onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="red">PDF</Button></Link>
+                <Link to='#'><ColorButtonB onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="red"><PDF/></ColorButtonB></Link>
                 
                 <TextField
                             disabled
