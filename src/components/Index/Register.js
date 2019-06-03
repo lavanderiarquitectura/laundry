@@ -24,8 +24,6 @@ class Register extends React.Component{
 
         this.validate = this.validate.bind(this);
         this.validateSingup = this.validateSingup.bind(this);
-
-        this.makePostRequest = this.makePostRequest.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -51,30 +49,13 @@ class Register extends React.Component{
     });
     }
 
-    makePostRequest() {
-
-        const params = {
-            name : this.state.name,
-        last_name : this.state.lastname,
-        personal_id: this.state.idnumber,
-        password: this.state.password,
-        room_id: this.state.room,
-        isActive: true,
-          }
-    
-        let res = axios.post('http://localhost:3000/api/users/', params, {headers: 'Access-Control-Allow-Origin'});
-    
-        console.log(res.data);
-    }
-
-    async validate(){
+    validate(){
         
         axios({
-        method: 'post',
-        mode: 'cors',
-        headers: ('Access-Control-Allow-Origin',true ),
+        method: 'POST',
+        headers: {"Content-Type" :"application/json"},
         url: 'http://localhost:3000/api/users',
-        data: {
+        params: {
             name : this.state.name,
             last_name : this.state.lastname,
             personal_id: this.state.idnumber,
@@ -82,6 +63,10 @@ class Register extends React.Component{
             room_id: this.state.room,
             isActive: true, 
         }
+        }).then(function(response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error.response);
         });
     }
 

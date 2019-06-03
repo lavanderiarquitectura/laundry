@@ -38,8 +38,7 @@ class Login extends React.Component{
 
      axios.get(url).then(res => {
          console.log(res)
-         this.setState({autentication: res})
-                 
+         this.setState({autentication: res})                 
        })
 
    }
