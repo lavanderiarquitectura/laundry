@@ -22,6 +22,24 @@ import AddCircle from '@material-ui/icons/AddCircle';
 
 class crudDevices extends React.Component{
 
+    constructor(props) {
+        super(props);
+        this.state = {
+          devices: '',
+          state: '',
+        };
+       this.onChangeD = this.onChangeD.bind(this);
+       this.onChangeL = this.onChangeL.bind(this);
+       
+    }
+
+
+    onChangeD(event){
+        this.setState({devices: event.target.value})
+    }
+    onChangeL(event){
+        this.setState({state: event.target.value})
+    }
     
 render(){
 
@@ -125,9 +143,9 @@ render(){
                     Type Device
                     </InputLabel>
                     <Select
-                    value=""
+                    value={this.state.devices}
                     input={<Input name="device" id="age-label-placeholder" />}
-                    onChange = ""                 
+                    onChange = {this.onChangeD}                 
                     name="device"
                     className=""
                     >
@@ -142,9 +160,9 @@ render(){
                     State Device
                     </InputLabel>
                     <Select
-                    value=""
+                    value={this.state.state}
                     input={<Input name="device" id="age-label-placeholder" />}
-                    onChange = ""                
+                    onChange = {this.onChangeL}             
                     name="device"
                     className=""
                     >

@@ -25,10 +25,17 @@ class crudOperations extends React.Component{
         super(props);
         this.state = {
           devices: '',
-          lote: ''
+          lote: '',
+          devicesP: '',
+          loteP: '',
+          loteF: '',
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
+       this.onChangeDP = this.onChangeDP.bind(this);
+       this.onChangeLP = this.onChangeLP.bind(this);
+       this.onChangeLF = this.onChangeLF.bind(this);
+       
     }
 
 
@@ -37,6 +44,15 @@ class crudOperations extends React.Component{
     }
     onChangeL(event){
         this.setState({lote: event.target.value})
+    }
+    onChangeDP(event){
+        this.setState({devicesP: event.target.value})
+    }
+    onChangeLP(event){
+        this.setState({loteP: event.target.value})
+    }
+    onChangeLF(event){
+        this.setState({loteF: event.target.value})
     }
     
 render(){
@@ -66,7 +82,7 @@ render(){
                     <Select
                     value={this.state.devices}
                     input={<Input name="device" id="age-label-placeholder" />}
-                    onChange = {this.props.onChangeD}                   
+                    onChange = {this.onChangeD}                   
                     name="device"
                     className=""
                     >
@@ -81,9 +97,8 @@ render(){
                     </InputLabel>
                     <Select
                     value={this.state.lote}
-                    input={<Input name="device" id="age-label-placeholder" />}
-                   
-                    onChange = {this.props.onChangeL}        
+                    input={<Input name="device" id="age-label-placeholder" />}                   
+                    onChange = {this.onChangeL}        
                     name="device"
                     className=""
                     >
@@ -101,9 +116,9 @@ render(){
                     Device Allowed
                     </InputLabel>
                     <Select
-                    value={this.state.devices}
+                    value={this.state.devicesP}
                     input={<Input name="device" id="age-label-placeholder" />}
-                    onChange = {this.props.onChangeD}                   
+                    onChange = {this.onChangeDP}                   
                     name="device"
                     className=""
                     >
@@ -117,10 +132,10 @@ render(){
                     Lote in wait
                     </InputLabel>
                     <Select
-                    value={this.state.lote}
+                    value={this.state.loteP}
                     input={<Input name="device" id="age-label-placeholder" />}
                    
-                    onChange = {this.props.onChangeL}        
+                    onChange = {this.onChangeLP}        
                     name="device"
                     className=""
                     >
@@ -133,31 +148,16 @@ render(){
                   
             </div>
             <div className='col' id="finalizado" style={{textAlign: "center"}}>                
-                <FormControl style={styles.selector}>
-                    <InputLabel shrink >
-                    Device Allowed
-                    </InputLabel>
-                    <Select
-                    value={this.state.devices}
-                    input={<Input name="device" id="age-label-placeholder" />}
-                    onChange = {this.props.onChangeD}                   
-                    name="device"
-                    className=""
-                    >
-                    <MenuItem value={1}>Lavadora</MenuItem>
-                    <MenuItem value={2}>Plancha</MenuItem>
-                    </Select>
-                </FormControl>
-
+           
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
                     Lote in wait
                     </InputLabel>
                     <Select
-                    value={this.state.lote}
+                    value={this.state.loteF}
                     input={<Input name="device" id="age-label-placeholder" />}
                    
-                    onChange = {this.props.onChangeL}        
+                    onChange = {this.onChangeLF}        
                     name="device"
                     className=""
                     >
