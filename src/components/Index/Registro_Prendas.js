@@ -15,14 +15,14 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import PrendaServices from './Prenda_services'
 
-class RegistroPrendas extends Component{
+// class RegistroPrendas extends Component{
 
-  constructor(props) {
-    super(props)
-      this.state = { rows : [] }
-  }
+//   constructor(props) {
+//     super(props)
+//       this.state = { rows : [] }
+//   }
 
-}
+// }
 
 const useStyles1 = makeStyles(theme => ({
   root: {
