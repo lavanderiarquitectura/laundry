@@ -44,12 +44,19 @@ render() {
  
         </MDBNavbarNav>
         <MDBNavbarNav right>
+
           <MDBNavItem active style={styles.signup} >
             <MDBNavLink to="/register" className="indigo-text">Sign Up</MDBNavLink>
           </MDBNavItem>         
+
           <MDBNavItem active style={styles.signup} >
             <MDBNavLink to="/" className="indigo-text">Operator</MDBNavLink>
-          </MDBNavItem>  
+          </MDBNavItem> 
+
+          <MDBNavItem active style={styles.signup} >
+            <MDBNavLink to="/registro_prenda" className="indigo-text">Registro Prenda</MDBNavLink>
+          </MDBNavItem> 
+
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>

@@ -3,10 +3,11 @@ import { Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
 import Informacion from './components/Index/Informacion';
+import Register from './components/Index/Register';
+import Registro_Prendas from './components/Index/Registro_Prendas';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import Register from './components/Index/Register';
 
 
 class App extends React.Component{
@@ -24,6 +25,7 @@ class App extends React.Component{
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/informacion" component={Informacion} />
+        <Route exact path="/registro_prenda" component={Registro_Prendas} />
       </Switch>
     </div>
     )

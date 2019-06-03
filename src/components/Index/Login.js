@@ -99,7 +99,7 @@ class Login extends React.Component{
                 <div className="form-group" style={styles.divInput}>                
                     <Link to='/'><Button onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
                 </div>
-               <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
+               <div className="form-group" style={styles.signup}><a>Don't you have an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>
                 
             </div>
