@@ -32,11 +32,15 @@ class Gestion_Prendas extends Component{
       }
 
     render(){
-        return(
-            <div className='container'>
-                    <Registro_Prendas rows = {this.state.rows}/>
-            </div>
-            )
+        if(this.state.rows.length > 0){
+            return(
+                <div className='container'>
+                        <Registro_Prendas rows = {this.state.rows}/>
+                </div>
+                )
+        } else {
+            return <p className="text-center">Cargamdo prendas...</p>
+        }
     }
 }
 
