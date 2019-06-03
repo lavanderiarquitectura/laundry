@@ -31,37 +31,11 @@ class Home extends React.Component{
     }*/
 
     render(){
-						const headings = [
-			'ID',
-			'Type',
-			'Max Capacity',
-			'Is Being used',
-		];
-		const rows = [
-		[
-		1,
-		'Washing',
-		50,
-		false,
-		],
-		[
-		2,
-		'Ironing',
-		50,
-		true,
-		],
-		[
-		3,
-		'Washing',
-		50,
-		true,
-		],
-		];
+
         return(
             <div className='container'>
                 <div className="row">
                 <Login display={this.state.login}/>
-				<Table headings={headings} rows={rows} tableType='-Table' />
                 </div>
                 
             </div>

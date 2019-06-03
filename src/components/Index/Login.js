@@ -1,14 +1,48 @@
 import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
+import axios from 'axios';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 
 class Login extends React.Component{
 
-   
+    constructor(props){
+        super(props);
+        this.state={
+            personal_id:"",
+            password:"",
+            autentication: "",
+        }
+        this.handleChangeUser = this.handleChangeUser.bind(this);
+        this.handleChangePass = this.handleChangePass.bind(this);
+        this.handleAuthentication = this.handleAuthentication.bind(this);
+        
+    }
+
+    handleChangeUser(event){        
+        this.setState({personal_id: event.target.value})
+    }
+    handleChangePass(event){
+        this.setState({password: event.target.value})
+    }
+
+   handleAuthentication(){
+       var cedula = this.state.personal_id
+       var password = this.state.password
+       var url = "http://localhost:3030/api/users/".concat(cedula,"/",password)
+
+     axios.get(url).then(res => {
+         console.log(res)
+         this.setState({autentication: res})
+                 
+       })
+
+   }
     
     render(){
 
@@ -78,7 +112,9 @@ class Login extends React.Component{
                 <div className="form-group" style={styles.divInput}>
                     <TextField
                         autoFocus
-                        id="cedula"
+                        id="idnumber"
+                        value={this.state.personal_id}
+                        onChange={this.handleChangeUser}
                         label="Número de Cedula"
                         margin="normal"
                         style = {styles.inputs}
@@ -89,6 +125,8 @@ class Login extends React.Component{
                 <TextField
                         id="password"
                         label="Contraseña"
+                        value={this.state.password}
+                        onChange={this.handleChangePass}
                         type="password"
                         style = {styles.inputs}
                         margin="normal"
@@ -97,7 +135,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Link to='/informacion'><Button onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button></Link>
+                    <Button onClick={this.handleAuthentication} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>

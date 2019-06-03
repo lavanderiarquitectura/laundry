@@ -24,9 +24,8 @@ class Table extends React.Component{
 	  
         const styles ={
             divLogin :{
-                padding:             "15px 15px 8px 15px",
+                padding:             "5px",
                 borderRadius:        "10px",
-                marginTop:           "20px",
                 backgroundColor:     "#FAFAFA",
                 display: this.props.display,
 
@@ -49,6 +48,10 @@ class Table extends React.Component{
                 height: '40px',
                 marginBottom: '0',
             },
+            input:{
+              height: '26px',
+              width: '40%'
+          },
             logo:{
                 width: '60%',
             },
@@ -72,19 +75,12 @@ class Table extends React.Component{
         }
         
         return(
-            <div className=          "container col-3" style={styles.divLogin}>
-                <form>
-                <div className=      "form-group" style={styles.divInput}>
-                    <img id=         "logo" src={logo} style={styles.logo}></img>
-                </div>    
-               <h3 style={styles.title}>Machine list</h3>
-          
-			    <table className="Table">
+          <div className= "container" style={styles.divLogin}>
+			    <table className="Table" style={{width:'100%'}}>
 					<thead>{theadMarkup}</thead>
 					<tbody>{tbodyMarkup}</tbody>
-				</table>
-                
-               </form>
+				  </table>
+              
                 
             </div>
         )
@@ -108,7 +104,7 @@ class Table extends React.Component{
 		let extraButton;
 			if(tableType === 'Machine-Table') {
 				extraButton = (<td>
-					<input id="edit" type="submit" name="edit" value="Change availability" />
+					<input id="edit" type="submit" name="edit"  value="On/Off" />
 				</td>);
 			}
 		return (

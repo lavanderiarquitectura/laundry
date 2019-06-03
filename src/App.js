@@ -17,6 +17,8 @@ class App extends React.Component{
           overflowX: "hidden",
       }
     }
+
+    
     
     return(
       <div style={styles.nav}>

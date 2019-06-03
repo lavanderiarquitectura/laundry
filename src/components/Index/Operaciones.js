@@ -14,8 +14,12 @@ import { ThemeProvider } from '@material-ui/styles';
 import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
-import crudDevices from '../../components/Operaciones/crudDevices';
 
+import Table from "../../components/Index/Table";
+import CrudDevices from '../../components/Operaciones/crudDevices';
+
+import CrudOperations from '../../components/Operaciones/crudOperations';
+import Lote from '../../components/Operaciones/Lotes';
 
 class Operaciones extends React.Component{
 
@@ -25,12 +29,57 @@ class Operaciones extends React.Component{
         this.state = {
           name: 'Juan Felipe Contreras',
           room: '401',
-          cloths: '2'
+          cloths: '2',
+          operation: 'none',
+          devices: 'none',
+          lote: 'none'
         };
-      //  this.changeState = this.changeState.bind(this);
+       this.changeStateD = this.changeStateD.bind(this);
+       this.changeStateL = this.changeStateL.bind(this);
+       this.changeStateO = this.changeStateO.bind(this);
+    }
+
+    changeStateD(){
+            this.setState( {devices: "block", operation:"none", lote:'none'})
+
+    }
+    changeStateO(){
+            this.setState( {devices: "none", operation:"block", lote:'none'})
+    }
+    changeStateL(){
+            this.setState( {devices: "none", operation:"none", lote:'block'})
     }
     
     render(){
+
+        const headings = [
+                    'ID',
+                    'ID Lote',
+                    'ID Device', 
+                    'Room',          
+                    'State Device',
+                ];
+                const rows = [
+                [ 1,
+                1,
+                12,
+        400,
+        "Washing",
+        ],
+        [2,
+        2,
+        3,
+        358,
+        "Washing",
+        ],
+        [3,
+        3,
+        14,
+        653,
+        "Ironing",
+        ],
+        ];
+
 
         const ColorButton = withStyles(theme => ({
             root: {
@@ -168,25 +217,25 @@ class Operaciones extends React.Component{
                 </div>
                 <div className='row' style={styles.rowBottom}>
                     <div className='col' style={{textAlign:"center", margin:'5px 0px 0px 0px'}}>
-                     <h3 >Tabla de Operaciones</h3>
+                    <Table headings={headings} rows={rows} style={{width:"100%"}} />
                    </div>
                 </div>
                 <div className='row' style={styles.rowBottom}>
                         <div className="col" style={styles.divButton}>               
-                        <Link to='#'><ColorButtonB onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lotes</ColorButtonB></Link>
+                        <Link to='#'><ColorButtonB onClick={this.changeStateL} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lotes</ColorButtonB></Link>
                         </div>
                         <div className="col" style={styles.divButton}>                
-                        <Link to='#'><ColorButton onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="green">Operations</ColorButton></Link>
+                        <Link to='#'><ColorButtonB onClick={this.changeStateO} variant="outlined" focusVisible style={styles.botonInicio} color="green">Operations</ColorButtonB></Link>
                         </div>
                         <div className="col" style={styles.divButton}>                
-                        <Link to='#'><ColorButtonO onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="orange">Devices</ColorButtonO></Link>
+                        <Link to='#'><ColorButtonB onClick={this.changeStateD} variant="outlined" focusVisible style={styles.botonInicio} color="orange">Devices</ColorButtonB></Link>
                         
                     </div>
                 </div>
                 <div className='row' style={styles.rowBottom}>
-                    <div className='col' style={{textAlign:"center", margin:'5px 0px 0px 0px'}}>
-                     <crudDevices/>
-                   </div>
+                    <CrudDevices display={this.state.devices}/>
+                    <CrudOperations display={this.state.operation}/> 
+                    <Lote display={this.state.lote}/>        
                 </div>
             </div>            
             )

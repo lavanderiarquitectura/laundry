@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
+import axios from 'axios';
 
 class Register extends React.Component{
 
@@ -20,7 +21,101 @@ class Register extends React.Component{
         this.handleChangeIdNumber = this.handleChangeIdNumber.bind(this);
         this.handleChangeRoom = this.handleChangeRoom.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
+
+        this.validate = this.validate.bind(this);
+        this.validateSingup = this.validateSingup.bind(this);
+
+        this.makePostRequest = this.makePostRequest.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
+
+  handleSubmit(){
+         const data = {
+        name : this.state.name,
+        last_name : this.state.lastname,
+        room_id: this.state.room,
+        personal_id: this.state.idnumber,
+
+        is_active: true,
+        password: this.state.password,
+        }
+        axios.post("localhost:3000/api/users", {data},
+        {headers: 'Access-Control-Allow-Origin', mode: 'cors'}, 
+        ).then(function(res) {
+        console.log(data);
+    }).catch(function (error) {
+        console.log(error);
+
+        console.log(data);
+    });
+    }
+
+    makePostRequest() {
+
+        const params = {
+            name : this.state.name,
+        last_name : this.state.lastname,
+        personal_id: this.state.idnumber,
+        password: this.state.password,
+        room_id: this.state.room,
+        isActive: true,
+          }
+    
+        let res = axios.post('http://localhost:3000/api/users/', params, {headers: 'Access-Control-Allow-Origin'});
+    
+        console.log(res.data);
+    }
+
+    async validate(){
+        
+        axios({
+        method: 'post',
+        mode: 'cors',
+        headers: ('Access-Control-Allow-Origin',true ),
+        url: 'http://localhost:3000/api/users',
+        data: {
+            name : this.state.name,
+            last_name : this.state.lastname,
+            personal_id: this.state.idnumber,
+            password: this.state.password,
+            room_id: this.state.room,
+            isActive: true, 
+        }
+        });
+    }
+
+
+    validateSingup(){
+        const data = {
+        name : this.state.name,
+        last_name : this.state.lastname,
+        personal_id: this.state.idnumber,
+        password: this.state.password,
+        room_id: this.state.room,
+        isActive: true,
+        }
+        console.log(data);
+       const options = {
+        method: 'POST',    
+        mode: 'cors',    
+        headers: "Access-Control-Allow-Origin",
+        body: JSON.stringify(data)
+        }
+      
+      
+        const request = new Request('http://localhost:3000/api/users',options);
+        fetch(request)
+        .then(response => response.json())
+        .then(
+        data => console.log(data)
+        );
+        console.log(this.state);
+      
+        }
+
+
+
 
     handleChangeName(event){        
         this.setState({name: event.target.value})
@@ -49,7 +144,7 @@ class Register extends React.Component{
         }
         console.log(data);
         
-        axios({
+        axios.post('http://localhost:8085/api/users',{
             method: 'post',
             url: '/localhost:8085/api/users',
             data: data
@@ -138,7 +233,7 @@ class Register extends React.Component{
                     <TextField
                         id="lastname"
                         label="Lastname"
-                        onChange={this.handleChangeLastName}
+                        onChange={this.handleChangeLastname}
                         margin="normal"
                         style = {styles.inputs}
                         variant="outlined"
@@ -177,7 +272,7 @@ class Register extends React.Component{
                 </div>
                 <div className="form-group" style={styles.divInput}>                
                     <Link to='/'>
-                    <Button variant="outlined" onClick=""  style={styles.botonInicio} color="primary">Register</Button></Link>
+                    <Button variant="outlined" onClick={this.validate} style={styles.botonInicio} color="primary">Register</Button></Link>
                 </div>
                 <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a> Sign in</a></Link></div>
                 

@@ -7,17 +7,33 @@ import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Table from "../../components/Index/Table";
+import Table from "../Index/Table";
 
 import AddCircle from '@material-ui/icons/AddCircle';
 
 
-class crudDevices extends React.Component{
 
-    
+class Lotes extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          add: 'none',
+        };
+       this.changeState = this.changeState.bind(this);
+    }
+
+    changeState(){
+        if(this.state.add == "none"){
+            this.setState( {add: "block"})
+        }
+            
+
+    }
+
 render(){
 
-    const styles ={
+    const styles={
         title:{
             textAlign: "center",
             margin:"5px",
@@ -26,16 +42,13 @@ render(){
             textAlign: "right"
         },
         button:{
-           margin:"5px 6px 5px"
+           margin:"5px 3px 0 0",
+           width:"45%",
+           padding: "5px"
         },
         div:{
-            textAlign:"left",
-            margin:"5px 3px 0 0",
-            padding: "0px"
-         },
-        divB:{
             textAlign:"center",
-            margin:"5px 10px 0 0",
+            margin:"5px 3px 0 0",
             padding: "0px"
          },
         buttonAdd:{
@@ -43,7 +56,8 @@ render(){
             width:"35%",
             padding: "5px"
          },
-         divInput:{
+      
+        divInput:{
             textAlign: 'center',
             margin:"0 5px 0 0",
             padding: "0"
@@ -51,68 +65,62 @@ render(){
         inputs:{
             margin: "5px 3px 0 0",
             padding: "0"
-    },text:{
-        margin: "15px 0 0 0",
-        padding: "0",
-        fontSize:"22px"
-}
     }
-    const headings = [
-        'ID',
-        'Type',
-        'Max Capacity',
-        'State',
-        'On/Off',
-    ];
+}
+
+   const headings = [
+                    'ID',
+                    'Cloth',
+                    'Color', 
+                    'Fabric',
+                ];
+    
     const rows = [
-    [
-    1,
-    'Washing',
-    50,
-    false,
-    ],
-    [
-    2,
-    'Ironing',
-    50,
-    true,
-    ],
-    [
-    3,
-    'Washing',
-    50,
-    true,
-    ],
-    ];
+            
+            [ 1,
+            "Pant",
+            "Yellow",
+            "Cotton"
+            ],
+            [ 2,
+            "Shirt",
+            "White",
+            "Cotton"
+            ],
+            [ 3,
+            "Jacket",
+            "Brown",
+            "Linio"
+            ],
+        ];
+
 
     return(
-        <div className="container" style={{display: this.props.display}}>
+        <div className="container"style={{display: this.props.display}}>
             <div className="row" id="Head">
-                
-                <div className="col" id="title">
-                    <h3 style={styles.title}>Devices</h3>
+                 <div className="col">
                 </div>
+                <div className="col" id="title">
+                    <h3 style={styles.title}>Add Lotes</h3>
+                </div>  
+                <div className="col" id="addButton" style={styles.add}>
+              </div>             
             </div>
             <div className="row" id="table">
                 <div className="col">
-                <Table headings={headings} rows={rows} tableType="Machine-Table" style={{width:"100%"} } />
+                <Table headings={headings} rows={rows} style={{width:"100%"}} />
                 </div>
             </div>
-            
             <div className="row">
                 <div className="container">
 
                 <form className="row" style={{marginLeft: "0"}}> 
-
-                <div className="form-group col" style={styles.divInput}>
-                    <h3 style={styles.text}>New Device</h3>
-               </div>
                
                <div className="form-group col" style={styles.divInput}>
                     <TextField
                         autoFocus
                         id="cloth"
-                        label="Type Devices"
+                        label="Cloth"
                         onChange={this.handleChangeName}
                         margin="normal"
                         style = {styles.inputs}
@@ -121,25 +129,35 @@ render(){
                <div className="form-group col" style={styles.divInput}>
                     <TextField
                         id="color"
-                        label="State"
+                        label="Color"
                         onChange={this.handleChangeLastName}
                         margin="normal"
                         style = {styles.inputs}
                     />
                </div>
-               
-               <div className="form-group col-2" style={styles.divB}>
+               <div className="form-group col" style={styles.divInput}>
+                    <TextField
+                        id="fabric"
+                        label="Fabric"
+                        onChange={this.handleChangeIdNumber}
+                        margin="normal"
+                        style = {styles.inputs}
+                    />
+               </div>  
+               <div className="form-group col-4" style={styles.div}>
                  <Button  color="primary"  onClick={this.changeState} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
-                 </div>            
+                 <Button  color="secondary" variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
+               </div>            
              
                </form>
                 </div>
             
             </div>
+           
         </div>
 
     );
 }
 }
 
-export default crudDevices;
+export default Lotes;

@@ -8,6 +8,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MeetingRoom from '@material-ui/icons/MeetingRoom';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Prendas from "../../components/Operaciones/Prendas";
+
+import Factura from "../../components/Operaciones/Factura";
 
 
 class Informacion extends React.Component{
@@ -18,16 +21,28 @@ class Informacion extends React.Component{
         this.state = {
           name: 'Juan Felipe Contreras',
           room: '401',
-          cloths: '2'
+          cloths: '2',
+          invoice: 'none',
+          clothes: 'none',
         };
+        this.changeStateC = this.changeStateC.bind(this);
+       this.changeStateI = this.changeStateI.bind(this);
       //  this.changeState = this.changeState.bind(this);
     }
-    
+
+    changeStateC(){
+            this.setState( {clothes: "block", invoice:"none"})
+
+    }
+    changeStateI(){
+            this.setState( {clothes: "none", invoice:"block"})
+    }
+
     render(){
 
         const styles ={
             div :{
-                padding: "15px 15px 8px 15px",
+                padding: "5px 15px 8px 15px",
                 borderRadius: "10px",
                 marginTop: "20px",
                 backgroundColor: "#FAFAFA",
@@ -164,16 +179,17 @@ class Informacion extends React.Component{
                     </div>
                     <div className='col-4' style={styles.buttons}>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="primary">Mis Prendas</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Clothes</Button></Link>
                         </div>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="primary">Factura</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary">Invoice</Button></Link>
                         </div>
                     </div>
                 </div>
                 <div className='row' style={styles.rowBottom}>
                     <div className='col-12'>
-                    <h1 style={styles.welcome}>Welcome!</h1>
+                    <Prendas display={this.state.clothes}/>
+                    <Factura display={this.state.invoice}/>
                     </div>
                 </div>
             </div>            
