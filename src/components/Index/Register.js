@@ -49,28 +49,24 @@ class Register extends React.Component{
     });
     }
 
-    validate(){
-        
-        axios({
-        method: 'POST',
-        headers: {"Content-Type" :"application/json"},
-        url: 'http://localhost:3000/api/users',
-        params: {
-            name : this.state.name,
+    async validate(){
+		const request = require('request')
+request.post('http://localhost:8085/api/users', {
+  json: {			
+  name : this.state.name,
             last_name : this.state.lastname,
             personal_id: this.state.idnumber,
             password: this.state.password,
             room_id: this.state.room,
-            isActive: true, 
-        }
-        }).then(function(response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error.response);
-        });
-    }
-
-
+            isActive: true
+  }
+}, (error, res, body) => {
+  if (error) {
+    console.error(error)
+    return
+  }
+}
+)}
     validateSingup(){
         const data = {
         name : this.state.name,
@@ -82,8 +78,7 @@ class Register extends React.Component{
         }
         console.log(data);
        const options = {
-        method: 'POST',    
-        mode: 'cors',    
+        method: 'POST',  
         headers: "Access-Control-Allow-Origin",
         body: JSON.stringify(data)
         }
