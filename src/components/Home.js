@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Login from './Index/Login';
 import Register from './Index/Register';
-import Registro_Prendas from './Index/Registro_Prendas';
 
 
 

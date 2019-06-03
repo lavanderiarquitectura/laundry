@@ -15,15 +15,6 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import PrendaServices from './Prenda_services'
 
-// class RegistroPrendas extends Component{
-
-//   constructor(props) {
-//     super(props)
-//       this.state = { rows : [] }
-//   }
-
-// }
-
 const useStyles1 = makeStyles(theme => ({
   root: {
     flexShrink: 0,
@@ -90,25 +81,25 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(id_prenda, id_cuarto, color, marca) {
-  return JSON.parse(JSON.stringify({ "id_prenda" : id_prenda,
-           "id_cuarto" : id_cuarto, 
-           "color" : color,
-           "marca" : marca}));
-}
+// function createData(id_prenda, id_cuarto, color, marca) {
+//   return JSON.parse(JSON.stringify({ "id_prenda" : id_prenda,
+//            "id_cuarto" : id_cuarto, 
+//            "color" : color,
+//            "marca" : marca}));
+// }
 
- function fillData (){
-  var filledData = [];
+//  function fillData (){
+//   var filledData = [];
 
-  return new PrendaServices().obtenerPrendas().then(dataArray => {
-    dataArray.map(item => {
-      console.log("dataItem: "+ JSON.stringify(item));
-      filledData.push(createData(item.id_prenda, item.id_cuarto, item.color, item.marca));
-    });
-    console.log(filledData.length);
-    return filledData
-  });
-}
+//   return new PrendaServices().obtenerPrendas().then(dataArray => {
+//     dataArray.map(item => {
+//       console.log("dataItem: "+ JSON.stringify(item));
+//       filledData.push(createData(item.id_prenda, item.id_cuarto, item.color, item.marca));
+//     });
+//     console.log(filledData.length);
+//     return filledData
+//   });
+// }
 
 // const rows = [
 //   createData('Cupcake', 305, 3.7),
@@ -139,13 +130,13 @@ const useStyles2 = makeStyles(theme => ({
   },
 }));
 
-function Registro_Prendas() {
+function Registro_Prendas(arrayArg) {
 
-  var rows = [];
+  var rows = arrayArg;
 
-  fillData().then(response => {
-    rows = response;
-  });
+  // fillData().then(response => {
+  //   rows = response;
+  // });
 
   console.log(rows);
 
