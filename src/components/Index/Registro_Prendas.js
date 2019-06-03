@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -130,9 +130,9 @@ const useStyles2 = makeStyles(theme => ({
   },
 }));
 
-function Registro_Prendas(arrayArg) {
+const Registro_Prendas = ({rows}) => {
 
-  var rows = arrayArg;
+  //var rows = arrayArg;
 
   // fillData().then(response => {
   //   rows = response;

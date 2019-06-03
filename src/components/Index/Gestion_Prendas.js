@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import RegistroPrendas from './Registro_Prendas';
+import Registro_Prendas from './Registro_Prendas';
 import PrendaServices from './Prenda_services';
 
 
@@ -16,7 +16,7 @@ class Gestion_Prendas extends Component{
     componentWillMount(){
         var filledData = [];
       
-        new PrendaServices().obtenerPrendas().then(dataArray => {
+        return new PrendaServices().obtenerPrendas().then(dataArray => {
           dataArray.map(item => {
             console.log("dataItem: "+ JSON.stringify(item));
             filledData.push(JSON.parse(JSON.stringify({ "id_prenda" : item.id_prenda,
@@ -34,9 +34,7 @@ class Gestion_Prendas extends Component{
     render(){
         return(
             <div className='container'>
-                <div className="row">
-                    <RegistroPrendas onClick={this.props.Registro_Prendas(this.state.rows)} color="primary">Consultar prendas</RegistroPrendas>
-                </div>
+                    <Registro_Prendas rows = {this.state.rows}/>
             </div>
             )
     }
