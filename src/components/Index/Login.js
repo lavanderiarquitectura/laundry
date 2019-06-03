@@ -10,17 +10,18 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 
 class Login extends React.Component{
-
+    
     constructor(props){
         super(props);
         this.state={
             personal_id:"",
             password:"",
-            autentication: "",
+            authentication: "",
         }
         this.handleChangeUser = this.handleChangeUser.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
-        this.handleAuthentication = this.handleAuthentication.bind(this);
+        this.obtenerAuth = this.obtenerAuth.bind(this);
+        this.renderRedirect = this.renderRedirect.bind(this);
         
     }
 
@@ -31,18 +32,46 @@ class Login extends React.Component{
         this.setState({password: event.target.value})
     }
 
-   handleAuthentication(){
+    renderRedirect(){
+    
+            return <Redirect to="/information" />;
+     
+      }
+
+    async obtenerAuth() {
+
        var cedula = this.state.personal_id
        var password = this.state.password
-       var url = "http://localhost:3030/api/users/".concat(cedula,"/",password)
+        return fetch("http://localhost:3000/api/users/".concat(cedula,"/",password), {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {
+            console.log("Auth:");
+            console.log(json.login);
+            this.setState({authentication: json.login});  
+            this.renderRedirect(json.login);
 
-     axios.get(url).then(res => {
-         console.log(res)
-         this.setState({autentication: res})
-                 
-       })
+            this.props.history.push(`/informacion`);
+         
+            
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
 
-   }
+
     
     render(){
 
@@ -104,6 +133,7 @@ class Login extends React.Component{
         }
 
         return(
+            
             <div className="container col-3" style={styles.divLogin} theme={theme}>
                 <form>
                 <div className="form-group" style={styles.divInput}>
@@ -115,7 +145,7 @@ class Login extends React.Component{
                         id="idnumber"
                         value={this.state.personal_id}
                         onChange={this.handleChangeUser}
-                        label="Número de Cedula"
+                        label="Personal Id"
                         margin="normal"
                         style = {styles.inputs}
                         variant="outlined"
@@ -124,7 +154,7 @@ class Login extends React.Component{
                 <div className="form-group" style={styles.divInput}>                
                 <TextField
                         id="password"
-                        label="Contraseña"
+                        label="Password"
                         value={this.state.password}
                         onChange={this.handleChangePass}
                         type="password"
@@ -135,7 +165,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Button onClick={this.handleAuthentication} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Ingresar</Button>
+                   <Link to="/informacion"><Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button></Link>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>

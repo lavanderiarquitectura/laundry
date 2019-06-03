@@ -39,3 +39,6 @@ body{
   src: local('Lato'), url(./fonts/Lato.woff) format('woff');
 }
 
+.font{
+  font-family: 'Coustard', serif;
+}

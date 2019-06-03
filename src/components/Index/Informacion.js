@@ -12,6 +12,12 @@ import Prendas from "../../components/Operaciones/Prendas";
 
 import Factura from "../../components/Operaciones/Factura";
 
+import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from '@material-ui/styles';
+import red from '@material-ui/core/colors/red';
+
+import Person from '@material-ui/icons/Person';
+import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 
 class Informacion extends React.Component{
 
@@ -123,6 +129,7 @@ class Informacion extends React.Component{
             },
 
         }
+     
 
         return(
   
@@ -179,10 +186,10 @@ class Informacion extends React.Component{
                     </div>
                     <div className='col-4' style={styles.buttons}>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Clothes</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Clothes</Button></Link>
                         </div>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary">Invoice</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Bill</Button></Link>
                         </div>
                     </div>
                 </div>

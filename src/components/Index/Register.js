@@ -24,8 +24,6 @@ class Register extends React.Component{
 
         this.validate = this.validate.bind(this);
         this.validateSingup = this.validateSingup.bind(this);
-
-        this.makePostRequest = this.makePostRequest.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -51,41 +49,24 @@ class Register extends React.Component{
     });
     }
 
-    makePostRequest() {
-
-        const params = {
-            name : this.state.name,
-        last_name : this.state.lastname,
-        personal_id: this.state.idnumber,
-        password: this.state.password,
-        room_id: this.state.room,
-        isActive: true,
-          }
-    
-        let res = axios.post('http://localhost:3000/api/users/', params, {headers: 'Access-Control-Allow-Origin'});
-    
-        console.log(res.data);
-    }
-
     async validate(){
-        
-        axios({
-        method: 'post',
-        mode: 'cors',
-        headers: ('Access-Control-Allow-Origin',true ),
-        url: 'http://localhost:3000/api/users',
-        data: {
-            name : this.state.name,
+		const request = require('request')
+request.post('http://localhost:8085/api/users', {
+  json: {			
+  name : this.state.name,
             last_name : this.state.lastname,
             personal_id: this.state.idnumber,
             password: this.state.password,
             room_id: this.state.room,
-            isActive: true, 
-        }
-        });
-    }
-
-
+            isActive: true
+  }
+}, (error, res, body) => {
+  if (error) {
+    console.error(error)
+    return
+  }
+}
+)}
     validateSingup(){
         const data = {
         name : this.state.name,
@@ -97,8 +78,7 @@ class Register extends React.Component{
         }
         console.log(data);
        const options = {
-        method: 'POST',    
-        mode: 'cors',    
+        method: 'POST',  
         headers: "Access-Control-Allow-Origin",
         body: JSON.stringify(data)
         }
@@ -198,11 +178,16 @@ class Register extends React.Component{
             title:{
                 textAlign: 'center',
                 marginBottom: '0',
+                fontFamily : 'Sanchez',
+                color: "#020347"
             },
             text:{
                 textAlign: 'center',
                 fontSize: '11px',
                 marginBottom: '5px',
+
+                fontFamily : 'Sanchez',
+                color: "#020347"
             }
 
 
@@ -216,8 +201,8 @@ class Register extends React.Component{
                 <div className="form-group" style={styles.divInput}>
                     <img id="logo" src={logo} style={styles.logo}></img>
                 </div>    
-               <h3 style={styles.title}>Register</h3>
-               <h4 style={styles.text}>Create an account for use own services.</h4>
+               <h3 className="font" style={styles.title}>Register</h3>
+               <h4 style={styles.text}>Create an account for use our services.</h4>
                <div className="form-group" style={styles.divInput}>
                     <TextField
                         autoFocus

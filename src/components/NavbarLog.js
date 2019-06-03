@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon ,MDBBtn} from "mdbreact";
 
-class Navbar extends React.Component {
+class NavbarLog extends React.Component {
 
   constructor(props) {
     super(props);
@@ -51,11 +51,8 @@ render() {
         </MDBNavbarNav>
         <MDBNavbarNav right>
           <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/register" className="indigo-text">Sign Up</MDBNavLink>
-          </MDBNavItem>         
-          <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/operaciones" className="indigo-text">Operator</MDBNavLink>
-          </MDBNavItem>  
+            <MDBNavLink to="/" className="indigo-text">Logout</MDBNavLink>
+          </MDBNavItem> 
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
@@ -63,4 +60,4 @@ render() {
   }
 }
 
-export default Navbar;
+export default NavbarLog;
