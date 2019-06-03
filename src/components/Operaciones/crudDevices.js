@@ -8,6 +8,14 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Table from "../../components/Index/Table";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+
+import Input from '@material-ui/core/Input';
 
 import AddCircle from '@material-ui/icons/AddCircle';
 
@@ -55,7 +63,10 @@ render(){
         margin: "15px 0 0 0",
         padding: "0",
         fontSize:"22px"
-}
+    }, selector:{
+        width: "150px",
+        margin: "0 0 5px 0"
+    }
     }
     const headings = [
         'ID',
@@ -109,23 +120,38 @@ render(){
                </div>
                
                <div className="form-group col" style={styles.divInput}>
-                    <TextField
-                        autoFocus
-                        id="cloth"
-                        label="Type Devices"
-                        onChange={this.handleChangeName}
-                        margin="normal"
-                        style = {styles.inputs}
-                    />
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                    Type Device
+                    </InputLabel>
+                    <Select
+                    value=""
+                    input={<Input name="device" id="age-label-placeholder" />}
+                    onChange = ""                 
+                    name="device"
+                    className=""
+                    >
+                    <MenuItem value={1}>Lavadora</MenuItem>
+                    <MenuItem value={2}>Plancha</MenuItem>
+                    </Select>
+                </FormControl>
                </div>
                <div className="form-group col" style={styles.divInput}>
-                    <TextField
-                        id="color"
-                        label="State"
-                        onChange={this.handleChangeLastName}
-                        margin="normal"
-                        style = {styles.inputs}
-                    />
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                    State Device
+                    </InputLabel>
+                    <Select
+                    value=""
+                    input={<Input name="device" id="age-label-placeholder" />}
+                    onChange = ""                
+                    name="device"
+                    className=""
+                    >
+                    <MenuItem value={1}>On</MenuItem>
+                    <MenuItem value={2}>Off</MenuItem>
+                    </Select>
+                </FormControl>
                </div>
                
                <div className="form-group col-2" style={styles.divB}>
