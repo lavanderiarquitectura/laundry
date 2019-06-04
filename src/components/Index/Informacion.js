@@ -160,12 +160,12 @@ class Informacion extends React.Component{
 
         return(
   
-            <div className="container col-5" style={styles.div}>               
+            <div className="container col-md-5 mb-10" style={styles.div}>               
                 <div className='row' style={styles.row}>
                     <div className='col-3'>
                         <img id="logo" src={logo} style={styles.logo}></img>
                     </div>
-                    <div className='col' style={styles.information}>
+                    <div className='col-md-7' style={styles.information}>
                         <div style={styles.divInfo}>                        
                         <TextField
                             disabled
@@ -211,7 +211,7 @@ class Informacion extends React.Component{
                         />
                         </div>                        
                     </div>
-                    <div className='col-4' style={styles.buttons}>
+                    <div className='col-md-4' style={styles.buttons}>
                         <div className="" style={styles.divInput}>                
                         <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Clothes</Button></Link>
                         </div>

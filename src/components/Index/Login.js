@@ -125,7 +125,7 @@ class Login extends React.Component{
 
         return(
             
-            <div className="container col-3" style={styles.divLogin} theme={theme}>
+            <div className="container col-md-3 mb-8" style={styles.divLogin} theme={theme}>
                 <form>
                 <div className="form-group" style={styles.divInput}>
                     <img id="logo" src={logo} style={styles.logo}></img>

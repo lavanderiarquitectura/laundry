@@ -174,7 +174,7 @@ class Register extends React.Component{
         return(
             <div className='container'>
                 <div className="row">
-            <div className="container col-3" style={styles.divLogin}>
+            <div className="container col-md-3 mb-8" style={styles.divLogin}>
                 <form>
                 <div className="form-group" style={styles.divInput}>
                     <img id="logo" src={logo} style={styles.logo}></img>

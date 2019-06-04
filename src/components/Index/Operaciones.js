@@ -143,7 +143,7 @@ class Operaciones extends React.Component{
                 display: this.state.display,
             },
             botonI:{
-                width: '100%',
+                width: '77%',
                 height: '45px',
                 marginBottom: '0px',
                 marginTop:'5px',
@@ -243,7 +243,7 @@ class Operaciones extends React.Component{
         }
 
         const loginOperator = (
-            <div className="container col-2" style={styles.divLogin}>
+            <div className="container col-md-2 mb-8" style={styles.divLogin}>
                 <form>
                 <div className='form-group' style={{textAlign:"center", margin:'auto'}}>
                      <h3 style={styles.text}>Operations</h3>
@@ -281,7 +281,7 @@ class Operaciones extends React.Component{
         )
 
         const Operations =(
-            <div className="container col-5" style={styles.div}>
+            <div className="container col-md-5" style={styles.div}>
             <div className='row' style={styles.row}>
                 <div className='col-2'>
                     <img id="logo" src={logo} style={styles.logo}></img>
