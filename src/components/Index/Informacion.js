@@ -45,7 +45,7 @@ class Informacion extends React.Component{
     }
 
     componentDidMount(){          
-        return fetch("http://localhost:3005/api/users", {
+        return fetch("http://3.218.134.48:3005/api/users", {
             method: "GET",
             mode: "cors",
             headers: {

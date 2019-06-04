@@ -38,7 +38,7 @@ class Login extends React.Component{
 
        var cedula = this.state.personal_id
        var password = this.state.password
-        return fetch("http://localhost:3005/api/users/".concat(cedula,"/",password), {
+        return fetch("http://3.218.134.48:3005/api/users".concat(cedula,"/",password), {
             method: "GET",
             mode: "cors",
             headers: {

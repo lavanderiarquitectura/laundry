@@ -46,7 +46,7 @@ class crudDevices extends React.Component{
        async createDevice(){
                  
             const request = require('request')
-            request.post('http://localhost:3005/devices', {
+            request.post('http://3.218.134.48:3005/devices', {
               json: {			
                 state : this.state.state,
                 type : this.state.type,
@@ -60,7 +60,7 @@ class crudDevices extends React.Component{
             )}
 
         componentDidMount(){          
-            return fetch("http://localhost:3005/devices", {
+            return fetch("http://3.218.134.48:3005/devices", {
                 method: "GET",
                 mode: "cors",
                 headers: {

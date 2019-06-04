@@ -29,7 +29,7 @@ class Register extends React.Component{
 
     async validate(){
 		const request = require('request')
-        request.post('http://localhost:3005/api/users', {
+        request.post('http://3.218.134.48:3005/api/users', {
         json: {			
         name : this.state.name,
                     last_name : this.state.lastname,
@@ -62,7 +62,7 @@ class Register extends React.Component{
         }
       
       
-        const request = new Request('http://localhost:3000/api/users',options);
+        const request = new Request('http://3.218.134.48:3005/api/users',options);
         fetch(request)
         .then(response => response.json())
         .then(
