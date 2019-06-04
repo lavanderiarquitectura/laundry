@@ -23,50 +23,28 @@ class Register extends React.Component{
         this.handleChangePass = this.handleChangePass.bind(this);
 
         this.validate = this.validate.bind(this);
-        this.validateSingup = this.validateSingup.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
-  handleSubmit(){
-         const data = {
-        name : this.state.name,
-        last_name : this.state.lastname,
-        room_id: this.state.room,
-        personal_id: this.state.idnumber,
-
-        is_active: true,
-        password: this.state.password,
-        }
-        axios.post("localhost:3000/api/users", {data},
-        {headers: 'Access-Control-Allow-Origin', mode: 'cors'}, 
-        ).then(function(res) {
-        console.log(data);
-    }).catch(function (error) {
-        console.log(error);
-
-        console.log(data);
-    });
-    }
 
     async validate(){
 		const request = require('request')
-request.post('http://localhost:8085/api/users', {
-  json: {			
-  name : this.state.name,
-            last_name : this.state.lastname,
-            personal_id: this.state.idnumber,
-            password: this.state.password,
-            room_id: this.state.room,
-            isActive: true
-  }
-}, (error, res, body) => {
-  if (error) {
-    console.error(error)
-    return
-  }
-}
-)}
+        request.post('http://localhost:3005/api/users', {
+        json: {			
+        name : this.state.name,
+                    last_name : this.state.lastname,
+                    personal_id: this.state.idnumber,
+                    password: this.state.password,
+                    room_id: this.state.room,
+                    isActive: true
+        }
+        }, (error, res, body) => {
+        if (error) {
+            console.error(error)
+            return
+        }
+        }
+        )}
     validateSingup(){
         const data = {
         name : this.state.name,

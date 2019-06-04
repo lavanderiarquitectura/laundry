@@ -24,22 +24,73 @@ import Input from '@material-ui/core/Input';
 
 import AddCircle from '@material-ui/icons/AddCircle';
 
+
 class crudDevices extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
-          devices: '',
-          state: '',
+          devices: [],
+          type: "",
+          state:"",
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
+
+       this.createDevice = this.createDevice.bind(this);
+       
        
     }
 
+  
+       async createDevice(){
+                 
+            const request = require('request')
+            request.post('http://localhost:3005/devices', {
+              json: {			
+                state : this.state.state,
+                type : this.state.type,
+              }
+            }, (error, res, body) => {
+              if (error) {
+                console.error(error)
+                return                                       
+              }
+            }                        
+            )}
+
+        componentDidMount(){          
+            return fetch("http://localhost:3005/devices", {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin" : "*"
+                }
+              })
+              .then(response => {
+                if (!response.ok) {
+                  
+                }
+                return response.json();
+              })
+              .then(json => {
+                console.log("Auth:");
+                console.log(json);
+                this.setState({devices: json})
+
+                    
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          }
+    
 
     onChangeD(event){
-        this.setState({devices: event.target.value})
+        this.setState({type: event.target.value})
+
+        console.log(this.state.devices);
     }
     onChangeL(event){
         this.setState({state: event.target.value})
@@ -166,7 +217,7 @@ render(){
                     Type Device
                     </InputLabel>
                     <Select
-                    value={this.state.devices}
+                    value={this.state.type}
                     input={<Input name="device" id="age-label-placeholder" />}
                     onChange = {this.onChangeD}                 
                     name="device"
@@ -196,7 +247,7 @@ render(){
                </div>
                
                <div className="form-group col-2" style={styles.divB}>
-                 <ColorButtonB  color="primary"  onClick={this.changeState} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB>
+                 <ColorButtonB  color="primary"  onClick={this.createDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB>
                  </div>            
              
                </form>

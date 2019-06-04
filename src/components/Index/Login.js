@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
+
+import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import TextField from '@material-ui/core/TextField';
@@ -21,7 +23,6 @@ class Login extends React.Component{
         this.handleChangeUser = this.handleChangeUser.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.obtenerAuth = this.obtenerAuth.bind(this);
-        this.renderRedirect = this.renderRedirect.bind(this);
         
     }
 
@@ -32,17 +33,12 @@ class Login extends React.Component{
         this.setState({password: event.target.value})
     }
 
-    renderRedirect(){
-    
-            return <Redirect to="/information" />;
-     
-      }
 
     async obtenerAuth() {
 
        var cedula = this.state.personal_id
        var password = this.state.password
-        return fetch("http://localhost:3000/api/users/".concat(cedula,"/",password), {
+        return fetch("http://localhost:3005/api/users/".concat(cedula,"/",password), {
             method: "GET",
             mode: "cors",
             headers: {
@@ -57,14 +53,9 @@ class Login extends React.Component{
             return response.json();
           })
           .then(json => {
-            console.log("Auth:");
             console.log(json.login);
-            this.setState({authentication: json.login});  
-            this.renderRedirect(json.login);
-
-            this.props.history.push(`/informacion`);
-         
-            
+            this.setState({authentication: json.login});
+                        
           })
           .catch(error => {
             console.log(error);
@@ -165,7 +156,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                   <Link to="/informacion"><Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button></Link>
+                  <Link to="/informacion"><Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button></Link>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>

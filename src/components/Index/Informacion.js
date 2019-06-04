@@ -25,9 +25,9 @@ class Informacion extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          name: 'Juan Felipe Contreras',
+          name: 'Juan Felipe Contreras Correa',
           room: '401',
-          cloths: '2',
+          cloths: '0',
           invoice: 'none',
           clothes: 'none',
         };
@@ -43,6 +43,33 @@ class Informacion extends React.Component{
     changeStateI(){
             this.setState( {clothes: "none", invoice:"block"})
     }
+
+    componentDidMount(){          
+        return fetch("http://localhost:3005/api/users", {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {
+            console.log("Auth:");
+            console.log(json);
+            this.setState({name: json.name, room: json.room})
+
+                
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
 
     render(){
 
