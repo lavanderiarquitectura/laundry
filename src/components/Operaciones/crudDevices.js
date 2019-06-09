@@ -36,17 +36,57 @@ class crudDevices extends React.Component{
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
-
        this.createDevice = this.createDevice.bind(this);
-       
-       
+       this.componentWillMount = this.componentWillMount.bind(this);    
+    }
+
+    async componentWillMount(){          
+      return fetch("http://localhost:3005/devices", {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {
+          console.log("Auth:");
+          console.log(json);
+          var device = []
+          var row = [];
+          for(var i in json){
+            for(var j in json[i]){
+              if(json[i][j] == 'true'){
+              row.push(true)
+              }else if(json[i][j] == 'false'){
+                row.push(false)
+              }else{
+              row.push(json[i][j]);
+            }            
+            }
+            device.push(row)
+            row = [];
+          }
+          
+          console.log(device)
+          this.setState({devices: device})
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
 
   
        async createDevice(){
                  
             const request = require('request')
-            request.post('http://3.218.134.48:3005/devices', {
+            request.post('http://localhost:3005/devices', {
               json: {			
                 state : this.state.state,
                 type : this.state.type,
@@ -55,37 +95,14 @@ class crudDevices extends React.Component{
               if (error) {
                 console.error(error)
                 return                                       
+              }else{
+                console.log("Efectivo")
+                return this.componentWillMount
               }
             }                        
             )}
 
-        componentDidMount(){          
-            return fetch("http://3.218.134.48:3005/devices", {
-                method: "GET",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin" : "*"
-                }
-              })
-              .then(response => {
-                if (!response.ok) {
-                  
-                }
-                return response.json();
-              })
-              .then(json => {
-                console.log("Auth:");
-                console.log(json);
-                this.setState({devices: json})
-
-                    
-              })
-              .catch(error => {
-                console.log(error);
-              });
-          }
-    
+        
 
     onChangeD(event){
         this.setState({type: event.target.value})
@@ -161,30 +178,10 @@ render(){
     const headings = [
         'ID',
         'Type',
-        'Max Capacity',
         'State',
         'On/Off',
     ];
-    const rows = [
-    [
-    1,
-    'Washing',
-    50,
-    false,
-    ],
-    [
-    2,
-    'Ironing',
-    50,
-    true,
-    ],
-    [
-    3,
-    'Washing',
-    50,
-    true,
-    ],
-    ];
+    const rows = this.state.devices
 
     
 
@@ -223,8 +220,8 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>Washer</MenuItem>
-                    <MenuItem value={2}>Iron</MenuItem>
+                    <MenuItem value={"Washer"}>Washer</MenuItem>
+                    <MenuItem value={"Iron"}>Iron</MenuItem>
                     </Select>
                 </FormControl>
                </div>
@@ -240,14 +237,14 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>On</MenuItem>
-                    <MenuItem value={2}>Off</MenuItem>
+                    <MenuItem value={true}>On</MenuItem>
+                    <MenuItem value={false}>Off</MenuItem>
                     </Select>
                 </FormControl>
                </div>
                
                <div className="form-group col-2" style={styles.divB}>
-                 <ColorButtonB  color="primary"  onClick={this.createDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB>
+                 <Link to="/operaciones"><ColorButtonB  color="primary"  onClick={this.createDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB></Link>
                  </div>            
              
                </form>

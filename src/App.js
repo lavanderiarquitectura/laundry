@@ -10,6 +10,8 @@ import 'mdbreact/dist/css/mdb.css';
 import Register from './components/Index/Register';
 import Operaciones from './components/Index/Operaciones';
 
+import LoginOper from './components/Index/LoginOper';
+
 
 class App extends React.Component{
   render(){
@@ -27,6 +29,7 @@ class App extends React.Component{
       <Navbar/>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/login/operaciones" component={LoginOper} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/informacion" component={Informacion} />
         <Route exact path="/operaciones" component={Operaciones} />
