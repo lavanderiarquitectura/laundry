@@ -75,7 +75,7 @@ class crudDevices extends React.Component{
           }
           
           console.log(device)
-          this.setState({devices: device})
+         // this.setState({devices: device})
         })
         .catch(error => {
           console.log(error);

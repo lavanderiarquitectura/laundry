@@ -35,7 +35,7 @@ class Home extends React.Component{
         return(
             <div className='container'>
                 <div className="row">
-                <Login display={this.state.login}/>
+                <Login display={this.state.login} history={this.props.history}/>
                 </div>
                 
             </div>

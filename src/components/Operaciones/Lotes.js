@@ -156,8 +156,9 @@ render(){
       
         divInput:{
             textAlign: 'center',
-            margin:"0 5px 0 0",
-            padding: "0"
+            margin:"0 5px 5px 0",
+            padding: "0",
+            backgroundColor: "#fafafa"
         },
         divBtn:{
             textAlign: 'center',
@@ -181,6 +182,8 @@ render(){
                     'Cloth',
                     'Color', 
                     'Fabric',
+                    'Operation',
+                    'Marca'
                 ];
     
     const rows = [];
@@ -197,7 +200,7 @@ render(){
                 <div className="col" id="addButton" style={styles.add}>
               </div>             
             </div>
-            <div className="row" id="table">
+            <div className="row" id="table" style={{overflowX: "auto", margin: "auto"}}>
                 <div className="col">
                 <Table headings={headings} rows={rows} style={{width:"100%"}} />
                 </div>
@@ -211,7 +214,7 @@ render(){
                     <div className="form-group col-md" style={styles.titleS}>
                         <h3 style={styles.text}>Add Lot</h3>
                     </div>
-                    <div className="form-group col-md">
+                    <div className="form-group col-md" style={{textAlign: "center"}}>
                     <TextField
                                 autoFocus
                                 id="room"
@@ -314,7 +317,7 @@ render(){
                <div className="form-group col-md" style={styles.divInput}>
                <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                        Operacion
+                        Operation
                     </InputLabel>
                     <Select
                     value={this.state.operacion}

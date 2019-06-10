@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 import axios from 'axios';
+
+import createHistory from "history/createBrowserHistory";
+
+
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 
@@ -20,8 +24,10 @@ class Login extends React.Component{
         this.handleChangeUser = this.handleChangeUser.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.obtenerAuth = this.obtenerAuth.bind(this);
+        this.redirection = this.redirection.bind(this);
     }
 
+    
     handleChangeUser(event){        
         this.setState({personal_id: event.target.value})
     }
@@ -29,6 +35,10 @@ class Login extends React.Component{
         this.setState({password: event.target.value})
     }
 
+    redirection(){
+        return this.props.history.push('/informacion');  
+        
+    }
 
     async obtenerAuth() {
 
@@ -37,11 +47,18 @@ class Login extends React.Component{
        
         return axios.get("http://localhost:3005/api/users/".concat(cedula,"/",password))
           .then(json => {
+
+            const history = createHistory();
             console.log(json);   
             console.log(json.data.login);  
             this.setState( {authentication: json.data.login})
-            return this.props.history.push('/informacion');  
-            
+            if(json.data.login == "success"){
+                this.redirection() 
+
+            }else{
+                window.location.reload();
+            }
+                     
                         
           })
           .catch(error => {
@@ -54,6 +71,7 @@ class Login extends React.Component{
 
     
     render(){
+
 
         const theme = createMuiTheme({
             overrides: {
@@ -145,7 +163,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                   <Link to="/informacion"><Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button></Link>
+                   <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>
