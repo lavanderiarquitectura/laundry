@@ -6,7 +6,7 @@ import logo from '../../img/logo.png';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import Table from "../Index/Table";
+import Table from "../Auxiliares/Table";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
@@ -50,7 +50,6 @@ render(){
             marginRight:"10px"
         },
         total:{
-            width: "40%",
         },
         totalDiv:{
             textAlign: "right",
@@ -104,7 +103,7 @@ render(){
         <div className="container"style={{display: this.props.display}}>
             <div className="row" id="Head">
                 <div className="col" id="title">
-                    <h3 style={styles.title}>Bill</h3>
+                    <h3 style={styles.title}>Billing</h3>
                 </div>               
             </div>
             <div className="row" id="table">
@@ -112,12 +111,14 @@ render(){
                 <Table headings={headings} rows={rows} style={{width:"100%"}} />
 
                 <div className='container row' style={{padding:"0"}}>
-                <div className="col">
-             </div>
-
-                <div className="col" style={styles.totalDiv}>
+               
+                <div className="col" style={{textAlign:"right%"}}>
                 <Link to='#'><ColorButtonB onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="red"><PDF/></ColorButtonB></Link>
                 
+                </div>
+
+                <div className="col" style={styles.totalDiv}>
+               
                 <TextField
                             disabled
                             id="input-with-icon-textfield"

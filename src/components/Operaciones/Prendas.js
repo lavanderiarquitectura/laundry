@@ -7,7 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Table from "../Index/Table";
+import Table from "../Auxiliares/Table";
 
 
 class Prendas extends React.Component{
@@ -64,7 +64,7 @@ render(){
         <div className="container"style={{display: this.props.display}}>
             <div className="row" id="Head">
                 <div className="col" id="title">
-                    <h3 style={styles.title}>Clothes</h3>
+                    <h3 style={styles.title}>Cloth</h3>
                 </div>               
             </div>
             <div className="row" id="table">

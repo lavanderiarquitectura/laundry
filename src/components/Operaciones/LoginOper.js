@@ -1,8 +1,9 @@
-import {Link} from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import ReactDOM from 'react-dom';
 
 class LoginOper extends React.Component{
 
@@ -30,8 +31,11 @@ class LoginOper extends React.Component{
 
     validate(){
         if(this.state.user == 'admin' && this.state.password == "admin123"){
-            this.setState({display: "block", displayL:"none"})
+            return this.props.history.push('/operaciones');
+        }else{
+            window.location.reload()
         }
+        
     }
 
     
@@ -42,14 +46,14 @@ class LoginOper extends React.Component{
         const styles ={
             
             botonI:{
-                width: '100%',
+                width: '85%',
                 height: '45px',
                 marginBottom: '0px',
                 marginTop:'5px',
             },
             divInput:{
                 textAlign: 'center',
-                marginBottom: '0.5px'
+                marginBottom: '14px'
             },
             inputs:{
                 marginTop: '8px',
@@ -102,7 +106,7 @@ class LoginOper extends React.Component{
                     />
                </div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Link to="/operaciones"><Button onClick={this.validate} variant="outlined" focusVisible style={styles.botonI} color="primary">Login</Button></Link>
+                    <Button onClick={this.validate} variant="outlined" focusVisible style={styles.botonI} color="primary">Login</Button>
                 </div>
               </form>
                 

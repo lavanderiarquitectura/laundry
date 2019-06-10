@@ -7,7 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import Table from "../../components/Index/Table";
+import Table from "../../components/Auxiliares/Table";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -32,7 +32,7 @@ class crudDevices extends React.Component{
         this.state = {
           devices: [],
           type: "",
-          state:"",
+          state: true,
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
@@ -61,7 +61,7 @@ class crudDevices extends React.Component{
           var device = []
           var row = [];
           for(var i in json){
-            for(var j in json[i]){
+            for(var j in (json[i])){
               if(json[i][j] == 'true'){
               row.push(true)
               }else if(json[i][j] == 'false'){
@@ -90,6 +90,7 @@ class crudDevices extends React.Component{
               json: {			
                 state : this.state.state,
                 type : this.state.type,
+                lotId : null,
               }
             }, (error, res, body) => {
               if (error) {
@@ -97,7 +98,8 @@ class crudDevices extends React.Component{
                 return                                       
               }else{
                 console.log("Efectivo")
-                return this.componentWillMount
+                window.location.reload()
+                
               }
             }                        
             )}
@@ -132,6 +134,12 @@ render(){
             color: "#020347",
             fontFamily : 'Sanchez',
         },
+        titleS:{
+          textAlign: "center",
+          margin:"0 0 8px 0",
+          color: "#020347",
+          fontFamily : 'Sanchez',
+      },
         add:{
             textAlign: "right"
         },
@@ -145,17 +153,16 @@ render(){
          },
         divB:{
             textAlign:"center",
-            margin:"5px 10px 0 0",
             padding: "0px"
          },
         buttonAdd:{
             margin:"5px 3px 0 0",
-            width:"35%",
+            width:"65%",
+            height: "40px",
             padding: "5px"
          },
          divInput:{
             textAlign: 'center',
-            margin:"0 5px 0 0",
             padding: "0"
         },
         inputs:{
@@ -177,9 +184,9 @@ render(){
 
     const headings = [
         'ID',
-        'Type',
         'State',
-        'On/Off',
+        'Type',
+        'Id Lote',
     ];
     const rows = this.state.devices
 
@@ -190,12 +197,12 @@ render(){
             <div className="row" id="Head">
                 
                 <div className="col" id="title">
-                    <h3 style={styles.title}>Devices</h3>
+                    <h3 style={styles.titleS}>Devices</h3>
                 </div>
             </div>
             <div className="row" id="table">
                 <div className="col">
-                <Table headings={headings} rows={rows} tableType="Machine-Table" style={{width:"100%"} } />
+                <Table headings={headings} rows={rows} style={{width:"100%"} } />
                 </div>
             </div>
             
@@ -204,11 +211,15 @@ render(){
 
                 <form className="row" style={{marginLeft: "0"}}> 
 
-                <div className="form-group col" style={styles.divInput}>
-                    <h3 style={styles.text}>New Device</h3>
+                <div className="container">
+                  <div className="form-group col-md" style={styles.titleS}>
+                      <h3 style={styles.text}>New Device</h3>
+                </div>
                </div>
-               
-               <div className="form-group col" style={styles.divInput}>
+
+               <div className="container">
+               <div className="row">
+               <div className="form-group col-md-4" style={styles.divInput}>
                <FormControl style={styles.selector}>
                     <InputLabel shrink >
                     Type Device
@@ -225,7 +236,7 @@ render(){
                     </Select>
                 </FormControl>
                </div>
-               <div className="form-group col" style={styles.divInput}>
+               <div className="form-group col-md-4" style={styles.divInput}>
                <FormControl style={styles.selector}>
                     <InputLabel shrink >
                     State Device
@@ -243,9 +254,16 @@ render(){
                 </FormControl>
                </div>
                
-               <div className="form-group col-2" style={styles.divB}>
+               <div className="form-group col-md-4" style={styles.divB}>
                  <Link to="/operaciones"><ColorButtonB  color="primary"  onClick={this.createDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB></Link>
-                 </div>            
+                 </div>     
+                 </div>
+ 
+               </div>
+
+                
+               
+                    
              
                </form>
                 </div>

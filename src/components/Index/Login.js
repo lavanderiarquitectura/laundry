@@ -1,8 +1,5 @@
-import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
-
-import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -23,7 +20,6 @@ class Login extends React.Component{
         this.handleChangeUser = this.handleChangeUser.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.obtenerAuth = this.obtenerAuth.bind(this);
-        
     }
 
     handleChangeUser(event){        
@@ -38,7 +34,8 @@ class Login extends React.Component{
 
        var cedula = this.state.personal_id
        var password = this.state.password
-        return fetch("http://3.218.134.48:3005/api/users".concat(cedula,"/",password), {
+       
+        return fetch("http://localhost:3005/api/users/".concat(cedula,"/",password), {
             method: "GET",
             mode: "cors",
             headers: {
@@ -46,21 +43,20 @@ class Login extends React.Component{
                 "Access-Control-Allow-Origin" : "*"
             }
           })
-          .then(response => {
-            if (!response.ok) {
-              
-            }
-            return response.json();
-          })
           .then(json => {
-            console.log(json.login);
-            this.setState({authentication: json.login});
+            console.log(json);   
+            console.log(json.login);  
+            this.setState( {authentication: json.login})
+            return this.props.history.push('/informacion');  
+            
                         
           })
           .catch(error => {
             console.log(error);
           });
       }
+
+     
 
 
     
@@ -87,8 +83,8 @@ class Login extends React.Component{
 
             },
             botonInicio:{
-                width: '90%',
-                height: '40px',
+                minWidth: '80%',
+                height: '45px',
                 marginBottom: '5px',
                 marginTop:'8px',
             },
@@ -102,7 +98,7 @@ class Login extends React.Component{
             inputs:{
                 marginTop: '8px',
                 height: '40px',
-                marginBottom: '0',
+                marginBottom: '14px',
             },
             logo:{
                 width: '60%',
@@ -111,8 +107,8 @@ class Login extends React.Component{
                 fontSize:"12px",
                 marginBottom: "0px",
                 marginTop:"5px",
-                marginRight:'16px',
-                textAlign: "right",
+                textAlign: "center",
+                padding: "0 0 0 124px"
             },
             signup:{
                 fontSize:"12px",
@@ -156,7 +152,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                  <Link to="/informacion"><Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button></Link>
+                   <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>

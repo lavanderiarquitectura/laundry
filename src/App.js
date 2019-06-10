@@ -10,7 +10,7 @@ import 'mdbreact/dist/css/mdb.css';
 import Register from './components/Index/Register';
 import Operaciones from './components/Index/Operaciones';
 
-import LoginOper from './components/Index/LoginOper';
+import LoginOper from './components/Operaciones/LoginOper';
 
 
 class App extends React.Component{

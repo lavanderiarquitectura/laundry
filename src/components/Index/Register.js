@@ -29,9 +29,9 @@ class Register extends React.Component{
 
     async validate(){
 		const request = require('request')
-        request.post('http://3.218.134.48:3005/api/users', {
+        request.post('http://localhost:3005/api/users', {
         json: {			
-        name : this.state.name,
+                    name : this.state.name,
                     last_name : this.state.lastname,
                     personal_id: this.state.idnumber,
                     password: this.state.password,
@@ -42,38 +42,18 @@ class Register extends React.Component{
         if (error) {
             console.error(error)
             return
+        }else{
+            for( var i in this.state){
+                if( i == null){
+                    window.location.reload()
+                }
+            }
+            return this.props.history.push('/');
+
         }
         }
         )}
-    validateSingup(){
-        const data = {
-        name : this.state.name,
-        last_name : this.state.lastname,
-        personal_id: this.state.idnumber,
-        password: this.state.password,
-        room_id: this.state.room,
-        isActive: true,
-        }
-        console.log(data);
-       const options = {
-        method: 'POST',  
-        headers: "Access-Control-Allow-Origin",
-        body: JSON.stringify(data)
-        }
-      
-      
-        const request = new Request('http://3.218.134.48:3005/api/users',options);
-        fetch(request)
-        .then(response => response.json())
-        .then(
-        data => console.log(data)
-        );
-        console.log(this.state);
-      
-        }
-
-
-
+    
 
     handleChangeName(event){        
         this.setState({name: event.target.value})
@@ -127,8 +107,8 @@ class Register extends React.Component{
 
             },
             botonInicio:{
-                width: '90%',
-                height: '40px',
+                width: '80%',
+                height: '45px',
                 marginTop:'8px',
                 marginBottom: '5px',
             },
@@ -136,6 +116,10 @@ class Register extends React.Component{
                 color: 'white',
             },
             divInput:{
+                textAlign: 'center',
+                marginBottom: '14px'
+            },
+            div:{
                 textAlign: 'center',
                 marginBottom: '0.5px'
             },
@@ -176,7 +160,7 @@ class Register extends React.Component{
                 <div className="row">
             <div className="container col-md-3 mb-8" style={styles.divLogin}>
                 <form>
-                <div className="form-group" style={styles.divInput}>
+                <div className="form-group" style={styles.div}>
                     <img id="logo" src={logo} style={styles.logo}></img>
                 </div>    
                <h3 className="font" style={styles.title}>Register</h3>
@@ -234,8 +218,8 @@ class Register extends React.Component{
                     />
                 </div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Link to='/'>
-                    <Button variant="outlined" onClick={this.validate} style={styles.botonInicio} color="primary">Register</Button></Link>
+              
+                    <Button variant="outlined" onClick={this.validate} style={styles.botonInicio} color="primary">Register</Button>
                 </div>
                 <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a> Sign in</a></Link></div>
                 

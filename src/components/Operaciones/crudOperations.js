@@ -7,7 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Table from "../../components/Index/Table";
+import Table from "../../components/Auxiliares/Table";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -78,7 +78,9 @@ render(){
     const Lavado = (
         <div className='container' style={{marginTop: "5px"}}>
             <div className='row'>
-                <div className='col' id="lavado" style={{textAlign: "center"}}>                
+                <div className='col-md-4' id="lavado" style={{textAlign: "center", margin: "0 0 5px 0"}}>  
+
+                <h3 style={styles.title}>Washers</h3>
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
                     Available Washers
@@ -114,7 +116,8 @@ render(){
                 <Button  color="secondary"  onClick="" variant="contained" aria-label="Add" style={styles.button}>Washing</Button>
                   
             </div>
-            <div className='col' id="planchado" style={{textAlign: "center"}}>                
+            <div className='col-md-4' id="planchado" style={{textAlign: "center", margin: "0 0 5px 0"}}>      
+            <h3 style={styles.title}>Irons</h3>          
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
                     Available Irons
@@ -151,8 +154,8 @@ render(){
                 <Button  color="secondary"  onClick="" variant="contained" aria-label="Add" style={styles.button}>Ironing</Button>
                   
             </div>
-            <div className='col' id="finalizado" style={{textAlign: "center"}}>                
-           
+            <div className='col-md-4' id="finalizado" style={{textAlign: "center", margin: "0 0 5px 0"}}>                
+                <h3 style={styles.title}>Finalize</h3>
                 <FormControl style={styles.selector}>
                     <InputLabel shrink >
                         Finished Lots

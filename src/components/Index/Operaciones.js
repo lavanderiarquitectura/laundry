@@ -15,7 +15,7 @@ import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 
-import Table from "../../components/Index/Table";
+import Table from "../../components/Auxiliares/Table";
 import CrudDevices from '../../components/Operaciones/crudDevices';
 
 import CrudOperations from '../../components/Operaciones/crudOperations';
@@ -163,10 +163,7 @@ class Operaciones extends React.Component{
                 margin:'auto',
                 textAlign: "center",
             },
-            text:{
-                marginBottom:"3px",
-            },
-            textR:{
+                        textR:{
                 marginBottom:"3px",
                 width: "46%"
             },
@@ -206,8 +203,9 @@ class Operaciones extends React.Component{
                 marginTop:"10px",
             },
             text:{
+                marginBottom:"3px",
+                color: "#020347",
                 fontFamily : 'Sanchez',
-                margin: "0"
             },
             divLogin :{
                 padding: "15px 15px 8px 15px",
@@ -222,10 +220,10 @@ class Operaciones extends React.Component{
         const Operations =(
             <div className="container col-md-5" style={styles.div}>
             <div className='row' style={styles.row}>
-                <div className='col-2'>
+                <div className='col-md-2'>
                     <img id="logo" src={logo} style={styles.logo}></img>
                 </div>
-                <div className='col' style={{textAlign:"center", margin:'auto'}}>
+                <div className='col-md-8' style={{textAlign:"center", margin:'auto'}}>
                  <h3 style={styles.text}>Operations in Progress</h3>
                </div>
                <div className='col-2'> </div>
@@ -236,13 +234,13 @@ class Operaciones extends React.Component{
                </div>
             </div>
             <div className='row' style={styles.rowBottom}>
-                    <div className="col" style={styles.divButton}>               
+                    <div className="col-md-4" style={styles.divButton}>               
                     <Link to='#'><ColorButtonB onClick={this.changeStateL} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lotes</ColorButtonB></Link>
                     </div>
-                    <div className="col" style={styles.divButton}>                
+                    <div className="col-md-4" style={styles.divButton}>                
                     <Link to='#'><ColorButtonB onClick={this.changeStateO} variant="outlined" focusVisible style={styles.botonInicio} color="green">Operations</ColorButtonB></Link>
                     </div>
-                    <div className="col" style={styles.divButton}>                
+                    <div className="col-md-4" style={styles.divButton}>                
                     <Link to='#'><ColorButtonB onClick={this.changeStateD} variant="outlined" focusVisible style={styles.botonInicio} color="orange">Devices</ColorButtonB></Link>
                     
                 </div>

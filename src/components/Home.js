@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Login from './Index/Login';
 import Register from './Index/Register';
-import Table from './Index/Table';
+import Table from './Auxiliares/Table';
 
 
 class Home extends React.Component{

@@ -7,7 +7,15 @@ import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import Table from "../Index/Table";
+import Table from "../Auxiliares/Table";
+
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
 
 import AddCircle from '@material-ui/icons/AddCircle';
 
@@ -19,16 +27,35 @@ class Lotes extends React.Component{
         super(props);
         this.state = {
           add: 'none',
+          cloth: "",
+          fabric: "",
+          type: "",
+          room: "",
         };
        this.changeState = this.changeState.bind(this);
+       this.onChangeCloth = this.onChangeCloth.bind(this);
+       this.onChangeColor = this.onChangeColor.bind(this);
+       this.onChangeFabric = this.onChangeFabric.bind(this);
+       this.onChangeRoom = this.onChangeRoom.bind(this);
     }
 
+
+    onChangeCloth(event){        
+        this.setState({cloth: event.target.value})
+    }
+    onChangeColor(event){
+        this.setState({color: event.target.value})
+    }
+    onChangeFabric(event){        
+        this.setState({fabric: event.target.value})
+    }
+    onChangeRoom(event){        
+        this.setState({room: event.target.value})
+    }
     changeState(){
         if(this.state.add == "none"){
             this.setState( {add: "block"})
         }
-            
-
     }
 
 render(){
@@ -64,6 +91,12 @@ render(){
             margin:"0 5px 0 0",
             padding: "0"
         },
+        selector:{
+            width: "90%",
+            margin: "5px 0 5px 0",
+            color: "#020347",
+            fontFamily : 'Sanchez',
+        },
         inputs:{
             margin: "5px 3px 0 0",
             padding: "0"
@@ -77,24 +110,7 @@ render(){
                     'Fabric',
                 ];
     
-    const rows = [
-            
-            [ 1,
-            "Pant",
-            "Yellow",
-            "Cotton"
-            ],
-            [ 2,
-            "Shirt",
-            "White",
-            "Cotton"
-            ],
-            [ 3,
-            "Jacket",
-            "Brown",
-            "Linio"
-            ],
-        ];
+    const rows = [];
 
 
     return(
@@ -102,7 +118,7 @@ render(){
             <div className="row" id="Head">
                  <div className="col">
                 </div>
-                <div className="col" id="title">
+                <div className="col-md-8" id="title">
                     <h3 style={styles.title}>Add Lotes</h3>
                 </div>  
                 <div className="col" id="addButton" style={styles.add}>
@@ -118,40 +134,116 @@ render(){
 
                 <form className="row" style={{marginLeft: "0"}}> 
                
-               <div className="form-group col" style={styles.divInput}>
-                    <TextField
-                        autoFocus
-                        id="cloth"
-                        label="Cloth"
-                        onChange={this.handleChangeName}
-                        margin="normal"
-                        style = {styles.inputs}
-                    />
+               <div className="form-group col-md" style={styles.divInput}>
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                        Cloth
+                    </InputLabel>
+                    <Select
+                    value={this.state.cloth}
+                    input={<Input name="cloth" id="age-label-placeholder" />}                   
+                    onChange = {this.onChangeCloth}        
+                    name="cloth"
+                    className=""
+                    >
+                    <MenuItem value={"T-Shirt"}>T-Shirt</MenuItem>
+                    <MenuItem value={"Shirt"}>Shirt</MenuItem>
+                    <MenuItem value={"Sweater"}>Sweater</MenuItem>
+                    <MenuItem value={"Jacket"}>Jacket</MenuItem>
+                    <MenuItem value={"Coat"}>Coat</MenuItem>
+                    <MenuItem value={"Jeans"}>Jeans</MenuItem>
+                    <MenuItem value={"Pants"}>Pants</MenuItem>
+                    <MenuItem value={"Socks"}>Socks</MenuItem>
+                    <MenuItem value={"Shorts"}>Shorts</MenuItem>
+                    <MenuItem value={"Skirt"}>Skirt</MenuItem>
+                    <MenuItem value={"Dress"}>Dress</MenuItem>
+                    <MenuItem value={"Blouse"}>Blouse</MenuItem>
+                    <MenuItem value={"Briefs"}>Briefs</MenuItem>
+                    </Select>
+                </FormControl>
+                
                </div>
-               <div className="form-group col" style={styles.divInput}>
-                    <TextField
-                        id="color"
-                        label="Color"
-                        onChange={this.handleChangeLastName}
-                        margin="normal"
-                        style = {styles.inputs}
-                    />
+               <div className="form-group col-md" style={styles.divInput}>
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                        Color
+                    </InputLabel>
+                    <Select
+                    value={this.state.color}
+                    input={<Input name="color" id="age-label-placeholder" />}                   
+                    onChange = {this.onChangeColor}        
+                    name="color"
+                    className=""
+                    >
+                    <MenuItem value={"Blue"}>Blue</MenuItem>
+                    <MenuItem value={"Green"}>Green</MenuItem>
+                    <MenuItem value={"Red"}>Red</MenuItem>
+                    <MenuItem value={"Brown"}>Brown</MenuItem>
+                    <MenuItem value={"Yellow"}>Yellow</MenuItem>
+                    <MenuItem value={"Gray"}>Gray</MenuItem>
+                    <MenuItem value={"Black"}>Black</MenuItem>
+                    <MenuItem value={"White"}>White</MenuItem>
+                    <MenuItem value={"Orange"}>Orange</MenuItem>
+                    <MenuItem value={"Purpĺe"}>Purpĺe</MenuItem>
+                    <MenuItem value={"Pink"}>Pink</MenuItem>
+                    <MenuItem value={"Beige"}>Beige</MenuItem>
+                    <MenuItem value={"Various"}>Various</MenuItem>
+                    </Select>
+                </FormControl>
                </div>
-               <div className="form-group col" style={styles.divInput}>
-                    <TextField
-                        id="fabric"
-                        label="Fabric"
-                        onChange={this.handleChangeIdNumber}
-                        margin="normal"
-                        style = {styles.inputs}
-                    />
+               <div className="form-group col-md" style={styles.divInput}>
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                        Fabric
+                    </InputLabel>
+                    <Select
+                    value={this.state.fabric}
+                    input={<Input name="fabric" id="age-label-placeholder" />}                   
+                    onChange = {this.onChangeFabric}        
+                    name="fabric"
+                    className=""
+                    >
+                    <MenuItem value={"Acrylic"}>Acrylic</MenuItem>
+                    <MenuItem value={"Cotton"}>Cotton</MenuItem>
+                    <MenuItem value={"Denim"}>Denim</MenuItem> 
+                    <MenuItem value={"Flannel"}>Flannel</MenuItem>
+                    <MenuItem value={"Leather"}>Leather</MenuItem>
+                    <MenuItem value={"Linen"}>Linen</MenuItem>
+                    <MenuItem value={"Silk"}>Silk</MenuItem>
+                    <MenuItem value={"Velvet"}>Velvet</MenuItem>
+                    <MenuItem value={"Wool"}>Wool</MenuItem>
+                    </Select>
+                </FormControl>
                </div>  
-               <div className="form-group col-4" style={styles.div}>
+               <div className="form-group col-md" style={styles.divInput}>
+                <TextField
+                            autoFocus
+                            id="room"
+                            onChange={this.onChangeRoom}
+                            label="Room"
+                            margin="normal"
+                            style = {styles.selector}
+                        />
+               </div>  
+               </form>
+
+               
+               <div className="container">
+                <div className="row">
+
+                <div className="col">
+                </div>
+               <div className="col-md-4" style={styles.div}>
                  <Button  color="primary"  onClick={this.changeState} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
                  <Button  color="secondary" variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
-               </div>            
+               </div> 
+               
+
+               </div>
+               </div>
+         
              
-               </form>
+               
                 </div>
             
             </div>

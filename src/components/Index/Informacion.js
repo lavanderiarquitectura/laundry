@@ -130,7 +130,7 @@ class Informacion extends React.Component{
                 paddingRight:"0",
             },
             buttons:{
-                paddingTop:"10px",
+                padding:"10px 0 0 0",
             },
             divInfo:{
                 paddingLeft:"5px",
@@ -149,6 +149,7 @@ class Informacion extends React.Component{
                 marginTop:"10px",
                 backgroundColor: "white",
                 paddingBottom: "5px",
+                overflowX: "auto"
             },
             welcome:{
                 textAlign:"center",
@@ -162,7 +163,7 @@ class Informacion extends React.Component{
   
             <div className="container col-md-5 mb-10" style={styles.div}>               
                 <div className='row' style={styles.row}>
-                    <div className='col-3'>
+                    <div className='col-md-2' style={{textAlign: "center", margin:"auto"}}>
                         <img id="logo" src={logo} style={styles.logo}></img>
                     </div>
                     <div className='col-md-7' style={styles.information}>
@@ -211,17 +212,17 @@ class Informacion extends React.Component{
                         />
                         </div>                        
                     </div>
-                    <div className='col-md-4' style={styles.buttons}>
+                    <div className='col-md-3' style={styles.buttons}>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Clothes</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Cloth</Button></Link>
                         </div>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Bill</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Billing</Button></Link>
                         </div>
                     </div>
                 </div>
                 <div className='row' style={styles.rowBottom}>
-                    <div className='col-12'>
+                    <div className='col-12 ' style={{textAlign: "center", padding: "0"}}>
                     <Prendas display={this.state.clothes}/>
                     <Factura display={this.state.invoice}/>
                     </div>
