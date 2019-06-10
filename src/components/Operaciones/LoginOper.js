@@ -46,10 +46,10 @@ class LoginOper extends React.Component{
         const styles ={
             
             botonI:{
-                width: '85%',
+                width: '80%',
                 height: '45px',
                 marginBottom: '0px',
-                marginTop:'5px',
+                marginTop:'8px',
             },
             divInput:{
                 textAlign: 'center',

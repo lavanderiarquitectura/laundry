@@ -34,30 +34,7 @@ render(){
                     
                 ];
     
-    const rows = [
-            
-            [ 1,
-            "Pant",
-            "Yellow",
-            "Cotton",
-            "W / I",
-            "Washing"
-            ],
-            [ 2,
-            "Shirt",
-            "White",
-            "Cotton",
-            "W",
-            "Washing"
-            ],
-            [ 3,
-            "Jacket",
-            "Brown",
-            "Linio",
-            "W / I",
-            "Ironing"
-            ],
-        ];
+    const rows = [];
 
 
     return(

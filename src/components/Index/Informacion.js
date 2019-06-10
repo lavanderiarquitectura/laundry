@@ -101,7 +101,7 @@ class Informacion extends React.Component{
                 marginBottom: '0',
             },
             logo:{
-                width: '100%',
+                width: '80%',
                 marginLeft:'5px',
             },
             olvidaste:{
@@ -114,6 +114,7 @@ class Informacion extends React.Component{
                 marginTop:"5px",
             },
             text:{
+                width: "97%",
                 marginBottom:"3px",
             },
             textR:{

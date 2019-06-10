@@ -31,12 +31,15 @@ class Lotes extends React.Component{
           fabric: "",
           type: "",
           room: "",
+          lote: [],
         };
        this.changeState = this.changeState.bind(this);
        this.onChangeCloth = this.onChangeCloth.bind(this);
        this.onChangeColor = this.onChangeColor.bind(this);
        this.onChangeFabric = this.onChangeFabric.bind(this);
        this.onChangeRoom = this.onChangeRoom.bind(this);
+       this.addLote = this.addLote.bind(this);
+       this.add = this.add.bind(this);
     }
 
 
@@ -57,6 +60,42 @@ class Lotes extends React.Component{
             this.setState( {add: "block"})
         }
     }
+
+    async addLote(){
+		const request = require('request')
+        request.post('http://localhost:3005/api/items', {
+        json: {			
+            lote : this.state.lote,
+        }
+        }, (error, res, body) => {
+        if (error) {
+            console.error(error)
+            console.log(this.state.lote)
+            return
+        }else{         
+            window.location.reload()
+            console.log(this.state.lote)
+        
+
+        }
+        }
+        )}
+
+    add(){
+        var aux = []
+        aux.push([this.state.cloth, this.state.color, this.state.fabric])
+        this.setState(state => {
+            const lote = [...state.lote, aux];
+      
+            return {
+              lote,
+            };
+          });
+        console.log(aux)
+        console.log(this.state.lote)
+        }
+
+
 
 render(){
 
@@ -234,8 +273,8 @@ render(){
                 <div className="col">
                 </div>
                <div className="col-md-4" style={styles.div}>
-                 <Button  color="primary"  onClick={this.changeState} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
-                 <Button  color="secondary" variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
+                 <Button  color="primary"  onClick={this.add} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
+                 <Button  color="secondary" onClick={this.addLote} variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
                </div> 
                
 

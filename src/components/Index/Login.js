@@ -152,7 +152,7 @@ class Login extends React.Component{
                </div>
                <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
                 <div className="form-group" style={styles.divInput}>                
-                   <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
+                   <Link to="/informacion"><Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button></Link>
                 </div>
                <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
                </form>
