@@ -26,11 +26,13 @@ class Lotes extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          add: 'none',
+          
+          color: "",
+          room: "",
+          marca: "",
           cloth: "",
           fabric: "",
-          type: "",
-          room: "",
+          operacion: "",
           lote: [],
         };
        this.changeState = this.changeState.bind(this);
@@ -38,6 +40,8 @@ class Lotes extends React.Component{
        this.onChangeColor = this.onChangeColor.bind(this);
        this.onChangeFabric = this.onChangeFabric.bind(this);
        this.onChangeRoom = this.onChangeRoom.bind(this);
+       this.onChangeMarca= this.onChangeMarca.bind(this);
+       this.onChangeOperacion = this.onChangeOperacion.bind(this);
        this.addLote = this.addLote.bind(this);
        this.add = this.add.bind(this);
     }
@@ -54,6 +58,12 @@ class Lotes extends React.Component{
     }
     onChangeRoom(event){        
         this.setState({room: event.target.value})
+    }
+    onChangeMarca(event){        
+        this.setState({marca: event.target.value})
+    }
+    onChangeOperacion(event){        
+        this.setState({operacion: event.target.value})
     }
     changeState(){
         if(this.state.add == "none"){
@@ -82,11 +92,17 @@ class Lotes extends React.Component{
         )}
 
     add(){
+        var hoy = new Date();
+        var dd = hoy.getDate();
+        var mm = hoy.getMonth()+1;
+        var yyyy = hoy.getFullYear();
+        var fecha = yyyy+'-'+mm+'-'+dd;
+
         var aux = []
-        aux.push([this.state.cloth, this.state.color, this.state.fabric])
+
+        aux.push([this.state.color, this.state.room, this.state.marca, fecha, null, this.state.fabric, this.state.cloth,this.state.operacion ])
         this.setState(state => {
-            const lote = [...state.lote, aux];
-      
+            const lote = [...state.lote, aux];      
             return {
               lote,
             };
@@ -109,6 +125,19 @@ render(){
         add:{
             textAlign: "right"
         },
+        titleS:{
+            textAlign: "center",
+            margin:"0 0 8px 0",
+            color: "#020347",
+            fontFamily : 'Sanchez',
+        },
+        text:{
+            margin: "15px 0 0 0",
+            padding: "0",
+            fontSize:"22px",
+            color: "#020347",
+            fontFamily : 'Sanchez',
+        },
         button:{
            margin:"5px 3px 0 0",
            width:"45%",
@@ -128,6 +157,11 @@ render(){
         divInput:{
             textAlign: 'center',
             margin:"0 5px 0 0",
+            padding: "0"
+        },
+        divBtn:{
+            textAlign: 'center',
+            margin:"auto",
             padding: "0"
         },
         selector:{
@@ -158,7 +192,7 @@ render(){
                  <div className="col">
                 </div>
                 <div className="col-md-8" id="title">
-                    <h3 style={styles.title}>Add Lotes</h3>
+                    <h3 style={styles.title}>Lots</h3>
                 </div>  
                 <div className="col" id="addButton" style={styles.add}>
               </div>             
@@ -170,13 +204,31 @@ render(){
             </div>
             <div className="row">
                 <div className="container">
+                
+                <div className="row">
+                    <div className="form-group col" >
+                    </div>
+                    <div className="form-group col-md" style={styles.titleS}>
+                        <h3 style={styles.text}>Add Lot</h3>
+                    </div>
+                    <div className="form-group col-md">
+                    <TextField
+                                autoFocus
+                                id="room"
+                                onChange={this.onChangeRoom}
+                                label="Room"
+                                margin="normal"
+                                style = {styles.selector}
+                            />
+                    </div>
+                </div>
 
-                <form className="row" style={{marginLeft: "0"}}> 
+                <form id="Fila 1" className="row" style={{marginLeft: "0"}}> 
                
                <div className="form-group col-md" style={styles.divInput}>
                <FormControl style={styles.selector}>
                     <InputLabel shrink >
-                        Cloth
+                        Clothes
                     </InputLabel>
                     <Select
                     value={this.state.cloth}
@@ -253,36 +305,47 @@ render(){
                     <MenuItem value={"Wool"}>Wool</MenuItem>
                     </Select>
                 </FormControl>
-               </div>  
-               <div className="form-group col-md" style={styles.divInput}>
-                <TextField
-                            autoFocus
-                            id="room"
-                            onChange={this.onChangeRoom}
-                            label="Room"
-                            margin="normal"
-                            style = {styles.selector}
-                        />
-               </div>  
+               </div>
+
                </form>
 
+               <form id="Fila 2" className="row" style={{marginLeft: "0"}}> 
                
-               <div className="container">
-                <div className="row">
-
-                <div className="col">
-                </div>
-               <div className="col-md-4" style={styles.div}>
-                 <Button  color="primary"  onClick={this.add} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
-                 <Button  color="secondary" onClick={this.addLote} variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
-               </div> 
+               <div className="form-group col-md" style={styles.divInput}>
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                        Operacion
+                    </InputLabel>
+                    <Select
+                    value={this.state.operacion}
+                    input={<Input name="operacion" id="age-label-placeholder" />}                   
+                    onChange = {this.onChangeOperacion}        
+                    name="operacion"
+                    className=""
+                    >
+                    <MenuItem value={1}>Washing</MenuItem>
+                    <MenuItem value={2}>Ironing</MenuItem>
+                    <MenuItem value={3}>Full Service</MenuItem>
+                    </Select>
+                </FormControl>           
+               </div>
+               <div className="form-group col-md" style={styles.divInput}>               
+                <TextField
+                            autoFocus
+                            id="marca"
+                            onChange={this.onChangeMarca}
+                            label="Marca"
+                            margin="normal"
+                            style = {styles.selector}
+                        /> 
+               </div>
+               <div className="form-group col-md" style={styles.divBtn}>
+                    <Button  color="primary"  onClick={this.add} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></Button>
+                    <Button  color="secondary" onClick={this.addLote} variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
                
-
-               </div>
-               </div>
+               </div>                
+               </form>          
          
-             
-               
                 </div>
             
             </div>

@@ -235,7 +235,7 @@ class Operaciones extends React.Component{
             </div>
             <div className='row' style={styles.rowBottom}>
                     <div className="col-md-4" style={styles.divButton}>               
-                    <Link to='#'><ColorButtonB onClick={this.changeStateL} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lotes</ColorButtonB></Link>
+                    <Link to='#'><ColorButtonB onClick={this.changeStateL} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Add Lots</ColorButtonB></Link>
                     </div>
                     <div className="col-md-4" style={styles.divButton}>                
                     <Link to='#'><ColorButtonB onClick={this.changeStateO} variant="outlined" focusVisible style={styles.botonInicio} color="green">Operations</ColorButtonB></Link>

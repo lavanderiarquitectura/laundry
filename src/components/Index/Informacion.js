@@ -45,7 +45,7 @@ class Informacion extends React.Component{
     }
 
     componentDidMount(){          
-        return fetch("http://3.218.134.48:3005/api/users", {
+        return fetch("http://localhost:3005/api/users", {
             method: "GET",
             mode: "cors",
             headers: {
@@ -215,7 +215,7 @@ class Informacion extends React.Component{
                     </div>
                     <div className='col-md-3' style={styles.buttons}>
                         <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Cloth</Button></Link>
+                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Clothes</Button></Link>
                         </div>
                         <div className="" style={styles.divInput}>                
                         <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Billing</Button></Link>
