@@ -35,18 +35,11 @@ class Login extends React.Component{
        var cedula = this.state.personal_id
        var password = this.state.password
        
-        return fetch("http://localhost:3005/api/users/".concat(cedula,"/",password), {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin" : "*"
-            }
-          })
+        return axios.get("http://localhost:3005/api/users/".concat(cedula,"/",password))
           .then(json => {
             console.log(json);   
-            console.log(json.login);  
-            this.setState( {authentication: json.login})
+            console.log(json.data.login);  
+            this.setState( {authentication: json.data.login})
             return this.props.history.push('/informacion');  
             
                         
