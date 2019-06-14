@@ -29,7 +29,7 @@ class Register extends React.Component{
 
     async validate(){
 		const request = require('request')
-        request.post('http://localhost:3005/api/users', {
+        request.post('http://3.83.99.143:3005/api/users', {
         json: {			
                     name : this.state.name,
                     last_name : this.state.lastname,
@@ -82,9 +82,9 @@ class Register extends React.Component{
         }
         console.log(data);
         
-        axios.post('http://localhost:8085/api/users',{
+        axios.post('http://3.83.99.143:8085/api/users',{
             method: 'post',
-            url: '/localhost:8085/api/users',
+            url: '/3.83.99.143:8085/api/users',
             data: data
         })
         .then(function (response) {

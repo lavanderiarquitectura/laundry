@@ -42,7 +42,7 @@ class crudDevices extends React.Component{
     }
 
     async componentWillMount(){          
-      return axios.get("http://localhost:3005/devices")
+      return axios.get("http://3.83.99.143:3005/devices")
         .then(json => {
           console.log("Auth:");
           console.log(json);
@@ -74,7 +74,7 @@ class crudDevices extends React.Component{
        async createDevice(){
                  
             const request = require('request')
-            request.post('http://localhost:3005/devices', {
+            request.post('http://3.83.99.143:3005/devices', {
               json: {			
                 state : this.state.state,
                 type : this.state.type,

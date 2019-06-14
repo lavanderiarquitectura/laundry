@@ -73,7 +73,7 @@ class Lotes extends React.Component{
 
     async addLote(){
 		const request = require('request')
-        request.post('http://localhost:3005/api/items', {
+        request.post('http://3.83.99.143:3005/api/items', {
         json: {			
             lote : this.state.lote,
         }

@@ -45,7 +45,7 @@ class Login extends React.Component{
        var cedula = this.state.personal_id
        var password = this.state.password
        
-        return axios.get("http://localhost:3005/api/users/".concat(cedula,"/",password))
+        return axios.get("http://3.83.99.143:3005/api/users/".concat(cedula,"/",password))
           .then(json => {
 
             const history = createHistory();
