@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import axios from 'axios';
 
 
 import { ThemeProvider } from '@material-ui/styles';
@@ -41,33 +42,20 @@ class crudDevices extends React.Component{
     }
 
     async componentWillMount(){          
-      return fetch("http://localhost:3005/devices", {
-          method: "GET",
-          mode: "cors",
-          headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin" : "*"
-          }
-        })
-        .then(response => {
-          if (!response.ok) {
-            
-          }
-          return response.json();
-        })
+      return axios.get("http://localhost:3005/devices")
         .then(json => {
           console.log("Auth:");
           console.log(json);
           var device = []
           var row = [];
-          for(var i in json){
-            for(var j in (json[i])){
-              if(json[i][j] == 'true'){
+          for(var i in json.data){
+            for(var j in (json.data[i])){
+              if(json.data[i][j] == 'true'){
               row.push(true)
-              }else if(json[i][j] == 'false'){
+              }else if(json.data[i][j] == 'false'){
                 row.push(false)
               }else{
-              row.push(json[i][j]);
+              row.push(json.data[i][j]);
             }            
             }
             device.push(row)
@@ -75,7 +63,7 @@ class crudDevices extends React.Component{
           }
           
           console.log(device)
-         // this.setState({devices: device})
+          this.setState({devices: device})
         })
         .catch(error => {
           console.log(error);

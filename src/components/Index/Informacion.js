@@ -45,7 +45,7 @@ class Informacion extends React.Component{
     }
 
     componentDidMount(){          
-        return fetch("http://localhost:3005/api/users", {
+        return fetch("http://localhost:3005/api/users/recent", {
             method: "GET",
             mode: "cors",
             headers: {
@@ -62,7 +62,7 @@ class Informacion extends React.Component{
           .then(json => {
             console.log("Auth:");
             console.log(json);
-            this.setState({name: json.name, room: json.room})
+            this.setState({name: (json.name + " " +json.last_name), room: json.room_id})
 
                 
           })
