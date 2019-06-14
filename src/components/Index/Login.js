@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 import axios from 'axios';
 
+import store from '../../store'
 import createHistory from "history/createBrowserHistory";
 
 
@@ -40,6 +41,14 @@ class Login extends React.Component{
         
     }
 
+    addUser(){
+        store.dispatch({
+            type:  'ADD_USER',
+            payload: this.state.personal_id,
+        })
+        console.log("Fino")
+    }
+
     async obtenerAuth() {
 
        var cedula = this.state.personal_id
@@ -53,6 +62,7 @@ class Login extends React.Component{
             console.log(json.data.login);  
             this.setState( {authentication: json.data.login})
             if(json.data.login == "success"){
+                this.addUser()
                 this.redirection() 
 
             }else{

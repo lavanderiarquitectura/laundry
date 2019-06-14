@@ -19,20 +19,24 @@ import red from '@material-ui/core/colors/red';
 import Person from '@material-ui/icons/Person';
 import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 
+import store from '../../store'
 class Informacion extends React.Component{
 
 
     constructor(props) {
         super(props);
         this.state = {
-          name: 'Juan Felipe Contreras Correa',
-          room: '401',
+          name: '',
+          room: '',
           cloths: '0',
           invoice: 'none',
           clothes: 'none',
+          id: 'm',
         };
         this.changeStateC = this.changeStateC.bind(this);
        this.changeStateI = this.changeStateI.bind(this);
+       this.subscribe = this.subscribe.bind(this);
+       
       //  this.changeState = this.changeState.bind(this);
     }
 
@@ -42,9 +46,17 @@ class Informacion extends React.Component{
     }
     changeStateI(){
             this.setState( {clothes: "none", invoice:"block"})
+    }  
+
+    subscribe(){
+        this.setState({id: store.getState().user})
     }
 
-    componentDidMount(){          
+
+    componentDidMount(){       
+
+        
+
         return fetch("http://localhost:3005/api/users", {
             method: "GET",
             mode: "cors",
@@ -61,8 +73,17 @@ class Informacion extends React.Component{
           })
           .then(json => {
             console.log("Auth:");
+            this.subscribe()
+            var id_user = this.state.id
+            var pos = ""
+            for( var i in json){
+                if( json[i]["personal_id"] == id_user){
+                    pos = i
+                    break
+                }
+            }
+            this.setState({name: json[pos]["name"], room: json[pos]["room_id"]})
             console.log(json);
-            this.setState({name: json.name, room: json.room})
 
                 
           })
@@ -200,9 +221,9 @@ class Informacion extends React.Component{
                         <TextField
                             disabled
                             id="input-with-icon-textfield"
-                            label="Number cloths"
+                            label="Id Number"
                             style={styles.textC}
-                            value={this.state.cloths}
+                            value={this.state.id}
                             InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
