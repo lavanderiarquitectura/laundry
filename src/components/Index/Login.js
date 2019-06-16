@@ -13,6 +13,9 @@ import createHistory from "history/createBrowserHistory";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 class Login extends React.Component{
     
     constructor(props){
@@ -54,7 +57,7 @@ class Login extends React.Component{
        var cedula = this.state.personal_id
        var password = this.state.password
        
-        return axios.get("http://localhost:3005/api/users/".concat(cedula,"/",password))
+        return axios.get(back_end + "/api/users/".concat(cedula,"/",password))
           .then(json => {
 
             const history = createHistory();

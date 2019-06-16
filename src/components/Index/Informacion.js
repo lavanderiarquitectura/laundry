@@ -20,6 +20,10 @@ import Person from '@material-ui/icons/Person';
 import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 
 import store from '../../store'
+
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 class Informacion extends React.Component{
 
 
@@ -57,7 +61,7 @@ class Informacion extends React.Component{
 
         
 
-        return fetch("http://localhost:3005/api/users", {
+        return fetch(back_end + "/api/users", {
             method: "GET",
             mode: "cors",
             headers: {
@@ -82,7 +86,7 @@ class Informacion extends React.Component{
                     break
                 }
             }
-            this.setState({name: json[pos]["name"], room: json[pos]["room_id"]})
+            this.setState({name: json[pos]["name"] + " " + json[pos]["last_name"], room: json[pos]["room_id"]})
             console.log(json);
 
                 

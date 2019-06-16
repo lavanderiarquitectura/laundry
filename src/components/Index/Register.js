@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 import axios from 'axios';
 
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 class Register extends React.Component{
 
     constructor(props){
@@ -29,7 +32,7 @@ class Register extends React.Component{
 
     async validate(){
 		const request = require('request')
-        request.post('http://localhost:3005/api/users', {
+        request.post(back_end + '/api/users', {
         json: {			
                     name : this.state.name,
                     last_name : this.state.lastname,

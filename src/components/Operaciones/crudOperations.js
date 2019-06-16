@@ -17,6 +17,9 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 
 
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 
 class crudOperations extends React.Component{
 

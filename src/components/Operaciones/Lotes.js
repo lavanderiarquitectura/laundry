@@ -20,6 +20,9 @@ import Input from '@material-ui/core/Input';
 import AddCircle from '@material-ui/icons/AddCircle';
 
 
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 
 class Lotes extends React.Component{
 
@@ -73,7 +76,7 @@ class Lotes extends React.Component{
 
     async addLote(){
 		const request = require('request')
-        request.post('http://localhost:3005/api/items', {
+        request.post(back_end + '/api/items', {
         json: {			
             lote : this.state.lote,
         }

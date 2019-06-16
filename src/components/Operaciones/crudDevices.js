@@ -25,6 +25,9 @@ import Input from '@material-ui/core/Input';
 import AddCircle from '@material-ui/icons/AddCircle';
 
 
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 class crudDevices extends React.Component{
 
     constructor(props) {
@@ -41,7 +44,7 @@ class crudDevices extends React.Component{
     }
 
     async componentWillMount(){          
-      return fetch("http://localhost:3005/devices", {
+      return fetch(back_end + "/devices", {
           method: "GET",
           mode: "cors",
           headers: {
@@ -86,7 +89,7 @@ class crudDevices extends React.Component{
        async createDevice(){
                  
             const request = require('request')
-            request.post('http://localhost:3005/devices', {
+            request.post(back_end + '/devices', {
               json: {			
                 state : this.state.state,
                 type : this.state.type,
