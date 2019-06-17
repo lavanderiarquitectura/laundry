@@ -2,7 +2,8 @@ import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon ,MDBBtn} from "mdbreact";
-
+import store from '../store';
+import Power from '@material-ui/icons/PowerSettingsNew';
 class NavbarLog extends React.Component {
 
   constructor(props) {
@@ -11,10 +12,18 @@ class NavbarLog extends React.Component {
       isOpen: false
     };
     this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.outSesion = this.outSesion.bind(this);
 }
 
 toggleCollapse = () => {
   this.setState({ isOpen: !this.state.isOpen });
+}
+
+outSesion= () => {
+  store.dispatch({
+    type:  "OUT",
+    payload: "block",
+})
 }
 
 
@@ -40,22 +49,22 @@ render() {
   }
 
   return (
+    <div style={{display : store.getState().navlog}} >
     <MDBNavbar color="grey lighten-5" dark expand="md" >
       <MDBNavbarBrand style={styles.logo}>
          <MDBNavLink to="/" className="indigo-text" style={styles.text}>Cruise Laundry</MDBNavLink>
       </MDBNavbarBrand>
-      <MDBNavbarToggler onClick={this.toggleCollapse} />
-      <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+     
         <MDBNavbarNav left>
  
         </MDBNavbarNav>
-        <MDBNavbarNav right>
+        <MDBNavbarNav right>                   
           <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/" className="indigo-text">Logout</MDBNavLink>
-          </MDBNavItem> 
+            <MDBNavLink to="/"className="indigo-text"><Power onClick={this.outSesion()}/></MDBNavLink>
+          </MDBNavItem>  
         </MDBNavbarNav>
-      </MDBCollapse>
     </MDBNavbar>
+    </div>
     );
   }
 }

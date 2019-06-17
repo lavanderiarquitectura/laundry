@@ -12,8 +12,18 @@ import Operaciones from './components/Index/Operaciones';
 
 import LoginOper from './components/Operaciones/LoginOper';
 
+import store from '../../laundry/src/store'
+
 
 class App extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state={
+    }
+
+}
+  
   render(){
     const styles ={
       nav :{
@@ -28,6 +38,7 @@ class App extends React.Component{
     return(
       <div style={styles.nav}>
       <Navbar/>
+      <NavbarLog/>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login/operaciones" component={LoginOper} />

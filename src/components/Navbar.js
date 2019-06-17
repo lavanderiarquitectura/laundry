@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon ,MDBBtn} from "mdbreact";
+import store from '../store';
 
 class Navbar extends React.Component {
 
@@ -40,6 +41,7 @@ render() {
   }
 
   return (
+    <div style={{display : store.getState().nav}} >
     <MDBNavbar color="grey lighten-5" dark expand="md" >
       <MDBNavbarBrand style={styles.logo}>
          <MDBNavLink to="/" className="indigo-text" style={styles.text}>Cruise Laundry</MDBNavLink>
@@ -59,6 +61,7 @@ render() {
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
+    </div>
     );
   }
 }

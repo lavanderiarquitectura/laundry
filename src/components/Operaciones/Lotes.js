@@ -101,26 +101,16 @@ class Lotes extends React.Component{
     }
 
     async addLote(){
-        var myLote = JSON.stringify(lote);
-        var prueba = JSON.stringify({color: "Caca Last-Gen",id_cuarto: 1,marca: "La del Chino",
-        fecha_ingreso: "2019-06-19",fecha_entrega: null,tipo_tela_id_tipo_tela: 2,
-    tipo_operacion_id_tipo_operacion: 2,tipo_prenda_id_tipo_prenda: 1 })
-		const request = require('request')
-        request.post(back_end + '/cloth_register/create_list', {
-        headers: {'Content-type' : 'application/x-www-form-urlencoded'},
-        json: {			
-            lote : prueba 
-        }
-        }, (error, res, body) => {
-        if (error) {
-            console.error(error)
-        }else{                     
-            console.log(prueba)  
-        }
-        }
-        )}
 
-    
+        fetch(back_end + '/cloth_register/create_list', {
+            method: 'post',
+            body: JSON.stringify(lote),
+            headers: { 'Content-type': 'application/json' }
+          }).then(function(res){ return res.json(); })
+          .then(function(lote){
+          console.warn(lote)
+          })
+        }    
 
     add(){
         var hoy = new Date();

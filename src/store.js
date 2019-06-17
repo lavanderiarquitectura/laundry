@@ -16,7 +16,19 @@ const reducer =(state, action) => {
           return {
             ...state, 
             lote: lotes
-          };        
+          };  
+        case "LOGIN":
+              return {
+                ...state, 
+                nav: action.payload,
+                navlog: "block"
+              };     
+        case "OUT":
+              return {
+                ...state, 
+                nav: action.payload,
+                navlog: "none"
+              };   
           
       default:
          return state;
@@ -24,4 +36,4 @@ const reducer =(state, action) => {
     
   }
 
-export default createStore(reducer, { user: "", lote: []});
+export default createStore(reducer, { user: "", lote: [], estado: 0, nav: "block", navlog:"none"});

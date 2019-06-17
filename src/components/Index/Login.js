@@ -84,11 +84,16 @@ class Login extends React.Component{
             console.log(json);   
             console.log(json.data.personalId);  
            // this.setState( {authentication: json.data.login})
-            if(json.data.personalId != -1){
+            if(json.data.personalId == -1){
+                store.dispatch({
+                    type:  "LOGIN",
+                    payload: "none",
+                })
                 this.addUser()
-                this.redirection() 
-
+                this.redirection()
+                
             }else{
+               
                 console.log(json.data.personalId);  
                 window.location.reload();
             }
