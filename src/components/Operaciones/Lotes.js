@@ -10,6 +10,9 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Table from "../Auxiliares/Table";
 
 
+import store from '../../store'
+
+
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -23,8 +26,14 @@ import AddCircle from '@material-ui/icons/AddCircle';
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
+var prenda = new Object();
+var lote = new Array();
+var id = 1;
+var row = [];
 
 class Lotes extends React.Component{
+
+    
 
     constructor(props) {
         super(props);
@@ -37,6 +46,7 @@ class Lotes extends React.Component{
           fabric: "",
           operacion: "",
           lote: [],
+          row: [],
         };
        this.changeState = this.changeState.bind(this);
        this.onChangeCloth = this.onChangeCloth.bind(this);
@@ -47,8 +57,24 @@ class Lotes extends React.Component{
        this.onChangeOperacion = this.onChangeOperacion.bind(this);
        this.addLote = this.addLote.bind(this);
        this.add = this.add.bind(this);
+
+       this.subscribe = this.subscribe.bind(this);
     }
 
+    componentDidMount(){  
+        this.subscribe()
+    }
+
+    subscribe(){
+        var lotes = store.getState().lote
+        console.log("Lotes obtenidos")
+        console.log(lotes)
+        var row = []
+        for(var i in lotes){           
+              row.push(lotes[i]);
+        }           
+        console.log("Rows")
+    }
 
     onChangeCloth(event){        
         this.setState({cloth: event.target.value})
@@ -75,43 +101,77 @@ class Lotes extends React.Component{
     }
 
     async addLote(){
+        var myLote = JSON.stringify(lote);
 		const request = require('request')
-        request.post(back_end + '/api/items', {
+        request.post(back_end + '/cloth_register/create_list', {
         json: {			
-            lote : this.state.lote,
+            lote : myLote,
         }
         }, (error, res, body) => {
         if (error) {
             console.error(error)
-            console.log(this.state.lote)
             return
         }else{         
-            window.location.reload()
-            console.log(this.state.lote)
-        
+            //window.location.reload()
+            console.log(myLote)      
 
         }
         }
         )}
+
+    
 
     add(){
         var hoy = new Date();
         var dd = hoy.getDate();
         var mm = hoy.getMonth()+1;
         var yyyy = hoy.getFullYear();
+
+        var pren = []
+
+        if(mm < 10){
+            mm = "0"+String(mm)
+        }
+
         var fecha = yyyy+'-'+mm+'-'+dd;
+        console.log(mm)
 
-        var aux = []
+        prenda.color = this.state.color;
+        prenda.id_cuarto = this.state.room;
+        prenda.marca = this.state.marca;
+        prenda.fecha_ingreso = fecha;
+        prenda.fecha_entrega = null;
+        prenda.tipo_tela_id_tipo_tela = this.state.fabric;
+        prenda.tipo_operacion_id_tipo_operacion = this.state.operacion;
+        prenda.tipo_prenda_id_tipo_prenda = this.state.cloth;
+        pren.push(id)
+        pren.push(this.state.cloth)
+        pren.push(this.state.color)
+        pren.push(this.state.fabric)
+        pren.push(this.state.operacion)
+        pren.push(this.state.marca)
 
-        aux.push([this.state.color, this.state.room, this.state.marca, fecha, null, this.state.fabric, this.state.cloth,this.state.operacion ])
+        id = id +1;
+        
+        /*aux.push([this.state.color, this.state.room, this.state.marca, fecha, null, this.state.fabric, this.state.cloth,this.state.operacion ])
         this.setState(state => {
             const lote = [...state.lote, aux];      
             return {
               lote,
             };
-          });
-        console.log(aux)
-        console.log(this.state.lote)
+          });*/
+
+        store.dispatch({
+            type:  'ADD_PRENDA',
+            payload: pren,
+        })
+        console.log("prenda enviada")
+        console.log(pren)
+        row.push(pren)
+
+        this.setState({row: row})
+
+        lote.push(prenda)
         }
 
 
@@ -189,7 +249,7 @@ render(){
                     'Marca'
                 ];
     
-    const rows = [];
+    const rows = this.state.row;
 
 
     return(
@@ -243,19 +303,19 @@ render(){
                     name="cloth"
                     className=""
                     >
-                    <MenuItem value={"T-Shirt"}>T-Shirt</MenuItem>
-                    <MenuItem value={"Shirt"}>Shirt</MenuItem>
-                    <MenuItem value={"Sweater"}>Sweater</MenuItem>
-                    <MenuItem value={"Jacket"}>Jacket</MenuItem>
-                    <MenuItem value={"Coat"}>Coat</MenuItem>
-                    <MenuItem value={"Jeans"}>Jeans</MenuItem>
-                    <MenuItem value={"Pants"}>Pants</MenuItem>
-                    <MenuItem value={"Socks"}>Socks</MenuItem>
-                    <MenuItem value={"Shorts"}>Shorts</MenuItem>
-                    <MenuItem value={"Skirt"}>Skirt</MenuItem>
-                    <MenuItem value={"Dress"}>Dress</MenuItem>
-                    <MenuItem value={"Blouse"}>Blouse</MenuItem>
-                    <MenuItem value={"Briefs"}>Briefs</MenuItem>
+                    <MenuItem value={1}>T-Shirt</MenuItem>
+                    <MenuItem value={2}>Shirt</MenuItem>
+                    <MenuItem value={3}>Sweater</MenuItem>
+                    <MenuItem value={4}>Jacket</MenuItem>
+                    <MenuItem value={5}>Coat</MenuItem>
+                    <MenuItem value={6}>Jeans</MenuItem>
+                    <MenuItem value={7}>Pants</MenuItem>
+                    <MenuItem value={8}>Socks</MenuItem>
+                    <MenuItem value={9}>Shorts</MenuItem>
+                    <MenuItem value={10}>Skirt</MenuItem>
+                    <MenuItem value={11}>Dress</MenuItem>
+                    <MenuItem value={12}>Blouse</MenuItem>
+                    <MenuItem value={13}>Briefs</MenuItem>
                     </Select>
                 </FormControl>
                 
@@ -272,19 +332,19 @@ render(){
                     name="color"
                     className=""
                     >
-                    <MenuItem value={"Blue"}>Blue</MenuItem>
-                    <MenuItem value={"Green"}>Green</MenuItem>
-                    <MenuItem value={"Red"}>Red</MenuItem>
-                    <MenuItem value={"Brown"}>Brown</MenuItem>
-                    <MenuItem value={"Yellow"}>Yellow</MenuItem>
-                    <MenuItem value={"Gray"}>Gray</MenuItem>
-                    <MenuItem value={"Black"}>Black</MenuItem>
-                    <MenuItem value={"White"}>White</MenuItem>
-                    <MenuItem value={"Orange"}>Orange</MenuItem>
-                    <MenuItem value={"Purpĺe"}>Purpĺe</MenuItem>
-                    <MenuItem value={"Pink"}>Pink</MenuItem>
-                    <MenuItem value={"Beige"}>Beige</MenuItem>
-                    <MenuItem value={"Various"}>Various</MenuItem>
+                    <MenuItem value={1}>Blue</MenuItem>
+                    <MenuItem value={2}>Green</MenuItem>
+                    <MenuItem value={3}>Red</MenuItem>
+                    <MenuItem value={4}>Brown</MenuItem>
+                    <MenuItem value={5}>Yellow</MenuItem>
+                    <MenuItem value={6}>Gray</MenuItem>
+                    <MenuItem value={7}>Black</MenuItem>
+                    <MenuItem value={8}>White</MenuItem>
+                    <MenuItem value={9}>Orange</MenuItem>
+                    <MenuItem value={10}>Purpĺe</MenuItem>
+                    <MenuItem value={11}>Pink</MenuItem>
+                    <MenuItem value={12}>Beige</MenuItem>
+                    <MenuItem value={13}>Various</MenuItem>
                     </Select>
                 </FormControl>
                </div>
@@ -300,15 +360,15 @@ render(){
                     name="fabric"
                     className=""
                     >
-                    <MenuItem value={"Acrylic"}>Acrylic</MenuItem>
-                    <MenuItem value={"Cotton"}>Cotton</MenuItem>
-                    <MenuItem value={"Denim"}>Denim</MenuItem> 
-                    <MenuItem value={"Flannel"}>Flannel</MenuItem>
-                    <MenuItem value={"Leather"}>Leather</MenuItem>
-                    <MenuItem value={"Linen"}>Linen</MenuItem>
-                    <MenuItem value={"Silk"}>Silk</MenuItem>
-                    <MenuItem value={"Velvet"}>Velvet</MenuItem>
-                    <MenuItem value={"Wool"}>Wool</MenuItem>
+                    <MenuItem value={1}>Acrylic</MenuItem>
+                    <MenuItem value={2}>Cotton</MenuItem>
+                    <MenuItem value={3}>Denim</MenuItem> 
+                    <MenuItem value={4}>Flannel</MenuItem>
+                    <MenuItem value={5}>Leather</MenuItem>
+                    <MenuItem value={6}>Linen</MenuItem>
+                    <MenuItem value={7}>Silk</MenuItem>
+                    <MenuItem value={8}>Velvet</MenuItem>
+                    <MenuItem value={9}>Wool</MenuItem>
                     </Select>
                 </FormControl>
                </div>
