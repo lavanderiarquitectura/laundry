@@ -57,18 +57,39 @@ class Login extends React.Component{
        var cedula = this.state.personal_id
        var password = this.state.password
        
-        return axios.get(back_end + "/api/users/".concat(cedula,"/",password))
+      /* const request = require('request')
+       request.post("http://54.147.135.22:3001/ldap-auth/api/auth/".concat(cedula,"/",password), {
+         headers: {
+              "Content-Type": "text/plain",
+              "Access-Control-Allow-Origin" : "*",
+              
+          }
+       }, (error, res, body) => {
+         if (error) {
+           console.error(error)
+           return                                       
+         }else{
+           console.log("Efectivo")
+           console.log(body)
+           
+         }
+       }                        
+       )}*/
+
+        return axios.get("http://54.147.135.22:3001/ldap-auth/api/auth/".concat(cedula,"/",password))
+        
           .then(json => {
 
             const history = createHistory();
             console.log(json);   
-            console.log(json.data.login);  
-            this.setState( {authentication: json.data.login})
-            if(json.data.login == "success"){
+            console.log(json.data.personalId);  
+           // this.setState( {authentication: json.data.login})
+            if(json.data.personalId != -1){
                 this.addUser()
                 this.redirection() 
 
             }else{
+                console.log(json.data.personalId);  
                 window.location.reload();
             }
                      
@@ -77,7 +98,8 @@ class Login extends React.Component{
           .catch(error => {
             console.log(error);
           });
-      }
+        }
+      
 
      
 

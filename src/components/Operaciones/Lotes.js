@@ -102,19 +102,20 @@ class Lotes extends React.Component{
 
     async addLote(){
         var myLote = JSON.stringify(lote);
+        var prueba = JSON.stringify({color: "Caca Last-Gen",id_cuarto: 1,marca: "La del Chino",
+        fecha_ingreso: "2019-06-19",fecha_entrega: null,tipo_tela_id_tipo_tela: 2,
+    tipo_operacion_id_tipo_operacion: 2,tipo_prenda_id_tipo_prenda: 1 })
 		const request = require('request')
         request.post(back_end + '/cloth_register/create_list', {
+        headers: {'Content-type' : 'application/x-www-form-urlencoded'},
         json: {			
-            lote : myLote,
+            lote : prueba 
         }
         }, (error, res, body) => {
         if (error) {
             console.error(error)
-            return
-        }else{         
-            //window.location.reload()
-            console.log(myLote)      
-
+        }else{                     
+            console.log(prueba)  
         }
         }
         )}
@@ -144,6 +145,7 @@ class Lotes extends React.Component{
         prenda.tipo_tela_id_tipo_tela = this.state.fabric;
         prenda.tipo_operacion_id_tipo_operacion = this.state.operacion;
         prenda.tipo_prenda_id_tipo_prenda = this.state.cloth;
+        
         pren.push(id)
         pren.push(this.state.cloth)
         pren.push(this.state.color)
