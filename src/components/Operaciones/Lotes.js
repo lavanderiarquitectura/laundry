@@ -106,10 +106,13 @@ class Lotes extends React.Component{
             method: 'post',
             body: JSON.stringify(lote),
             headers: { 'Content-type': 'application/json' }
-          }).then(function(res){ return res.json(); })
+          }).then(function(res){ window.location.reload(); return res.json(); })
           .then(function(lote){
+            
           console.warn(lote)
           })
+
+        
         }    
 
     add(){

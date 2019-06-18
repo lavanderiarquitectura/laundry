@@ -28,6 +28,12 @@ const reducer =(state, action) => {
                 ...state, 
                 nav: action.payload,
                 navlog: "none"
+              }; 
+        case "TOKEN":
+              return {
+                ...state, 
+                token: action.payload,
+               
               };   
           
       default:
@@ -36,4 +42,4 @@ const reducer =(state, action) => {
     
   }
 
-export default createStore(reducer, { user: "", lote: [], estado: 0, nav: "block", navlog:"none"});
+export default createStore(reducer, { user: "", lote: [], estado: 0, nav: "block", navlog:"none", token:""});

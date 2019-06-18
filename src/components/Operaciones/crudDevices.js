@@ -21,9 +21,9 @@ import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 
 import Input from '@material-ui/core/Input';
-
+import store from '../../store'
 import AddCircle from '@material-ui/icons/AddCircle';
-
+//+"?token="+token
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
@@ -43,7 +43,8 @@ class crudDevices extends React.Component{
        this.componentWillMount = this.componentWillMount.bind(this);    
     }
 
-    async componentWillMount(){          
+    async componentWillMount(){     
+      var token = store.getState().token    
       return fetch(back_end + "/devices", {
           method: "GET",
           mode: "cors",

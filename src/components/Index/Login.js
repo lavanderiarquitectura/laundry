@@ -76,24 +76,22 @@ class Login extends React.Component{
        }                        
        )}*/
 
-        return axios.get("http://54.147.135.22:3001/ldap-auth/api/auth/".concat(cedula,"/",password))
+        return axios.get("http://localhost:3005/authenticate".concat(cedula,"/",password))
         
           .then(json => {
 
             const history = createHistory();
             console.log(json);   
-            console.log(json.data.personalId);  
+            console.log(json.data.login);
+            store.dispatch({
+                type:  "TOKEN",
+                payload: json.data.login,
+            }) 
            // this.setState( {authentication: json.data.login})
-            if(json.data.personalId == -1){
-                store.dispatch({
-                    type:  "LOGIN",
-                    payload: "none",
-                })
+            if(json.data.login != undefined && json.data.login != "failure"){
                 this.addUser()
-                this.redirection()
-                
-            }else{
-               
+                this.redirection()                
+            }else{               
                 console.log(json.data.personalId);  
                 window.location.reload();
             }

@@ -4,7 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
+import store from '../../store'
+import createHistory from "history/createBrowserHistory";
 class LoginOper extends React.Component{
 
 
@@ -19,7 +22,7 @@ class LoginOper extends React.Component{
         };
        this.handleChangeUser = this.handleChangeUser.bind(this);
        this.handleChangePass = this.handleChangePass.bind(this);
-       this.validate = this.validate.bind(this);
+       this.obtenerAuth = this.obtenerAuth.bind(this);
     }
 
     handleChangeUser(event){        
@@ -37,6 +40,38 @@ class LoginOper extends React.Component{
         }
         
     }
+
+    async obtenerAuth() {
+
+        var user = this.state.user
+        var password = this.state.password
+           
+ 
+         return axios.get("http://localhost:3005/authenticate_operator".concat(user,"/",password))
+         
+           .then(json => {
+ 
+             const history = createHistory();
+             console.log(json);   
+             console.log(json.data.login);
+             store.dispatch({
+                 type:  "TOKEN",
+                 payload: json.data.login,
+             }) 
+            // this.setState( {authentication: json.data.login})
+             if(json.data.login != undefined && json.data.login != "failure"){
+                return this.props.history.push('/operaciones');              
+             }else{
+                 window.location.reload();
+             }
+                      
+                         
+           })
+           .catch(error => {
+             console.log(error);
+           });
+         }
+       
 
     
     render(){
