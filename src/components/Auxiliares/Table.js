@@ -112,7 +112,6 @@ class Table extends React.Component{
 			{rows[rowIndex].map((element) => {
 			  return (
 				<Cell
-				  key={`row-${rowIndex}-${rows[rowIndex].indexOf(element)}`}
 				  content={element}
 				/>
 			  )

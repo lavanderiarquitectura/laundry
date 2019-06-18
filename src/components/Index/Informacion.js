@@ -58,10 +58,11 @@ class Informacion extends React.Component{
 
 
     componentDidMount(){       
-
-        
-
-        return fetch(back_end + "/api/users", {
+	
+		
+	      var token = store.getState().token   
+		console.log(token)
+        return fetch(back_end + "/api/users"+"?token="+token, {
             method: "GET",
             mode: "cors",
             headers: {

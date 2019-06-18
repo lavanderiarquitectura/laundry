@@ -12,7 +12,7 @@ import Operaciones from './components/Index/Operaciones';
 
 import LoginOper from './components/Operaciones/LoginOper';
 
-import store from '../../laundry/src/store'
+import store from './store'
 
 
 class App extends React.Component{

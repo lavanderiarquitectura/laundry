@@ -8,6 +8,10 @@ import axios from 'axios';
 
 import store from '../../store'
 import createHistory from "history/createBrowserHistory";
+
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
+
 class LoginOper extends React.Component{
 
 

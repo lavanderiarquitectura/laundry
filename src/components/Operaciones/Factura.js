@@ -23,7 +23,7 @@ class Factura extends React.Component{
     constructor(props) {
         super(props);
         this.state = {          
-            total: "140000"
+            total: "0"
 
         };
       //  this.changeState = this.changeState.bind(this);
@@ -68,24 +68,7 @@ render(){
     
     const rows = [
             
-            [ 1,
-            "Pant",
-            "Yellow",
-            "W / I",
-            "50000"
-            ],
-            [ 2,
-            "Shirt",
-            "White",
-            "W",
-            "40000"
-            ],
-            [ 3,
-            "Jacket",
-            "Brown",
-            "W / I",
-            "50000"
-            ],
+
         ];
 
 
