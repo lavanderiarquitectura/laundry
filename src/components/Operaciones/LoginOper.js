@@ -32,14 +32,7 @@ class LoginOper extends React.Component{
         this.setState({password: event.target.value})
     }
 
-    validate(){
-        if(this.state.user == 'admin' && this.state.password == "admin123"){
-            return this.props.history.push('/operaciones');
-        }else{
-            window.location.reload()
-        }
-        
-    }
+   
 
     async obtenerAuth() {
 
@@ -47,7 +40,7 @@ class LoginOper extends React.Component{
         var password = this.state.password
            
  
-         return axios.get("http://localhost:3005/authenticate_operator".concat(user,"/",password))
+         return axios.get("http://localhost:3005/authenticate_operator/".concat(user,"/",password))
          
            .then(json => {
  
@@ -141,7 +134,7 @@ class LoginOper extends React.Component{
                     />
                </div>
                 <div className="form-group" style={styles.divInput}>                
-                    <Button onClick={this.validate} variant="outlined" focusVisible style={styles.botonI} color="primary">Login</Button>
+                    <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonI} color="primary">Login</Button>
                 </div>
               </form>
                 

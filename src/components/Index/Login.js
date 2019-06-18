@@ -76,7 +76,7 @@ class Login extends React.Component{
        }                        
        )}*/
 
-        return axios.get("http://localhost:3005/authenticate".concat(cedula,"/",password))
+        return axios.get("http://localhost:3005/authenticate/".concat(cedula,"/",password))
         
           .then(json => {
 

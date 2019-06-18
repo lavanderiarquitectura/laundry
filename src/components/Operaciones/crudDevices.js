@@ -22,12 +22,13 @@ import blue from '@material-ui/core/colors/blue';
 
 import Input from '@material-ui/core/Input';
 import store from '../../store'
+
+import createHistory from "history/createBrowserHistory";
 import AddCircle from '@material-ui/icons/AddCircle';
 //+"?token="+token
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
-
 class crudDevices extends React.Component{
 
     constructor(props) {
@@ -40,12 +41,13 @@ class crudDevices extends React.Component{
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
        this.createDevice = this.createDevice.bind(this);
-       this.componentWillMount = this.componentWillMount.bind(this);    
+       this.componentWillMount = this.componentWillMount.bind(this); 
     }
 
-    async componentWillMount(){     
-      var token = store.getState().token    
-      return fetch(back_end + "/devices", {
+    async componentWillMount(){      
+      
+      var token = store.getState().token   
+      return fetch("http://localhost:3005/devices"+"?token="+token, {
           method: "GET",
           mode: "cors",
           headers: {
@@ -86,11 +88,13 @@ class crudDevices extends React.Component{
         });
     }
 
+    
   
        async createDevice(){
-                 
+        const history = createHistory();
+          var token = store.getState().token  
             const request = require('request')
-            request.post(back_end + '/devices', {
+            request.post('http://localhost:3005/devices'+"?token="+token, {
               json: {			
                 state : this.state.state,
                 type : this.state.type,

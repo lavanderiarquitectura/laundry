@@ -14,12 +14,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import store from '../../store'
 import Input from '@material-ui/core/Input';
 
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
-
+var washers = []
+var irons = []
 
 class crudOperations extends React.Component{
 
@@ -32,15 +34,89 @@ class crudOperations extends React.Component{
           devicesP: '',
           loteP: '',
           loteF: '',
+          washer: [],
+          iron: [],
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
        this.onChangeDP = this.onChangeDP.bind(this);
        this.onChangeLP = this.onChangeLP.bind(this);
        this.onChangeLF = this.onChangeLF.bind(this);
+       this.washer = this.washer.bind(this);
+       this.iron = this.iron.bind(this);
        
     }
+    componentDidMount(){     
 
+       this.washer()
+       this.iron()
+
+        
+      }
+
+    
+
+    washer(){
+        var token = store.getState().token    
+        return fetch("http://localhost:3005/devices/byType/Washer"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {          
+            this.setState({washer: json})
+
+            console.log("Lavadoras");
+            console.log(json);
+            console.log(json[1]["id"]);
+            console.log(this.state.washer[1]["id"]);
+            for (var i = 0; i < json.length; i++) {
+              washers.push(<MenuItem value={i}>{this.state.washer[i]["id"]}</MenuItem>);
+            }
+                
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
+    iron(){
+        var token = store.getState().token    
+        return fetch("http://localhost:3005/devices/byType/Iron"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {          
+            this.setState({iron: json})
+            console.log("Planchas");
+            console.log(json);
+            for (var i = 0; i < json.length; i++) {
+                irons.push(<MenuItem value={i}>{this.state.iron[i]["id"]}</MenuItem>);
+            }
+                
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
 
     onChangeD(event){
         this.setState({devices: event.target.value})
@@ -77,6 +153,8 @@ render(){
             fontFamily : 'Sanchez',
         },
     }
+  
+    
 
     const Lavado = (
         <div className='container' style={{marginTop: "5px"}}>
@@ -95,8 +173,7 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>Lavadora</MenuItem>
-                    <MenuItem value={2}>Plancha</MenuItem>
+                    {washers}
                     </Select>
                 </FormControl>
 
@@ -111,8 +188,7 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
+                    
                     </Select>
                 </FormControl>
                 
@@ -132,8 +208,7 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>Lavadora</MenuItem>
-                    <MenuItem value={2}>Plancha</MenuItem>
+                    {irons}
                     </Select>
                 </FormControl>
 
