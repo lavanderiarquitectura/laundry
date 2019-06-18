@@ -58,7 +58,7 @@ class crudOperations extends React.Component{
 
     washer(){
         var token = store.getState().token    
-        return fetch("http://localhost:3005/devices/byType/Washer"+"?token="+token, {
+        return fetch(back_end + "/devices/byType/Washer"+"?token="+token, {
             method: "GET",
             mode: "cors",
             headers: {
@@ -90,7 +90,7 @@ class crudOperations extends React.Component{
     }
     iron(){
         var token = store.getState().token    
-        return fetch("http://localhost:3005/devices/byType/Iron"+"?token="+token, {
+        return fetch(back_end + "/devices/byType/Iron"+"?token="+token, {
             method: "GET",
             mode: "cors",
             headers: {

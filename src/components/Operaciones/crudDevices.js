@@ -47,7 +47,7 @@ class crudDevices extends React.Component{
     async componentWillMount(){      
       
       var token = store.getState().token   
-      return fetch("http://localhost:3005/devices"+"?token="+token, {
+      return fetch(back_end + "/devices"+"?token="+token, {
           method: "GET",
           mode: "cors",
           headers: {
@@ -94,7 +94,7 @@ class crudDevices extends React.Component{
         const history = createHistory();
           var token = store.getState().token  
             const request = require('request')
-            request.post('http://localhost:3005/devices'+"?token="+token, {
+            request.post(back_end + '/devices'+"?token="+token, {
               json: {			
                 state : this.state.state,
                 type : this.state.type,
