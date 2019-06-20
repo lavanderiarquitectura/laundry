@@ -44,7 +44,7 @@ class LoginOper extends React.Component{
         var password = this.state.password
            
  
-         return axios.get(back_end + "/authenticate_operator/".concat(user,"/",password))
+         return axios.get(back_end+"/authenticate_operator/".concat(user,"/",password))
          
            .then(json => {
  

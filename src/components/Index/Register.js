@@ -33,25 +33,27 @@ class Register extends React.Component{
     async validate(){
 		const request = require('request')
         request.post(back_end + '/api/users', {
+        headers: { 'Content-type': 'text/plain' },
         json: {			
                     name : this.state.name,
                     last_name : this.state.lastname,
                     personal_id: this.state.idnumber,
                     password: this.state.password,
                     room_id: this.state.room,
-                    isActive: true
+                    username: this.state.idnumber
         }
         }, (error, res, body) => {
         if (error) {
             console.error(error)
             return
         }else{
+            console.log("Logre registrarme")
             for( var i in this.state){
                 if( i == null){
                     window.location.reload()
                 }
             }
-            return this.props.history.push('/');
+           return this.props.history.push('/');
 
         }
         }

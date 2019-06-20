@@ -22,7 +22,7 @@ import blue from '@material-ui/core/colors/blue';
 
 import Input from '@material-ui/core/Input';
 import store from '../../store'
-
+import { withRouter } from "react-router";
 import createHistory from "history/createBrowserHistory";
 import AddCircle from '@material-ui/icons/AddCircle';
 //+"?token="+token
@@ -41,9 +41,10 @@ class crudDevices extends React.Component{
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
        this.createDevice = this.createDevice.bind(this);
+      
        this.componentWillMount = this.componentWillMount.bind(this); 
     }
-
+    
     async componentWillMount(){      
       
       var token = store.getState().token   
@@ -91,22 +92,20 @@ class crudDevices extends React.Component{
     
   
        async createDevice(){
-        const history = createHistory();
           var token = store.getState().token  
             const request = require('request')
             request.post(back_end + '/devices'+"?token="+token, {
               json: {			
                 state : this.state.state,
                 type : this.state.type,
-                lotId : null,
+                lotId : 0,
               }
             }, (error, res, body) => {
               if (error) {
-                console.error(error)
-                return                                       
+                console.error(error)                                      
               }else{
-                console.log("Efectivo")
-                window.location.reload()
+                console.log("Efectivo") 
+                window.location.reload();
                 
               }
             }                        
