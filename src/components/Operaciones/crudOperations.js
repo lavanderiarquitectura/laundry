@@ -36,6 +36,9 @@ class crudOperations extends React.Component{
           loteF: '',
           washer: [],
           iron: [],
+          lavado: [],
+          planchado: [],
+          lavplan: []
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
@@ -53,7 +56,6 @@ class crudOperations extends React.Component{
 
         
       }
-
     
 
     washer(){

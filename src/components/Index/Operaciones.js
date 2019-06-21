@@ -20,6 +20,9 @@ import CrudDevices from '../../components/Operaciones/crudDevices';
 
 import CrudOperations from '../../components/Operaciones/crudOperations';
 import Lote from '../../components/Operaciones/Lotes';
+import store from '../../store'
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
 
 class Operaciones extends React.Component{
 
@@ -34,12 +37,54 @@ class Operaciones extends React.Component{
           operation: 'none',
           devices: 'none',
           lote: 'none',
+          lotes: [],
         };
        this.changeStateD = this.changeStateD.bind(this);
        this.changeStateL = this.changeStateL.bind(this);
        this.changeStateO = this.changeStateO.bind(this);
     }
-
+    componentDidMount(){       
+	
+		
+        var token = store.getState().token   
+      console.log(token)
+      return fetch(back_end + "/cloth_register/get/operation/2"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {
+            console.log("LOTESSS");
+            console.log(json);
+            var lotes = []
+            var row = [];
+            for(var i in json){
+              for(var j in (json[i])){
+                
+                row.push(json[i][j]);
+                    
+              }
+              lotes.push(row)
+              row = [];
+            }
+            console.log("lotes")
+            console.log(lotes)
+           this.setState({lotes: lotes})
+              
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
     changeStateD(){
             this.setState( {devices: "block", operation:"none", lote:'none'})
 
@@ -60,27 +105,7 @@ class Operaciones extends React.Component{
                     'Room',          
                     'State Device',
                 ];
-                const rows = [
-                [ 1,
-                1,
-                12,
-        400,
-        "Washing",
-        ],
-        [2,
-        2,
-        3,
-        358,
-        "Washing",
-        ],
-        [3,
-        3,
-        14,
-        653,
-        "Ironing",
-        ],
-        ];
-
+                const rows = this.state.lotes
 
         const ColorButton = withStyles(theme => ({
             root: {
