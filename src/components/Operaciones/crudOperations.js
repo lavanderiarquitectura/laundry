@@ -19,7 +19,7 @@ import Input from '@material-ui/core/Input';
 
 
 var config_data = require('../../ipconfig.json')
-var back_end = config_data.backlocal
+var back_end = config_data.backIP
 var washers = []
 var lotWash = []
 var lotIron = []

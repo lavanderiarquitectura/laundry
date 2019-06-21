@@ -28,7 +28,7 @@ import AddCircle from '@material-ui/icons/AddCircle';
 //+"?token="+token
 
 var config_data = require('../../ipconfig.json')
-var back_end = config_data.backlocal
+var back_end = config_data.backIP
 class crudDevices extends React.Component{
 
     constructor(props) {
