@@ -25,7 +25,6 @@ import store from '../../store'
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
-import store from '../../store'
 
 
 var config_data = require('../../ipconfig.json')
@@ -44,11 +43,8 @@ class Operaciones extends React.Component{
           devices: 'none',
           lote: 'none',
           lotes: [],
-<<<<<<< HEAD
-=======
-          dispositivos: []
->>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
-        };
+          dispositivos: [],
+ };
        this.changeStateD = this.changeStateD.bind(this);
        this.changeStateL = this.changeStateL.bind(this);
        this.changeStateO = this.changeStateO.bind(this);
@@ -211,10 +207,6 @@ class Operaciones extends React.Component{
                     'Type Device',
                 ];
                 const rows = this.state.lotes
-<<<<<<< HEAD
-=======
-
->>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
 
         const ColorButton = withStyles(theme => ({
             root: {

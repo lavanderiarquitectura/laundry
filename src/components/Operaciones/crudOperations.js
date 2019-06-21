@@ -41,11 +41,8 @@ class crudOperations extends React.Component{
           iron: [],
           lavado: [],
           planchado: [],
-<<<<<<< HEAD
-          lavplan: []
-=======
-          full: [],
->>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
+          lavplan: [],
+          full: []
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
@@ -70,9 +67,7 @@ class crudOperations extends React.Component{
        
 
       }
-<<<<<<< HEAD
-    
-=======
+
       lavado(){
         var token = store.getState().token    
         return fetch(back_end + "/lots/byTypeOperation/1"+"?token="+token, {
@@ -164,7 +159,6 @@ class crudOperations extends React.Component{
             console.log(error);
           });
     }
->>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
 
     washer(){
         var token = store.getState().token    
