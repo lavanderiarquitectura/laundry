@@ -33,7 +33,7 @@ class Register extends React.Component{
     async validate(){
 		const request = require('request')
         request.post(back_end + '/api/users', {
-        headers: { 'Content-type': 'text/plain' },
+        headers: { 'Content-type': 'application/json' },
         json: {			
                     name : this.state.name,
                     last_name : this.state.lastname,

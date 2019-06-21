@@ -101,8 +101,8 @@ class Lotes extends React.Component{
     }
 
     async addLote(){
-
-        fetch(back_end + '/cloth_register/create_list', {
+        var token = store.getState().token  
+        fetch(back_end + '/cloth_register/create_list'+"?token="+"2I7PHF79MGYJ0PLULOL4", {
             method: 'post',
             body: JSON.stringify(lote),
             headers: { 'Content-type': 'application/json' }

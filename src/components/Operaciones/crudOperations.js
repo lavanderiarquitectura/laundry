@@ -42,6 +42,7 @@ class crudOperations extends React.Component{
           lavado: [],
           planchado: [],
           full: [],
+          all: [],
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
@@ -53,6 +54,8 @@ class crudOperations extends React.Component{
        this.planchado = this.planchado.bind(this);
        this.lavado = this.lavado.bind(this);
        this.full = this.full.bind(this);
+       this.saveLots = this.saveLots.bind(this);
+       this.getLots = this.getLots.bind(this);
        
     }
     componentDidMount(){     
@@ -62,10 +65,70 @@ class crudOperations extends React.Component{
        this.lavado()
        this.planchado()
        this.full()
+       this.getLots()
 
        
 
       }
+
+      getLots(){
+        var token = store.getState().token    
+        return fetch(back_end + "/cloth_register/get/lot/"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("Lotes all");
+            console.log(json);
+            this.setState({all: json})
+            this.saveLots()           
+
+          })
+          .catch(error => {
+            console.log(error);
+          });}
+
+          saveLots(){
+            const request = require('request')
+            request.post(back_end + '/lots', {
+            headers: { 'Content-type': 'text/plain' },
+            json: {			
+                        name : this.state.name,
+                        last_name : this.state.lastname,
+                        personal_id: this.state.idnumber,
+                        password: this.state.password,
+                        room_id: this.state.room,
+                        username: this.state.idnumber
+            }
+            }, (error, res, body) => {
+            if (error) {
+                console.error(error)
+                return
+            }else{
+                console.log("Logre registrarme")
+                for( var i in this.state){
+                    if( i == null){
+                        window.location.reload()
+                    }
+                }
+    
+            }
+            }
+            )}
+    
+
+
       lavado(){
         var token = store.getState().token    
         return fetch(back_end + "/lots/byTypeOperation/1"+"?token="+token, {
