@@ -33,7 +33,7 @@ class Register extends React.Component{
     async validate(){
 		const request = require('request')
         request.post(back_end + '/api/users', {
-        headers: { 'Content-type': 'text/plain' },
+        headers: { 'Content-type': 'application/json' },
         json: {			
                     name : this.state.name,
                     last_name : this.state.lastname,
@@ -47,13 +47,20 @@ class Register extends React.Component{
             console.error(error)
             return
         }else{
-            console.log("Logre registrarme")
+            
             for( var i in this.state){
-                if( i == null){
+                console.log(i)
+                if( i.state == null){
+                    alert("Faltan datos. Complete todo el formulario.");                    
                     window.location.reload()
+                    break
+
+                }else{
+                    console.log("Logre registrarme")
+                    return this.props.history.push('/');
                 }
             }
-           return this.props.history.push('/');
+           
 
         }
         }

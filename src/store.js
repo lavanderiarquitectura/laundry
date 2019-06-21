@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 const reducer =(state, action) => {
     switch(action.type){
         case "ADD_USER":
+          console.log(action.payload)
           return {
             ...state, 
             user: action.payload

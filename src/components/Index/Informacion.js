@@ -35,11 +35,11 @@ class Informacion extends React.Component{
           cloths: '0',
           invoice: 'none',
           clothes: 'none',
-          id: 'm',
+          id: '',
         };
         this.changeStateC = this.changeStateC.bind(this);
        this.changeStateI = this.changeStateI.bind(this);
-       this.subscribe = this.subscribe.bind(this);
+     
        
       //  this.changeState = this.changeState.bind(this);
     }
@@ -52,17 +52,17 @@ class Informacion extends React.Component{
             this.setState( {clothes: "none", invoice:"block"})
     }  
 
-    subscribe(){
-        this.setState({id: store.getState().user})
-    }
-
+  
 
     componentDidMount(){       
 	
 		
-	      var token = store.getState().token   
-		console.log(token)
-        return fetch(back_end + "/api/users"+"?token="+token, {
+        var token = store.getState().token
+        var id = store.getState().user  
+        console.log(token) 
+        this.setState({id: id})
+
+        return fetch(back_end + "/ldap-auth/api/auth/getuser/"+id+"?token="+token, {
             method: "GET",
             mode: "cors",
             headers: {
@@ -77,18 +77,9 @@ class Informacion extends React.Component{
             return response.json();
           })
           .then(json => {
-            console.log("Auth:");
-            this.subscribe()
-            var id_user = this.state.id
-            var pos = ""
-            for( var i in json){
-                if( json[i]["personal_id"] == id_user){
-                    pos = i
-                    break
-                }
-            }
-            this.setState({name: json[pos]["name"] + " " + json[pos]["last_name"], room: json[pos]["room_id"]})
             console.log(json);
+            var id_user = this.state.id
+            this.setState({name: json["name"] + " " + json["last_name"], room: json["room_id"]})       
 
                 
           })

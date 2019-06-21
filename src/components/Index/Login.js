@@ -50,6 +50,7 @@ class Login extends React.Component{
             payload: this.state.personal_id,
         })
         console.log("Fino")
+        console.log(this.state.personal_id)
     }
 
     async obtenerAuth() {
@@ -92,6 +93,7 @@ class Login extends React.Component{
                 this.addUser()
                 this.redirection()                
             }else{               
+                alert("Credenciales incorrectas. Intentelo de nuevo");
                 console.log(json.data.personalId);  
                 window.location.reload();
             }

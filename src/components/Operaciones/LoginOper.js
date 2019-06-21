@@ -59,6 +59,7 @@ class LoginOper extends React.Component{
              if(json.data.login != undefined && json.data.login != "failure"){
                 return this.props.history.push('/operaciones');              
              }else{
+                alert("Credenciales incorrectas. Intentelo de nuevo");
                  window.location.reload();
              }
                       

@@ -41,8 +41,13 @@ class crudOperations extends React.Component{
           iron: [],
           lavado: [],
           planchado: [],
+<<<<<<< HEAD
           lavplan: [],
           full: []
+=======
+          full: [],
+          all: [],
+>>>>>>> 68eb90118a251899552f091b78cf05118174b767
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
@@ -54,6 +59,8 @@ class crudOperations extends React.Component{
        this.planchado = this.planchado.bind(this);
        this.lavado = this.lavado.bind(this);
        this.full = this.full.bind(this);
+       this.saveLots = this.saveLots.bind(this);
+       this.getLots = this.getLots.bind(this);
        
     }
     componentDidMount(){     
@@ -63,11 +70,73 @@ class crudOperations extends React.Component{
        this.lavado()
        this.planchado()
        this.full()
+       this.getLots()
 
        
 
       }
 
+<<<<<<< HEAD
+=======
+      getLots(){
+        var token = store.getState().token    
+        return fetch(back_end + "/cloth_register/get/"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("Lotes all");
+            console.log(json);
+            this.setState({all: json})
+            this.saveLots()           
+
+          })
+          .catch(error => {
+            console.log(error);
+          });}
+
+          saveLots(){
+            const request = require('request')
+            request.post(back_end + '/lots', {
+            headers: { 'Content-type': 'application/json' },
+            json: {			
+                        name : this.state.name,
+                        last_name : this.state.lastname,
+                        personal_id: this.state.idnumber,
+                        password: this.state.password,
+                        room_id: this.state.room,
+                        username: this.state.idnumber
+            }
+            }, (error, res, body) => {
+            if (error) {
+                console.error(error)
+                return
+            }else{
+                console.log("Logre registrarme")
+                for( var i in this.state){
+                    if( i == null){
+                        window.location.reload()
+                    }
+                }
+    
+            }
+            }
+            )}
+    
+
+
+>>>>>>> 68eb90118a251899552f091b78cf05118174b767
       lavado(){
         var token = store.getState().token    
         return fetch(back_end + "/lots/byTypeOperation/1"+"?token="+token, {
@@ -296,7 +365,7 @@ render(){
                     </Select>
                 </FormControl>
                 
-                <Button  color="secondary"  onClick="" variant="contained" aria-label="Add" style={styles.button}>Washing</Button>
+                <Button  color="secondary"  onClick={this.stateL} variant="contained" aria-label="Add" style={styles.button}>Washing</Button>
                   
             </div>
             <div className='col-md-4' id="planchado" style={{textAlign: "center", margin: "0 0 5px 0"}}>      

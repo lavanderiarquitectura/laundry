@@ -10,6 +10,7 @@ import 'mdbreact/dist/css/mdb.css';
 import Register from './components/Index/Register';
 import Operaciones from './components/Index/Operaciones';
 
+import createHistory from "history/createBrowserHistory";
 import LoginOper from './components/Operaciones/LoginOper';
 
 import store from './store'
