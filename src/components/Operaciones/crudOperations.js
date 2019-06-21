@@ -21,6 +21,9 @@ import Input from '@material-ui/core/Input';
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 var washers = []
+var lotWash = []
+var lotIron = []
+var lotFull = []
 var irons = []
 
 class crudOperations extends React.Component{
@@ -38,7 +41,11 @@ class crudOperations extends React.Component{
           iron: [],
           lavado: [],
           planchado: [],
+<<<<<<< HEAD
           lavplan: []
+=======
+          full: [],
+>>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
@@ -47,16 +54,117 @@ class crudOperations extends React.Component{
        this.onChangeLF = this.onChangeLF.bind(this);
        this.washer = this.washer.bind(this);
        this.iron = this.iron.bind(this);
+       this.planchado = this.planchado.bind(this);
+       this.lavado = this.lavado.bind(this);
+       this.full = this.full.bind(this);
        
     }
     componentDidMount(){     
 
        this.washer()
        this.iron()
+       this.lavado()
+       this.planchado()
+       this.full()
 
-        
+       
+
       }
+<<<<<<< HEAD
     
+=======
+      lavado(){
+        var token = store.getState().token    
+        return fetch(back_end + "/lots/byTypeOperation/1"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("Lotes para lavado");
+            console.log(json);
+            this.setState({lavado: json})
+            for (var i = 0; i < json.length; i++) {
+                lotWash.push(<MenuItem value={i}>{this.state.lavado[i]["id"]}</MenuItem>);
+              }
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
+    planchado(){
+        var token = store.getState().token    
+        return fetch(back_end + "/lots/byTypeOperation/2"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("Lotes para planchado");
+            console.log(json);
+            this.setState({planchado: json})
+            for (var i = 0; i < json.length; i++) {
+                lotIron.push(<MenuItem value={i}>{this.state.planchado[i]["id"]}</MenuItem>);
+              }
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
+
+    full(){
+        var token = store.getState().token    
+        return fetch(back_end + "/lots/byTypeOperation/3"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("Lotes para full");
+            console.log(json);
+            this.setState({full: json})
+            for (var i = 0; i < json.length; i++) {
+                lotFull.push(<MenuItem value={i}>{this.state.full[i]["id"]}</MenuItem>);
+              }
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
+>>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
 
     washer(){
         var token = store.getState().token    
@@ -190,7 +298,7 @@ render(){
                     name="device"
                     className=""
                     >
-                    
+                    {lotWash}
                     </Select>
                 </FormControl>
                 
@@ -226,8 +334,7 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
+                    {lotIron}
                     </Select>
                 </FormControl>
                 
@@ -248,8 +355,7 @@ render(){
                     name="device"
                     className=""
                     >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
+                    {lotFull}
                     </Select>
                 </FormControl>
                 

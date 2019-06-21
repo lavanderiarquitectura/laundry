@@ -18,12 +18,18 @@ import blue from '@material-ui/core/colors/blue';
 import Table from "../../components/Auxiliares/Table";
 import CrudDevices from '../../components/Operaciones/crudDevices';
 
+import MenuItem from '@material-ui/core/MenuItem';
 import CrudOperations from '../../components/Operaciones/crudOperations';
 import Lote from '../../components/Operaciones/Lotes';
 import store from '../../store'
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
+import store from '../../store'
+
+
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
 class Operaciones extends React.Component{
 
 
@@ -38,10 +44,16 @@ class Operaciones extends React.Component{
           devices: 'none',
           lote: 'none',
           lotes: [],
+<<<<<<< HEAD
+=======
+          dispositivos: []
+>>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
         };
        this.changeStateD = this.changeStateD.bind(this);
        this.changeStateL = this.changeStateL.bind(this);
        this.changeStateO = this.changeStateO.bind(this);
+       this.lotes= this.lotes.bind(this);
+       this.devices= this.devices.bind(this);
     }
     componentDidMount(){       
 	
@@ -95,17 +107,114 @@ class Operaciones extends React.Component{
     changeStateL(){
             this.setState( {devices: "none", operation:"none", lote:'block'})
     }
+
+    componentDidMount(){
+        this.lotes()
+        this.devices()
+    }
+
+    lotes(){
+        var token = store.getState().token    
+        return fetch(back_end + "/lots"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("TODOS LOS LOTES");
+            console.log(json);
+            var lotes = []
+            var row = [];
+            for(var i in json){
+                for(var j in (json[i])){ 
+                if(j == "id" || j == "typeOperation" ||j== "state" )             
+                row.push(json[i][j]);                          
+                }
+                lotes.push(row)
+                row = [];
+                this.setState({lotes: lotes})
+            }
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        
+    }
+
+    devices(){
+        var token = store.getState().token    
+        return fetch(back_end + "/devices"+"?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {    
+
+            console.log("TODOS LOS DISPOSITIVOS");
+            console.log(json);
+            var lotes = this.state.lotes
+
+            for(var i in json){
+                for(var j in (json[i])){                  
+                if(j == "lotId"){
+                  for(var k in lotes){
+                        console.log(lotes[k][0])
+                        console.log(json[i][j])
+                        if( lotes[k][0] == json[i][j]){
+                            lotes[k].push(json[i]["id"])
+                            lotes[k].push(json[i]["type"])
+                        }
+                    
+                  }  
+                }
+                }
+               
+            }
+            console.log(lotes)
+            this.setState({lotes: lotes})
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
     
     render(){
 
         const headings = [
-                    'ID',
+
+                    
                     'ID Lote',
+                    'Type Service',          
+                    'State Service',
                     'ID Device', 
-                    'Room',          
-                    'State Device',
+                    'Type Device',
                 ];
                 const rows = this.state.lotes
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8f455bf680589e0d9f2d480bf3318ca3c6f3540d
 
         const ColorButton = withStyles(theme => ({
             root: {

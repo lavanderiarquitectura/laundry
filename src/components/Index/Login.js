@@ -76,7 +76,7 @@ class Login extends React.Component{
        }                        
        )}*/
 
-        return axios.get(back_end + "/authenticate/".concat(cedula,"/",password))
+        return axios.get(back_end+"/authenticate/".concat(cedula,"/",password))
         
           .then(json => {
 
@@ -88,7 +88,7 @@ class Login extends React.Component{
                 payload: json.data.login,
             }) 
            // this.setState( {authentication: json.data.login})
-            if(json.data.login != undefined && json.data.login != "failure"){
+           if(json.data.login != undefined ){
                 this.addUser()
                 this.redirection()                
             }else{               
