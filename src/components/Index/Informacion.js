@@ -57,10 +57,11 @@ class Informacion extends React.Component{
     componentDidMount(){       
 	
 		
-	    var token = store.getState().token   
+        var token = store.getState().token
+        var id = store.getState().user  
         console.log(token) 
-        this.setState({id: store.getState().user})
-        var id = this.state.id 
+        this.setState({id: id})
+
         return fetch(back_end + "/ldap-auth/api/auth/getuser/"+id+"?token="+token, {
             method: "GET",
             mode: "cors",
@@ -76,13 +77,9 @@ class Informacion extends React.Component{
             return response.json();
           })
           .then(json => {
-            console.log("Auth:");
             console.log(json);
-            console.log(json["name"]);
             var id_user = this.state.id
-            var pos = ""
-            this.setState({name: json["name"] + " " + json["last_name"], room: json["room_id"]})
-            console.log(json);
+            this.setState({name: json["name"] + " " + json["last_name"], room: json["room_id"]})       
 
                 
           })

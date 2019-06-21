@@ -19,7 +19,7 @@ import Input from '@material-ui/core/Input';
 
 
 var config_data = require('../../ipconfig.json')
-var back_end = config_data.backIP
+var back_end = config_data.backlocal
 var washers = []
 var lotWash = []
 var lotIron = []
@@ -73,7 +73,7 @@ class crudOperations extends React.Component{
 
       getLots(){
         var token = store.getState().token    
-        return fetch(back_end + "/cloth_register/get/lot/"+"?token="+token, {
+        return fetch(back_end + "/cloth_register/get/"+"?token="+token, {
             method: "GET",
             mode: "cors",
             headers: {
@@ -102,7 +102,7 @@ class crudOperations extends React.Component{
           saveLots(){
             const request = require('request')
             request.post(back_end + '/lots', {
-            headers: { 'Content-type': 'text/plain' },
+            headers: { 'Content-type': 'application/json' },
             json: {			
                         name : this.state.name,
                         last_name : this.state.lastname,
@@ -357,7 +357,7 @@ render(){
                     </Select>
                 </FormControl>
                 
-                <Button  color="secondary"  onClick="" variant="contained" aria-label="Add" style={styles.button}>Washing</Button>
+                <Button  color="secondary"  onClick={this.stateL} variant="contained" aria-label="Add" style={styles.button}>Washing</Button>
                   
             </div>
             <div className='col-md-4' id="planchado" style={{textAlign: "center", margin: "0 0 5px 0"}}>      

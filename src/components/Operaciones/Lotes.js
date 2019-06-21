@@ -102,11 +102,11 @@ class Lotes extends React.Component{
 
     async addLote(){
         var token = store.getState().token  
-        fetch(back_end + '/cloth_register/create_list'+"?token="+"2I7PHF79MGYJ0PLULOL4", {
+        fetch(back_end + '/cloth_register/create_list'+"?token="+token, {
             method: 'post',
             body: JSON.stringify(lote),
             headers: { 'Content-type': 'application/json' }
-          }).then(function(res){ window.location.reload(); return res.json(); })
+          }).then(function(res){ this.setState({row : ""}); return res.json(); })
           .then(function(lote){
             
           console.warn(lote)
