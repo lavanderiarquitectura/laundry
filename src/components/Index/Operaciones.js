@@ -43,16 +43,22 @@ class Operaciones extends React.Component{
           devices: 'none',
           lote: 'none',
           lotes: [],
+          lotesR: [],
           dispositivos: [],
+          dispositivosR: [],
  };
        this.changeStateD = this.changeStateD.bind(this);
        this.changeStateL = this.changeStateL.bind(this);
        this.changeStateO = this.changeStateO.bind(this);
+
+       this.getLots = this.getLots.bind(this);
        this.lotes= this.lotes.bind(this);
        this.devices= this.devices.bind(this);
     }
     componentDidMount(){       
-	
+        this.lotes()
+        this.devices()
+        this.getLots()
 		
         var token = store.getState().token   
       console.log(token)
@@ -104,10 +110,62 @@ class Operaciones extends React.Component{
             this.setState( {devices: "none", operation:"none", lote:'block'})
     }
 
-    componentDidMount(){
-        this.lotes()
-        this.devices()
-    }
+ 
+    getLots(){
+      var token = store.getState().token    
+      return fetch(back_end + "/cloth_register/get/operation/1"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {    
+
+          console.log("Lotes all");
+          console.log(json);
+          this.setState({all: json})
+          this.saveLots()           
+
+        })
+        .catch(error => {
+          console.log(error);
+        });}
+
+        saveLots(){
+          const request = require('request')
+          request.post(back_end + '/lots', {
+          headers: { 'Content-type': 'application/json' },
+          json: {			
+                      name : this.state.name,
+                      last_name : this.state.lastname,
+                      personal_id: this.state.idnumber,
+                      password: this.state.password,
+                      room_id: this.state.room,
+                      username: this.state.idnumber
+          }
+          }, (error, res, body) => {
+          if (error) {
+              console.error(error)
+              return
+          }else{
+              console.log("Logre registrarme")
+              for( var i in this.state){
+                  if( i == null){
+                      window.location.reload()
+                  }
+              }
+  
+          }
+          }
+          )}
 
     lotes(){
         var token = store.getState().token    
@@ -138,7 +196,7 @@ class Operaciones extends React.Component{
                 }
                 lotes.push(row)
                 row = [];
-                this.setState({lotes: lotes})
+                this.setState({lotesR: lotes})
             }
 
           })
@@ -169,17 +227,17 @@ class Operaciones extends React.Component{
 
             console.log("TODOS LOS DISPOSITIVOS");
             console.log(json);
-            var lotes = this.state.lotes
+            var devices = this.state.devices
 
             for(var i in json){
                 for(var j in (json[i])){                  
                 if(j == "lotId"){
-                  for(var k in lotes){
-                        console.log(lotes[k][0])
+                  for(var k in devices){
+                        console.log(devices[k][0])
                         console.log(json[i][j])
-                        if( lotes[k][0] == json[i][j]){
-                            lotes[k].push(json[i]["id"])
-                            lotes[k].push(json[i]["type"])
+                        if( devices[k][0] == json[i][j]){
+                          devices[k].push(json[i]["id"])
+                          devices[k].push(json[i]["type"])
                         }
                     
                   }  
@@ -187,8 +245,8 @@ class Operaciones extends React.Component{
                 }
                
             }
-            console.log(lotes)
-            this.setState({lotes: lotes})
+            console.log(devices)
+            this.setState({devicesR: devices})
           })
           .catch(error => {
             console.log(error);

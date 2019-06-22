@@ -49,8 +49,9 @@ class Register extends React.Component{
         }else{
             
             for( var i in this.state){
-                console.log(i)
+                console.log(i.state)
                 if( i.state == null){
+                    console.log(i.state)
                     alert("Faltan datos. Complete todo el formulario.");                    
                     window.location.reload()
                     break
