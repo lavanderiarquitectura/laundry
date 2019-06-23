@@ -84,6 +84,7 @@ class Login extends React.Component{
             const history = createHistory();
             console.log(json);   
             console.log(json.data.login);
+            sessionStorage.setItem("Token", json.data.login);
             store.dispatch({
                 type:  "TOKEN",
                 payload: json.data.login,
