@@ -135,7 +135,7 @@ class Login extends React.Component{
 
             },
             botonInicio:{
-                minWidth: '80%',
+                minWidth: '222px',
                 height: '45px',
                 marginBottom: '5px',
                 marginTop:'8px',

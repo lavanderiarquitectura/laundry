@@ -24,48 +24,57 @@ class Register extends React.Component{
         this.handleChangeIdNumber = this.handleChangeIdNumber.bind(this);
         this.handleChangeRoom = this.handleChangeRoom.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
+        this.register = this.register.bind(this);
 
         this.validate = this.validate.bind(this);
 
     }
 
-
-    async validate(){
-		const request = require('request')
+    register(){
+        const request = require('request')
         request.post(back_end + '/api/users', {
-        headers: { 'Content-type': 'application/json' },
-        json: {			
-                    name : this.state.name,
-                    last_name : this.state.lastname,
-                    personal_id: this.state.idnumber,
-                    password: this.state.password,
-                    room_id: this.state.room,
-                    username: this.state.idnumber
-        }
-        }, (error, res, body) => {
-        if (error) {
-            console.error(error)
-            return
-        }else{
-            
-            for( var i in this.state){
-                console.log(i.state)
-                if( i.state == null){
-                    console.log(i.state)
-                    alert("Faltan datos. Complete todo el formulario.");                    
-                    window.location.reload()
-                    break
-
-                }else{
-                    console.log("Logre registrarme")
-                    return this.props.history.push('/');
-                }
+            headers: { 'Content-type': 'application/json' },
+            json: {			
+                        name : this.state.name,
+                        last_name : this.state.lastname,
+                        personal_id: this.state.idnumber,
+                        password: this.state.password,
+                        room_id: this.state.room,
+                        username: this.state.idnumber
             }
-           
+            }, (error, res, body) => {
+            if (error) {
+                console.error(error)
+                return
+            }else{
+                
+                console.log("Logre registrarme")
+                return this.props.history.push('/');
+    
+            }
+            }
+            )
+    }
 
+    validate(){
+        var aux = true;
+        var user = [this.state.name,this.state.lastname,this.state.idnumber,
+            this.state.password, this.state.room]
+        for(var i in user){
+            console.log(user[i])
+            if( user[i] ==  ""){
+                aux = false      
+            }
+        }
+
+        if( aux == true ){
+          this.register()
+
+        }else{
+            alert("Faltan datos. Complete todo el formulario.");                    
+            window.location.reload()
         }
         }
-        )}
     
 
     handleChangeName(event){        
@@ -120,7 +129,7 @@ class Register extends React.Component{
 
             },
             botonInicio:{
-                width: '80%',
+                minWidth: '222px',
                 height: '45px',
                 marginTop:'8px',
                 marginBottom: '5px',

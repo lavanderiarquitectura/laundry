@@ -80,7 +80,7 @@ class LoginOper extends React.Component{
         const styles ={
             
             botonI:{
-                width: '80%',
+                minWidth: '222px',
                 height: '45px',
                 marginBottom: '0px',
                 marginTop:'8px',

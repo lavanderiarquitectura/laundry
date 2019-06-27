@@ -100,20 +100,34 @@ class Lotes extends React.Component{
         }
     }
 
-    async addLote(){
-        var token = store.getState().token  
-        fetch(back_end + '/cloth_register/create_list'+"?token="+token, {
-            method: 'post',
+    addLote(){
+        var token = sessionStorage.getItem("Token")
+        console.log("add lote")
+        const request = require('request')
+        request.post(back_end + '/cloth_register/create_list'+"?token="+token, {
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(lote),
+        }, (error, res, body) => {
+        if (error) {
+            console.error(error)
+            return
+        }else{
+            this.setState({row : []})
+            window.location.reload()
+        }
+    }
+    )}
+
+
+       /* fetch(back_end + '/cloth_register/create_list'+"?token="+token, {
+            method: 'POST',
             body: JSON.stringify(lote),
             headers: { 'Content-type': 'application/json' }
-          }).then(function(res){ this.setState({row : ""}); return res.json(); })
+          }).then(function(res){ this.setState({row : ""}, window.location.reload()); return res.json(); })
           .then(function(lote){
             
           console.warn(lote)
-          })
-
-        
-        }    
+          })*/   
 
     add(){
         var hoy = new Date();
