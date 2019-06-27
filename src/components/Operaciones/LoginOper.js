@@ -52,6 +52,8 @@ class LoginOper extends React.Component{
              console.log(json);   
              console.log(json.data.login);
              sessionStorage.setItem("Token", json.data.login);
+             sessionStorage.setItem("Users", false);
+             sessionStorage.setItem("Operators", true);
              store.dispatch({
                  type:  "TOKEN",
                  payload: json.data.login,

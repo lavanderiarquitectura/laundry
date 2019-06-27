@@ -340,8 +340,13 @@ class Operaciones extends React.Component{
             },
 
         }
-
-        const Operations =(
+        var display = sessionStorage.getItem("Operators");
+        let Operations
+        if(!display){
+            console.log("Entreee")
+            Operations = <div><h1>ACCESO RESTRINGIDO</h1></div>
+        }else{
+          Operations =
             <div className="container col-md-5" style={styles.div}>
             <div className='row' style={styles.row}>
                 <div className='col-md-2'>
@@ -374,12 +379,12 @@ class Operaciones extends React.Component{
                 <CrudOperations display={this.state.operation}/> 
                 <Lote display={this.state.lote}/>        
             </div>
-        </div> 
-        )
+        </div>        
 
+        }
         return(          
-            <div>
-                {Operations}
+            <div> 
+                {Operations}                 
             </div>  
                    
             )
