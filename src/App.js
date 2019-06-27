@@ -39,7 +39,6 @@ class App extends React.Component{
     return(
       <div style={styles.nav}>
       <Navbar/>
-      <NavbarLog/>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login/operaciones" component={LoginOper} />

@@ -341,10 +341,9 @@ class Operaciones extends React.Component{
 
         }
         var display = sessionStorage.getItem("Operators");
-        let Operations
-        if(!display){
-            console.log("Entreee")
-            Operations = <div><h1>ACCESO RESTRINGIDO</h1></div>
+        var Operations
+        if( display == "false" || display == null){
+            Operations = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ACCESO RESTRINGIDO</h1></div>
         }else{
           Operations =
             <div className="container col-md-5" style={styles.div}>

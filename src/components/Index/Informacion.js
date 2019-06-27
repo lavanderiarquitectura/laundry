@@ -175,77 +175,84 @@ class Informacion extends React.Component{
             },
 
         }
-     
-
+        
+        var display = sessionStorage.getItem("Users");
+        var Informacion
+        if( display == "false" || display == null){
+            Informacion = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ACCESO RESTRINGIDO</h1></div>
+        }else{
+            Informacion = <div className="container col-md-5 mb-10" style={styles.div}>               
+            <div className='row' style={styles.row}>
+                <div className='col-md-2' style={{textAlign: "center", margin:"auto"}}>
+                    <img id="logo" src={logo} style={styles.logo}></img>
+                </div>
+                <div className='col-md-7' style={styles.information}>
+                    <div style={styles.divInfo}>                        
+                    <TextField
+                        disabled
+                        id="input-with-icon-textfield"
+                        label="Name User"
+                        style={styles.text}
+                        value={this.state.name}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                            <AccountCircle />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                    <TextField
+                        disabled
+                        id="input-with-icon-textfield"
+                        label="Number Room"
+                        style={styles.textR}
+                        value={this.state.room}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                            <MeetingRoom />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                    <TextField
+                        disabled
+                        id="input-with-icon-textfield"
+                        label="Id Number"
+                        style={styles.textC}
+                        value={this.state.id}
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                            <ShoppingCart/>
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                    </div>                        
+                </div>
+                <div className='col-md-3' style={styles.buttons}>
+                    <div className="" style={styles.divInput}>                
+                    <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Clothes</Button></Link>
+                    </div>
+                    <div className="" style={styles.divInput}>                
+                    <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Billing</Button></Link>
+                    </div>
+                </div>
+            </div>
+            <div className='row' style={styles.rowBottom}>
+                <div className='col-12 ' style={{textAlign: "center", padding: "0"}}>
+                <Prendas display={this.state.clothes}/>
+                <Factura display={this.state.invoice}/>
+                </div>
+            </div>
+        </div>      
+        }
         return(
-  
-            <div className="container col-md-5 mb-10" style={styles.div}>               
-                <div className='row' style={styles.row}>
-                    <div className='col-md-2' style={{textAlign: "center", margin:"auto"}}>
-                        <img id="logo" src={logo} style={styles.logo}></img>
-                    </div>
-                    <div className='col-md-7' style={styles.information}>
-                        <div style={styles.divInfo}>                        
-                        <TextField
-                            disabled
-                            id="input-with-icon-textfield"
-                            label="Name User"
-                            style={styles.text}
-                            value={this.state.name}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <AccountCircle />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                        <TextField
-                            disabled
-                            id="input-with-icon-textfield"
-                            label="Number Room"
-                            style={styles.textR}
-                            value={this.state.room}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <MeetingRoom />
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                        <TextField
-                            disabled
-                            id="input-with-icon-textfield"
-                            label="Id Number"
-                            style={styles.textC}
-                            value={this.state.id}
-                            InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <ShoppingCart/>
-                                </InputAdornment>
-                            ),
-                            }}
-                        />
-                        </div>                        
-                    </div>
-                    <div className='col-md-3' style={styles.buttons}>
-                        <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateC} variant="outlined" focusVisible style={styles.botonInicio} color="primary"><Person/>Clothes</Button></Link>
-                        </div>
-                        <div className="" style={styles.divInput}>                
-                        <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Billing</Button></Link>
-                        </div>
-                    </div>
-                </div>
-                <div className='row' style={styles.rowBottom}>
-                    <div className='col-12 ' style={{textAlign: "center", padding: "0"}}>
-                    <Prendas display={this.state.clothes}/>
-                    <Factura display={this.state.invoice}/>
-                    </div>
-                </div>
-            </div>            
+            <div>
+                {Informacion}
+            </div>
             )
     }
 }
