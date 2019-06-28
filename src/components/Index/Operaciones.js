@@ -56,6 +56,8 @@ class Operaciones extends React.Component{
     componentDidMount(){       
         this.lotes()
         this.devices()  
+
+        sessionStorage.setItem("Navbar", 2);
     }
 
     //Cambio de vistas 

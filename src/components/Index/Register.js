@@ -26,6 +26,8 @@ class Register extends React.Component{
         this.handleChangePass = this.handleChangePass.bind(this);
         this.register = this.register.bind(this);
 
+        this.in = this.in.bind(this);
+
         this.validate = this.validate.bind(this);
 
     }
@@ -55,7 +57,10 @@ class Register extends React.Component{
             }
             )
     }
-
+    in(){
+        sessionStorage.setItem("Navbar", 0);
+        
+    }
     validate(){
         var aux = true;
         var user = [this.state.name,this.state.lastname,this.state.idnumber,
@@ -243,7 +248,7 @@ class Register extends React.Component{
               
                     <Button variant="outlined" onClick={this.validate} style={styles.botonInicio} color="primary">Register</Button>
                 </div>
-                <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a> Sign in</a></Link></div>
+                <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a onClick={this.in} > Sign in</a></Link></div>
                 
                </form>
                 

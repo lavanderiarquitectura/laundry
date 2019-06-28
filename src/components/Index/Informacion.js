@@ -56,9 +56,10 @@ class Informacion extends React.Component{
 
     componentDidMount(){       
 	
-		
+	
         var token = store.getState().token
         var id = store.getState().user  
+        
         console.log(token) 
         this.setState({id: id})
 
@@ -244,7 +245,7 @@ class Informacion extends React.Component{
             <div className='row' style={styles.rowBottom}>
                 <div className='col-12 ' style={{textAlign: "center", padding: "0"}}>
                 <Prendas display={this.state.clothes}/>
-                <Factura display={this.state.invoice}/>
+                <Factura display={this.state.invoice} room={this.state.room}/>
                 </div>
             </div>
         </div>      

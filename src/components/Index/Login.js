@@ -29,6 +29,8 @@ class Login extends React.Component{
         this.handleChangePass = this.handleChangePass.bind(this);
         this.obtenerAuth = this.obtenerAuth.bind(this);
         this.redirection = this.redirection.bind(this);
+
+        this.register = this.register.bind(this);
     }
 
     
@@ -40,7 +42,15 @@ class Login extends React.Component{
     }
 
     redirection(){
+
+        sessionStorage.setItem("Navbar", 1);
         return this.props.history.push('/informacion');  
+        
+    }
+
+    register(){
+
+        sessionStorage.setItem("Navbar", 3);
         
     }
 
@@ -84,6 +94,7 @@ class Login extends React.Component{
             const history = createHistory();
             console.log(json);   
             console.log(json.data.login);
+            console.log("TPKEN");
             sessionStorage.setItem("Token", json.data.login);
             sessionStorage.setItem("Users", true);
             sessionStorage.setItem("Operators", false);
@@ -208,7 +219,7 @@ class Login extends React.Component{
                 <div className="form-group" style={styles.divInput}>                
                    <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
                 </div>
-               <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a>Sign Up</a></Link></div>
+               <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a onClick={this.register}>Sign Up</a></Link></div>
                </form>
                 
             </div>

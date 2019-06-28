@@ -12,12 +12,13 @@ import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from '@material-ui/styles';
 import red from '@material-ui/core/colors/red';
-
+import store from '../../store'
 
 import PDF from '@material-ui/icons/PictureAsPdf';
 
 
-
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
 class Factura extends React.Component{
 
     constructor(props) {
@@ -28,7 +29,35 @@ class Factura extends React.Component{
         };
       //  this.changeState = this.changeState.bind(this);
     }
-    
+
+
+    componentDidMount(){
+
+
+        console.log("TODOS S PRENDAS room");
+        var token = sessionStorage.getItem("Token") 
+          return fetch(back_end + "/getfacturaglobal/"+this.props.room+"?token="+token, {
+              method: "GET",
+              mode: "cors",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin" : "*"
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                
+              }
+              return response.json();
+            })
+            .then(json => {    
+              console.log(json);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+      }
+      
 render(){
 
     const styles={

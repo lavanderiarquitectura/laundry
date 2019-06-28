@@ -8,6 +8,11 @@ const reducer =(state, action) => {
             ...state, 
             user: action.payload
           };
+          case "ROOM":
+          return {
+            ...state, 
+            room: action.payload
+          };
         case "ADD_PRENDA":
           const lotes = [...state.lote, action.payload];
           console.log("Prenda obtenida")
@@ -43,4 +48,4 @@ const reducer =(state, action) => {
     
   }
 
-export default createStore(reducer, { user: "", lote: [], estado: 0, nav: "block", navlog:"none", token:""});
+export default createStore(reducer, { user: "", lote: [], estado: 0, nav: "block", navlog:"none", token:"", room:""});

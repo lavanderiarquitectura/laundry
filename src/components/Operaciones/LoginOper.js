@@ -60,6 +60,7 @@ class LoginOper extends React.Component{
              }) 
             // this.setState( {authentication: json.data.login})
              if(json.data.login != undefined && json.data.login != "failure"){
+                sessionStorage.setItem("Navbar", 2);
                 return this.props.history.push('/operaciones');              
              }else{
                 alert("Credenciales incorrectas. Intentelo de nuevo");
