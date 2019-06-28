@@ -345,7 +345,7 @@ class Operaciones extends React.Component{
         var display = sessionStorage.getItem("Operators");
         var Operations
         if( display == "false" || display == null){
-            Operations = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ACCESO RESTRINGIDO</h1></div>
+            Operations = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ERROR 403 Forbidden - Usted no tiene permiso para acceder a esta ruta.</h1></div>
         }else{
           Operations =
             <div className="container col-md-5" style={styles.div}>

@@ -52,8 +52,6 @@ class LoginOper extends React.Component{
              console.log(json);   
              console.log(json.data.login);
              sessionStorage.setItem("Token", json.data.login);
-             sessionStorage.setItem("Users", false);
-             sessionStorage.setItem("Operators", true);
              store.dispatch({
                  type:  "TOKEN",
                  payload: json.data.login,
@@ -61,6 +59,8 @@ class LoginOper extends React.Component{
             // this.setState( {authentication: json.data.login})
              if(json.data.login != undefined && json.data.login != "failure"){
                 sessionStorage.setItem("Navbar", 2);
+                sessionStorage.setItem("Users", false);
+                sessionStorage.setItem("Operators", true);
                 return this.props.history.push('/operaciones');              
              }else{
                 alert("Credenciales incorrectas. Intentelo de nuevo");

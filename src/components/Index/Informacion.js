@@ -180,7 +180,7 @@ class Informacion extends React.Component{
         var display = sessionStorage.getItem("Users");
         var Informacion
         if( display == "false" || display == null){
-            Informacion = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ACCESO RESTRINGIDO</h1></div>
+            Informacion = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ERROR 403 Forbidden - Usted no tiene permiso para acceder a esta ruta.</h1></div>
         }else{
             Informacion = <div className="container col-md-5 mb-10" style={styles.div}>               
             <div className='row' style={styles.row}>
@@ -244,7 +244,7 @@ class Informacion extends React.Component{
             </div>
             <div className='row' style={styles.rowBottom}>
                 <div className='col-12 ' style={{textAlign: "center", padding: "0"}}>
-                <Prendas display={this.state.clothes}/>
+                <Prendas display={this.state.clothes} room={this.state.room}/>
                 <Factura display={this.state.invoice} room={this.state.room}/>
                 </div>
             </div>

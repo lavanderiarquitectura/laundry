@@ -28,13 +28,46 @@ class Factura extends React.Component{
 
         };
       //  this.changeState = this.changeState.bind(this);
+      this.obtenerPrecios = this.obtenerPrecios.bind(this);
+      this.obtenerRopa = this.obtenerRopa.bind(this);
     }
 
 
     componentDidMount(){
 
+        this.obtenerPrecios()
+        this.obtenerRopa()
 
-        console.log("TODOS S PRENDAS room");
+      }
+
+      obtenerRopa(){
+     
+        var token = sessionStorage.getItem("Token") 
+          return fetch(back_end + "/cloth_register/get/room/"+this.props.room+"?token="+token, {
+              method: "GET",
+              mode: "cors",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin" : "*"
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                
+              }
+              return response.json();
+            })
+            .then(json => {   
+              console.log("Prendas por habitacion"); 
+              console.log(json);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+
+       obtenerPrecios(){           
+     
         var token = sessionStorage.getItem("Token") 
           return fetch(back_end + "/getfacturaglobal/"+this.props.room+"?token="+token, {
               method: "GET",
@@ -50,13 +83,14 @@ class Factura extends React.Component{
               }
               return response.json();
             })
-            .then(json => {    
+            .then(json => {   
+            console.log("Costo por prenda"); 
               console.log(json);
             })
             .catch(error => {
               console.log(error);
             });
-      }
+        }
       
 render(){
 

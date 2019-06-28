@@ -9,9 +9,37 @@ import AddIcon from '@material-ui/icons/Add';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Table from "../Auxiliares/Table";
 
+var config_data = require('../../ipconfig.json')
+var back_end = config_data.backIP
 
 class Prendas extends React.Component{
 
+
+    componentDidMount(){
+        
+        var token = sessionStorage.getItem("Token") 
+          return fetch(back_end + "/cloth_register/get/room/"+this.props.room+"?token="+token, {
+              method: "GET",
+              mode: "cors",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin" : "*"
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                
+              }
+              return response.json();
+            })
+            .then(json => {   
+              console.log("Prendas por habitacion"); 
+              console.log(json);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+      }
     
 render(){
 
@@ -36,7 +64,7 @@ render(){
     
     const rows = [];
 
-
+    
     return(
         <div className="container"style={{display: this.props.display}}>
             <div className="row" id="Head">

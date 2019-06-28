@@ -96,14 +96,11 @@ class Login extends React.Component{
             console.log(json.data.login);
             console.log("TPKEN");
             sessionStorage.setItem("Token", json.data.login);
-            sessionStorage.setItem("Users", true);
-            sessionStorage.setItem("Operators", false);
-            store.dispatch({
-                type:  "TOKEN",
-                payload: json.data.login,
-            }) 
            // this.setState( {authentication: json.data.login})
            if(json.data.login != undefined ){
+
+                 sessionStorage.setItem("Users", true);
+                sessionStorage.setItem("Operators", false);
                 this.addUser()
                 this.redirection()                
             }else{               
