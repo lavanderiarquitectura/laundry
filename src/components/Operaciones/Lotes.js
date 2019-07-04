@@ -109,9 +109,11 @@ class Lotes extends React.Component{
         body: JSON.stringify(lote),
         }, (error, res, body) => {
         if (error) {
+            console.log("add nooo")
             console.error(error)
             return
         }else{
+            console.log("add siiii")
             this.setState({row : []})
             window.location.reload()
         }

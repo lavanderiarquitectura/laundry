@@ -36,16 +36,17 @@ class Factura extends React.Component{
     componentDidMount(){
 
         this.obtenerPrecios()
-       // this.obtenerRopa()
+       this.obtenerRopa()
 
       }
 
       obtenerRopa(){
-     
+        
+        console.log("Prendas"); 
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token") 
         var aux = room
-          return fetch(back_end + "/cloth_register/get/room/"+aux+"?token="+token, {
+          return fetch(back_end + "/cloth_register/get?token="+token, {
               method: "GET",
               mode: "cors",
               headers: {
@@ -60,7 +61,7 @@ class Factura extends React.Component{
               return response.json();
             })
             .then(json => {   
-              console.log("Prendas por habitacion"); 
+              console.log("Prendas"); 
               console.log(json);
             })
             .catch(error => {

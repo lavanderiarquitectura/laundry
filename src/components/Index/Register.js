@@ -181,10 +181,18 @@ class Register extends React.Component{
 
 
         }
-        
-        return(
-            <div className='container'>
-                <div className="row">
+
+
+        var op = sessionStorage.getItem("Operators");
+        var us = sessionStorage.getItem("Users");
+        var reg
+        if( op ==  "true"){
+            return this.props.history.push('/operaciones');
+        }else if( us === "true"){            
+            return this.props.history.push('/informacion');
+        }else{
+            reg =         
+            <div className="row">
             <div className="container col-md-3 mb-8" style={styles.divLogin}>
                 <form>
                 <div className="form-group" style={styles.div}>
@@ -254,6 +262,12 @@ class Register extends React.Component{
                 
             </div>
             </div>
+        }
+
+        
+        return(
+        <div className='container'>
+        {reg}
         </div>
         )
     }

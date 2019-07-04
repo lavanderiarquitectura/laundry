@@ -18,7 +18,36 @@ class Prendas extends React.Component{
         this.state={
             prendas: []
         }
+        this.convertColor = this.convertColor.bind(this);
+        this.convertPrenda = this.convertPrenda.bind(this);
+        this.convertTela = this.convertTela.bind(this);
     }
+
+    convertColor(id){
+        var color = ['Blue',"Green","Red","Brown", "Yellow", "Gray", "Black", "White", "Orange", "Purple", "Pink", "Beige", "Various"]
+        for( var i in color){
+            if( id == i+1){
+                return color[i]
+            }
+        }
+    }
+    convertPrenda(id){
+        var prenda = ['T-Shirt',"Shirt","Sweater","Jacket", "Coat", "Jeans", "Pants", "Socks", "Shorts", "Skirt", "Dress", "Blouse", "Briefs"]
+        for( var i in prenda){
+            if( id == i+1){
+                return prenda[i]
+            }
+        }
+    }
+    convertTela(id){
+        var tela = ['Acrylic',"Cotton","Denim","Flannel", "Leather", "Linen", "Silk", "Velvet", "Wool"]
+        for( var i in tela){
+            if( id == i+1){
+                return tela[i]
+            }
+        }
+    }
+
     componentDidMount(){
 
         var token = sessionStorage.getItem("TokenA") 
@@ -46,9 +75,12 @@ class Prendas extends React.Component{
                 var row = [];
               for(var i in json){ 
 
-                    row.push(json[i]["tipo_prenda_id_tipo_prenda"])
-                    row.push(json[i]["color"])
-                    row.push(json[i]["tipo_tela_id_tipo_tela"])
+                    var prenda = this.convertColor(json[i]["tipo_prenda_id_tipo_prenda"])
+                    row.push(prenda)
+                    var color = this.convertColor(json[i]["color"])
+                    row.push(color)
+                    var tela = this.convertColor(json[i]["tipo_tela_id_tipo_tela"])
+                    row.push(tela)
                     row.push(json[i]["tipo_operacion_id_tipo_operacion"])
                     row.push(json[i]["marca"]);                                      
                                        

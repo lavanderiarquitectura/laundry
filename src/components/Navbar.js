@@ -16,8 +16,10 @@ class Navbar extends React.Component {
     this.register =  this.register.bind(this);
     this.operator =  this.operator.bind(this);
     this.in =  this.in.bind(this);
-    localStorage.setItem("Navbar", 0);
 
+}
+componentDidMount(){
+  
 }
 
 toggleCollapse = () => {
@@ -25,19 +27,19 @@ toggleCollapse = () => {
 }
 
 logOut(){
-  localStorage.setItem("Navbar", 0);
-  localStorage.setItem("Token", undefined);
-  localStorage.setItem("Operators", false);
-  localStorage.setItem("Users", false);
+  sessionStorage.setItem("Navbar", 0);
+  sessionStorage.setItem("Token", null);
+  sessionStorage.setItem("Operators", false);
+  sessionStorage.setItem("Users", false);
 }
 register(){
-  localStorage.setItem("Navbar", 3);
+  sessionStorage.setItem("Navbar", 3);
 }
 operator(){
-  localStorage.setItem("Navbar", 2);
+  sessionStorage.setItem("Navbar", 2);
 }
 in(){
-  localStorage.setItem("Navbar", 0);
+  sessionStorage.setItem("Navbar", 0);
 }
 
 render() {
@@ -61,7 +63,7 @@ render() {
 
   }
   var navbar
-  const nav = localStorage.getItem("Navbar");
+  const nav = sessionStorage.getItem("Navbar");
   if(nav == 0){ //Login
       navbar =
       <MDBNavbar color="grey lighten-5" dark expand="md" >

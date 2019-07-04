@@ -56,7 +56,7 @@ class Informacion extends React.Component{
 
     obtenerUser(){
         var token = sessionStorage.getItem("Token") 
-        var id = store.getState().user  
+        var id = sessionStorage.getItem("id") 
         this.setState({id: id})
 
         return fetch(back_end + "/ldap-auth/api/auth/getuser/"+id+"?token="+token, {
