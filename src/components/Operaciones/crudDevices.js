@@ -47,7 +47,7 @@ class crudDevices extends React.Component{
     
     async componentWillMount(){      
       
-      var token = sessionStorage.getItem("Token")
+      var token = sessionStorage.getItem("TokenA")
       return fetch(back_end + "/devices"+"?token="+token, {
           method: "GET",
           mode: "cors",
@@ -92,7 +92,7 @@ class crudDevices extends React.Component{
     
   
        async createDevice(){
-        var token = sessionStorage.getItem("Token")
+        var token = sessionStorage.getItem("TokenA")
             const request = require('request')
             request.post(back_end + '/devices'+"?token="+token, {
               json: {			

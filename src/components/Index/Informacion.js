@@ -39,6 +39,8 @@ class Informacion extends React.Component{
         };
         this.changeStateC = this.changeStateC.bind(this);
        this.changeStateI = this.changeStateI.bind(this);
+
+       this.obtenerUser = this.obtenerUser.bind(this);
      
        
       //  this.changeState = this.changeState.bind(this);
@@ -52,15 +54,9 @@ class Informacion extends React.Component{
             this.setState( {clothes: "none", invoice:"block"})
     }  
 
-  
-
-    componentDidMount(){       
-	
-	
-        var token = store.getState().token
+    obtenerUser(){
+        var token = sessionStorage.getItem("Token") 
         var id = store.getState().user  
-        
-        console.log(token) 
         this.setState({id: id})
 
         return fetch(back_end + "/ldap-auth/api/auth/getuser/"+id+"?token="+token, {
@@ -78,15 +74,29 @@ class Informacion extends React.Component{
             return response.json();
           })
           .then(json => {
+            console.log("assddasd");
             console.log(json);
+            console.log(json["room_id"]);
+            sessionStorage.setItem("Room", json["room_id"]);
+            sessionStorage.setItem("Name", json["name"]);
+            sessionStorage.setItem("Last", json["last_name"]);
+            var r = sessionStorage.getItem("Room") 
+            var n = sessionStorage.getItem("Name") 
+            var l = sessionStorage.getItem("Last") 
             var id_user = this.state.id
-            this.setState({name: json["name"] + " " + json["last_name"], room: json["room_id"]})       
+            this.setState({name: n + " " + l, room: r})       
 
                 
           })
           .catch(error => {
             console.log(error);
           });
+}  
+
+    componentDidMount(){       
+	
+        this.obtenerUser()
+      
       }
 
     render(){
@@ -119,7 +129,7 @@ class Informacion extends React.Component{
                 marginBottom: '0',
             },
             logo:{
-                width: '80%',
+                width: '100px',
                 marginLeft:'5px',
             },
             olvidaste:{
@@ -184,10 +194,10 @@ class Informacion extends React.Component{
         }else{
             Informacion = <div className="container col-md-5 mb-10" style={styles.div}>               
             <div className='row' style={styles.row}>
-                <div className='col-md-2' style={{textAlign: "center", margin:"auto"}}>
+                <div className='col-md-3' style={{textAlign: "center", margin:"auto", padding: "0"}}>
                     <img id="logo" src={logo} style={styles.logo}></img>
                 </div>
-                <div className='col-md-7' style={styles.information}>
+                <div className='col-md-6' style={styles.information}>
                     <div style={styles.divInfo}>                        
                     <TextField
                         disabled

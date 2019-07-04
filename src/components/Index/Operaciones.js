@@ -53,11 +53,12 @@ class Operaciones extends React.Component{
        this.lotes= this.lotes.bind(this);
        this.devices= this.devices.bind(this);
     }
-    componentDidMount(){       
+    componentDidMount(){  
+        localStorage.setItem("Navbar", 2);     
         this.lotes()
         this.devices()  
 
-        sessionStorage.setItem("Navbar", 2);
+        
     }
 
     //Cambio de vistas 
@@ -73,7 +74,7 @@ class Operaciones extends React.Component{
 
  
     lotes(){
-        var token = sessionStorage.getItem("Token") 
+        var token = sessionStorage.getItem("TokenA") 
         return fetch(back_end + "/lots"+"?token="+token, {
             method: "GET",
             mode: "cors",
@@ -153,7 +154,7 @@ class Operaciones extends React.Component{
     }
 
     devices(){
-      var token = sessionStorage.getItem("Token")   
+      var token = sessionStorage.getItem("TokenA")   
         return fetch(back_end + "/devices"+"?token="+token, {
             method: "GET",
             mode: "cors",

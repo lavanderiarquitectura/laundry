@@ -40,7 +40,7 @@ class App extends React.Component{
       <div style={styles.nav}>
       <Navbar/>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Home}/>
         <Route exact path="/login/operaciones" component={LoginOper} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/informacion" component={Informacion} />

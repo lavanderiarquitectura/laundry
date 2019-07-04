@@ -58,7 +58,7 @@ class Register extends React.Component{
             )
     }
     in(){
-        sessionStorage.setItem("Navbar", 0);
+        localStorage.setItem("Navbar", 0);
         
     }
     validate(){

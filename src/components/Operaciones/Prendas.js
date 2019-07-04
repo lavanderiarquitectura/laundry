@@ -13,12 +13,19 @@ var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
 class Prendas extends React.Component{
-
-
+    constructor(props){
+        super(props);
+        this.state={
+            prendas: []
+        }
+    }
     componentDidMount(){
-        
-        var token = sessionStorage.getItem("Token") 
-          return fetch(back_end + "/cloth_register/get/room/"+this.props.room+"?token="+token, {
+
+        var token = sessionStorage.getItem("TokenA") 
+        var room = sessionStorage.getItem("Room") 
+        console.log("Room "+room)
+        var aux = room
+          return fetch(back_end + "/cloth_register/get/room/"+aux+"?token="+token, {
               method: "GET",
               mode: "cors",
               headers: {
@@ -35,6 +42,21 @@ class Prendas extends React.Component{
             .then(json => {   
               console.log("Prendas por habitacion"); 
               console.log(json);
+                var lotes = []
+                var row = [];
+              for(var i in json){ 
+
+                    row.push(json[i]["tipo_prenda_id_tipo_prenda"])
+                    row.push(json[i]["color"])
+                    row.push(json[i]["tipo_tela_id_tipo_tela"])
+                    row.push(json[i]["tipo_operacion_id_tipo_operacion"])
+                    row.push(json[i]["marca"]);                                      
+                                       
+
+                lotes.push(row)
+                row = [];
+                this.setState({prendas: lotes})
+            }
             })
             .catch(error => {
               console.log(error);
@@ -53,16 +75,15 @@ render(){
     }
 
    const headings = [
-                    'ID',
                     'Cloth',
                     'Color', 
                     'Fabric',
                     'Service',
-                    'State',
+                    'Brand',
                     
                 ];
     
-    const rows = [];
+    const rows = this.state.prendas;
 
     
     return(

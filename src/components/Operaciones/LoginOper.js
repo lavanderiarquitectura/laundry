@@ -51,14 +51,9 @@ class LoginOper extends React.Component{
              const history = createHistory();
              console.log(json);   
              console.log(json.data.login);
-             sessionStorage.setItem("Token", json.data.login);
-             store.dispatch({
-                 type:  "TOKEN",
-                 payload: json.data.login,
-             }) 
-            // this.setState( {authentication: json.data.login})
+             sessionStorage.setItem("TokenA", json.data.login);   
              if(json.data.login != undefined && json.data.login != "failure"){
-                sessionStorage.setItem("Navbar", 2);
+                localStorage.setItem("Navbar", 2);
                 sessionStorage.setItem("Users", false);
                 sessionStorage.setItem("Operators", true);
                 return this.props.history.push('/operaciones');              

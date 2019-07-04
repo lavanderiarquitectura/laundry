@@ -36,14 +36,16 @@ class Factura extends React.Component{
     componentDidMount(){
 
         this.obtenerPrecios()
-        this.obtenerRopa()
+       // this.obtenerRopa()
 
       }
 
       obtenerRopa(){
      
+        var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token") 
-          return fetch(back_end + "/cloth_register/get/room/"+this.props.room+"?token="+token, {
+        var aux = room
+          return fetch(back_end + "/cloth_register/get/room/"+aux+"?token="+token, {
               method: "GET",
               mode: "cors",
               headers: {
@@ -68,8 +70,10 @@ class Factura extends React.Component{
 
        obtenerPrecios(){           
      
-        var token = sessionStorage.getItem("Token") 
-          return fetch(back_end + "/getfacturaglobal/"+this.props.room+"?token="+token, {
+        var room = sessionStorage.getItem("Room") 
+        var token = sessionStorage.getItem("Token")
+        var aux = room
+          return fetch(back_end + "/getfacturaglobal/"+aux+"?token="+token, {
               method: "GET",
               mode: "cors",
               headers: {

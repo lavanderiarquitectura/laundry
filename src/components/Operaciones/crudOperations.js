@@ -133,7 +133,7 @@ class crudOperations extends React.Component{
       }
 
       async lavStandBy(){
-        var token = sessionStorage.getItem("Token")  
+        var token = sessionStorage.getItem("TokenA")  
         return fetch(back_end + "/lots/byOperationAndState/1/0"+"?token="+token, {
             method: "GET",
             mode: "cors",
@@ -164,7 +164,7 @@ class crudOperations extends React.Component{
     }
 
     async lavWash(){
-      var token = sessionStorage.getItem("Token")   
+      var token = sessionStorage.getItem("TokenA")   
       return fetch(back_end + "/lots/byOperationAndState/1/1"+"?token="+token, {
           method: "GET",
           mode: "cors",
@@ -195,7 +195,7 @@ class crudOperations extends React.Component{
   }
 
   async plStandBy(){
-    var token = sessionStorage.getItem("Token")   
+    var token = sessionStorage.getItem("TokenA")   
     return fetch(back_end + "/lots/byOperationAndState/2/0"+"?token="+token, {
         method: "GET",
         mode: "cors",
@@ -225,7 +225,7 @@ class crudOperations extends React.Component{
       });
 }
 async plIron(){
-  var token = sessionStorage.getItem("Token")   
+  var token = sessionStorage.getItem("TokenA")   
     return fetch(back_end + "/lots/byOperationAndState/2/1"+"?token="+token, {
         method: "GET",
         mode: "cors",
@@ -256,7 +256,7 @@ async plIron(){
 }
 
 async fullStandBy(){
-    var token = sessionStorage.getItem("Token")  
+    var token = sessionStorage.getItem("TokenA")  
     return fetch(back_end + "/lots/byOperationAndState/3/0"+"?token="+token, {
         method: "GET",
         mode: "cors",
@@ -287,7 +287,7 @@ async fullStandBy(){
 }
 
 async fullWash(){
-  var token = sessionStorage.getItem("Token")  
+  var token = sessionStorage.getItem("TokenA")  
   return fetch(back_end + "/lots/byOperationAndState/3/1"+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -318,7 +318,7 @@ async fullWash(){
 }
 
 async fullIron(){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   return fetch(back_end + "/lots/byOperationAndState/3/2"+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -349,7 +349,7 @@ async fullIron(){
 }
 
 async washer(){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   return fetch(back_end + "/devices/byTypeAndState/Washer/true"+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -379,7 +379,7 @@ async washer(){
 }
 
 async washerOff(){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   return fetch(back_end + "/devices/byTypeAndState/Washer/false"+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -404,7 +404,7 @@ async washerOff(){
 }
 
 async ironOff(){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   return fetch(back_end + "/devices/byTypeAndState/Iron/false"+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -429,7 +429,7 @@ async ironOff(){
 }
 
 async iron(){
-  var token = sessionStorage.getItem("Token")  
+  var token = sessionStorage.getItem("TokenA")  
   return fetch(back_end + "/devices/byTypeAndState/Iron/true"+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -460,7 +460,7 @@ async iron(){
 //Operacion asignacion de lotes a lavado
 
   getLotetoLav(){
-    var token = sessionStorage.getItem("Token") 
+    var token = sessionStorage.getItem("TokenA") 
     const request = require('request')
         request.put(back_end + "/devices/"+this.state.devices+"?token="+token, {
         headers: { 'Content-type': 'application/json' },
@@ -485,7 +485,7 @@ async iron(){
 }
 
 findServiceFabric(){
-  var token = sessionStorage.getItem("Token") 
+  var token = sessionStorage.getItem("TokenA") 
   var type = ""
   var fabric = ""   
   return fetch(back_end + "/lots/"+this.state.lote+"?token="+token, {
@@ -519,7 +519,7 @@ findServiceFabric(){
 //Cambiar estado de los lotes a lavado
 
 changeStateLoteP(t, f){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   const request = require('request')
       request.put(back_end + "/lots/"+this.state.lote+"?token="+token, {
       headers: { 'Content-type': 'application/json' },
@@ -563,7 +563,7 @@ findDevWithLot(){
 //Designacion del lote a dispositivos que lo posean
 
 delLotetoLav(id){
-  var token = sessionStorage.getItem("Token") 
+  var token = sessionStorage.getItem("TokenA") 
   const request = require('request')
       request.put(back_end + "/devices/"+id+"?token="+token, {
       headers: { 'Content-type': 'application/json' },
@@ -585,7 +585,7 @@ delLotetoLav(id){
 
 delLotetoPla(id){
   console.log("PLANCAAAAAAAAAA")
-  var token = sessionStorage.getItem("Token") 
+  var token = sessionStorage.getItem("TokenA") 
   const request = require('request')
       request.put(back_end + "/devices/"+id+"?token="+token, {
       headers: { 'Content-type': 'application/json' },
@@ -610,7 +610,7 @@ delLotetoPla(id){
 //Cambio estado de la plancha
 
 getLotetoPla(){
-  var token = sessionStorage.getItem("Token") 
+  var token = sessionStorage.getItem("TokenA") 
   const request = require('request')  
       request(back_end + "/devices/"+this.state.devicesP+"?token="+token, {
       method: 'PUT',
@@ -634,7 +634,7 @@ getLotetoPla(){
 }
 
 findService(){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   return fetch(back_end + "/lots/"+this.state.loteP+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -664,7 +664,7 @@ findService(){
 }
 
 changeStateLoteF(state, type, fabric){
-var token = sessionStorage.getItem("Token")    
+var token = sessionStorage.getItem("TokenA")    
 const request = require('request')
     request.put(back_end + "/lots/"+this.state.loteP+"?token="+token, {
     headers: { 'Content-type': 'application/json' },
@@ -709,7 +709,7 @@ findDevWithLotF(){
 }
 
 findServiceF(){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   return fetch(back_end + "/lots/"+this.state.loteF+"?token="+token, {
       method: "GET",
       mode: "cors",
@@ -741,7 +741,7 @@ findServiceF(){
 }
 
 changeStateLoteX(state, type, fabric){
-  var token = sessionStorage.getItem("Token")    
+  var token = sessionStorage.getItem("TokenA")    
   const request = require('request')
       request.put(back_end + "/lots/"+this.state.loteF+"?token="+token, {
       headers: { 'Content-type': 'application/json' },
