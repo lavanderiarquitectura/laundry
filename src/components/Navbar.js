@@ -64,7 +64,6 @@ render() {
   }
   var navbar
   const nav = sessionStorage.getItem("Navbar");
-  console.log(nav)
 
 
   if(nav == 0 || nav == null || nav == undefined){ //Login
@@ -86,7 +85,7 @@ render() {
               <MDBNavLink to="/login/operaciones" onClick={this.register} className="indigo-text">Operator</MDBNavLink>
       </MDBNavItem>
       <MDBNavItem active style={styles.signup} >
-              <MDBNavLink to="/" onClick={this.in} className="indigo-text">About Us</MDBNavLink>
+              <MDBNavLink to="#" onClick="" className="indigo-text">About Us</MDBNavLink>
       </MDBNavItem>  
         </MDBNavbarNav>
       </MDBCollapse>
@@ -108,7 +107,7 @@ render() {
             <MDBNavLink to="/" onClick = {this.logOut} className="indigo-text">Logout</MDBNavLink>
     </MDBNavItem>         
     <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/"onClick={this.in}  className="indigo-text">About Us</MDBNavLink>
+            <MDBNavLink to="#"onClick=""className="indigo-text">About Us</MDBNavLink>
     </MDBNavItem>  
         </MDBNavbarNav>
       </MDBCollapse>
@@ -130,7 +129,7 @@ render() {
             <MDBNavLink to="/" onClick = {this.logOut} className="indigo-text">Logout</MDBNavLink>
     </MDBNavItem>         
     <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/" onClick={this.in} className="indigo-text">About Us</MDBNavLink>
+            <MDBNavLink to="#" onClick="" className="indigo-text">About Us</MDBNavLink>
     </MDBNavItem> 
         </MDBNavbarNav>
       </MDBCollapse>
@@ -155,7 +154,7 @@ render() {
                 <MDBNavLink to="/login/operaciones" onClick={this.register} className="indigo-text">Operator</MDBNavLink>
         </MDBNavItem>     
         <MDBNavItem active style={styles.signup} >
-                <MDBNavLink to="/"onClick={this.in} className="indigo-text">About Us</MDBNavLink>
+                <MDBNavLink to="#"onClick="" className="indigo-text">About Us</MDBNavLink>
         </MDBNavItem> 
         </MDBNavbarNav>
       </MDBCollapse>

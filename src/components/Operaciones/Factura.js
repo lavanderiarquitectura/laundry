@@ -24,12 +24,17 @@ class Factura extends React.Component{
     constructor(props) {
         super(props);
         this.state = {          
-            total: "0"
+            total: "0",
+            prendas: []
 
         };
       //  this.changeState = this.changeState.bind(this);
       this.obtenerPrecios = this.obtenerPrecios.bind(this);
       this.obtenerRopa = this.obtenerRopa.bind(this);
+
+      this.convertColor = this.convertColor.bind(this);
+      this.convertPrenda = this.convertPrenda.bind(this);
+      this.convertService = this.convertService.bind(this);
     }
 
 
@@ -40,13 +45,40 @@ class Factura extends React.Component{
 
       }
 
+
+    convertColor(id){
+      var color = ['Blue',"Green","Red","Brown", "Yellow", "Gray", "Black", "White", "Orange", "Purple", "Pink", "Beige", "Various"]
+      for( var i in color){
+          if( i == id-1){
+              return color[i]
+          }
+      }
+  }
+  convertPrenda(id){
+      
+      var prenda = ['T-Shirt',"Shirt","Sweater","Jacket", "Coat", "Jeans", "Pants", "Socks", "Shorts", "Skirt", "Dress", "Blouse", "Briefs"]
+      for( var i in prenda ){
+          if( i == id-1){
+              return prenda[i]
+          }
+      }
+  }
+  convertService(id){
+      
+      var service = ['Washing',"Ironing","Full Service"]
+      for( var i in service ){
+          if( i == id-1){
+              return service[i]
+          }
+      }
+  }
+
       obtenerRopa(){
         
-        console.log("Prendas"); 
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token") 
         var aux = room
-          return fetch(back_end + "/cloth_register/get?token="+token, {
+          return fetch(back_end + "/cloth_register/get/room/"+aux+"?token="+token, {
               method: "GET",
               mode: "cors",
               headers: {
@@ -61,8 +93,22 @@ class Factura extends React.Component{
               return response.json();
             })
             .then(json => {   
-              console.log("Prendas"); 
-              console.log(json);
+              var lotes = []
+              var row = [];
+              for(var i in json){ 
+  
+                var prenda = this.convertPrenda(json[i]["tipo_prenda_id_tipo_prenda"])
+                row.push(prenda)
+                var color = this.convertColor(json[i]["color"])
+                row.push(color)
+                var service = this.convertService(json[i]["tipo_operacion_id_tipo_operacion"])
+                row.push(service)
+                row.push(json[i]["marca"]);   
+                lotes.push(row)
+                row = [];
+                this.setState({prendas: lotes})                           
+              }               
+  
             })
             .catch(error => {
               console.log(error);
@@ -89,8 +135,6 @@ class Factura extends React.Component{
               return response.json();
             })
             .then(json => {   
-            console.log("Costo por prenda"); 
-              console.log(json);
             })
             .catch(error => {
               console.log(error);
@@ -126,18 +170,15 @@ render(){
     }
 
    const headings = [
-                    'ID',
                     'Cloth',
                     'Color',                    
                     'Service', 
+                    'Marca',
                     'Price',
                     
                 ];
     
-    const rows = [
-            
-
-        ];
+    const rows = this.state.prendas
 
 
         const ColorButtonB = withStyles(theme => ({
@@ -152,16 +193,20 @@ render(){
     
     return(
         <div className="container"style={{display: this.props.display}}>
+
             <div className="row" id="Head">
                 <div className="col" id="title">
                     <h3 style={styles.title}>Billing</h3>
                 </div>               
             </div>
-            <div className="row" id="table">
-                <div className="col">
-                <Table headings={headings} rows={rows} style={{width:"100%"}} />
 
-                <div className='container row' style={{padding:"0"}}>
+            <div className="row" id="table">
+                <div className="col" style={{height: "250px", overflowY: "auto"}}>
+                <Table headings={headings} rows={rows} style={{width:"100%"}} />
+                </div>
+            </div>
+
+            <div className='row' style={{padding:"0"}}>
                
                 <div className="col" style={{textAlign:"right%"}}>
                 <Link to='#'><ColorButtonB onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="red"><PDF/></ColorButtonB></Link>
@@ -184,8 +229,6 @@ render(){
                             ),
                             }}
                         />
-                        </div>
-                        </div>
                 </div>
             </div>
         </div>

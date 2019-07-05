@@ -50,7 +50,6 @@ class Register extends React.Component{
                 return
             }else{
                 
-                console.log("Logre registrarme")
                 return this.props.history.push('/');
     
             }
@@ -66,7 +65,6 @@ class Register extends React.Component{
         var user = [this.state.name,this.state.lastname,this.state.idnumber,
             this.state.password, this.state.room]
         for(var i in user){
-            console.log(user[i])
             if( user[i] ==  ""){
                 aux = false      
             }
@@ -97,30 +95,6 @@ class Register extends React.Component{
     handleChangePass(event){
         this.setState({password: event.target.value})
     }
-
-    /*validateSingup(){
-        const data = {
-        name: this.state.name,
-        last_name: this.state.lastname,
-        personal_id: this.state.idnumber,
-        room_id: this.state.room,
-        idActive: true,
-        password: this.state.password,
-        }
-        console.log(data);
-        
-        axios.post('http://localhost:8085/api/users',{
-            method: 'post',
-            url: '/localhost:8085/api/users',
-            data: data
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }*/
 
     render(){
 

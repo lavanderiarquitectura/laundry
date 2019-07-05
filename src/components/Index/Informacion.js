@@ -76,9 +76,6 @@ class Informacion extends React.Component{
             return response.json();
           })
           .then(json => {
-            console.log("assddasd");
-            console.log(json);
-            console.log(json["room_id"]);
             sessionStorage.setItem("Room", json["room_id"]);
             sessionStorage.setItem("Name", json["name"]);
             sessionStorage.setItem("Last", json["last_name"]);

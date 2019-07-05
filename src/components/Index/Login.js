@@ -69,12 +69,8 @@ class Login extends React.Component{
           .then(json => {
 
             const history = createHistory();
-            console.log(json);   
-            console.log(json.data);
-            console.log("TPKEN");
-            sessionStorage.setItem("Token", json.data);
-           // this.setState( {authentication: json.data.login})
-           if(json.data != undefined ){
+            sessionStorage.setItem("Token", json.data.login);
+           if(json.data.login != undefined ){
 
                  sessionStorage.setItem("Users", true);
                 sessionStorage.setItem("Operators", false);
@@ -82,7 +78,6 @@ class Login extends React.Component{
                 this.redirection()                
             }else{               
                 alert("Credenciales incorrectas. Intentelo de nuevo");
-                console.log(json.data.personalId);  
                 window.location.reload();
             }
                      

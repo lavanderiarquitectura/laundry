@@ -55,13 +55,10 @@ class Operaciones extends React.Component{
        this.devices= this.devices.bind(this);
     }
     componentDidMount(){  
-      sessionStorage.setItem("Navbar", 2); 
         this.lotes()
         this.devices()  
 
-        
     }
-
     //Cambio de vistas 
     changeStateD(){
             this.setState( {devices: "block", operation:"none", lote:'none'})
@@ -91,9 +88,6 @@ class Operaciones extends React.Component{
             return response.json();
           })
           .then(json => { 
-
-            console.log("TODOS LOS LOTES");
-            console.log(json);
             var lotes = []
             var row = [];
             for(var i in json){
@@ -171,9 +165,6 @@ class Operaciones extends React.Component{
             return response.json();
           })
           .then(json => {    
-
-            console.log("TODOS LOS DISPOSITIVOS");
-            console.log(json);
             var lotes = this.state.lotes
 
             for(var i in json){
