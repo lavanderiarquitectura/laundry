@@ -63,25 +63,6 @@ class Login extends React.Component{
 
        var cedula = this.state.personal_id
        var password = this.state.password
-       
-      /* const request = require('request')
-       request.post("http://54.147.135.22:3001/ldap-auth/api/auth/".concat(cedula,"/",password), {
-         headers: {
-              "Content-Type": "text/plain",
-              "Access-Control-Allow-Origin" : "*",
-              
-          }
-       }, (error, res, body) => {
-         if (error) {
-           console.error(error)
-           return                                       
-         }else{
-           console.log("Efectivo")
-           console.log(body)
-           
-         }
-       }                        
-       )}*/
 
         return axios.get(back_end+"/authenticate/".concat(cedula,"/",password))
         
@@ -89,11 +70,11 @@ class Login extends React.Component{
 
             const history = createHistory();
             console.log(json);   
-            console.log(json.data.login);
+            console.log(json.data);
             console.log("TPKEN");
-            sessionStorage.setItem("Token", json.data.login);
+            sessionStorage.setItem("Token", json.data);
            // this.setState( {authentication: json.data.login})
-           if(json.data.login != undefined ){
+           if(json.data != undefined ){
 
                  sessionStorage.setItem("Users", true);
                 sessionStorage.setItem("Operators", false);
@@ -182,8 +163,10 @@ class Login extends React.Component{
         var us = sessionStorage.getItem("Users");
         var login
         if( op ==  "true"){
+            sessionStorage.setItem("Navbar", 2);
             this.props.history.push('/operaciones');
-        }else if( us === "true"){            
+        }else if( us === "true"){    
+            sessionStorage.setItem("Navbar", 1);        
             this.props.history.push('/informacion');
         }else{
             login =  

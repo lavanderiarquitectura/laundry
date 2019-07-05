@@ -58,7 +58,7 @@ class Register extends React.Component{
             )
     }
     in(){
-        localStorage.setItem("Navbar", 0);
+        sessionStorage.setItem("Navbar", 0);
         
     }
     validate(){
@@ -187,9 +187,13 @@ class Register extends React.Component{
         var us = sessionStorage.getItem("Users");
         var reg
         if( op ==  "true"){
-            return this.props.history.push('/operaciones');
+
+            sessionStorage.setItem("Navbar", 2);
+            this.props.history.push('/operaciones');
         }else if( us === "true"){            
-            return this.props.history.push('/informacion');
+
+            sessionStorage.setItem("Navbar", 1);
+            this.props.history.push('/informacion');
         }else{
             reg =         
             <div className="row">

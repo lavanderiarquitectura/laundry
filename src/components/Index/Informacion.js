@@ -21,6 +21,8 @@ import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 
 import store from '../../store'
 
+import Error from '../../components/Auxiliares/Error'
+
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
@@ -190,7 +192,7 @@ class Informacion extends React.Component{
         var display = sessionStorage.getItem("Users");
         var Informacion
         if( display == "false" || display == null){
-            Informacion = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ERROR 403 Forbidden - Usted no tiene permiso para acceder a esta ruta.</h1></div>
+            Informacion = <Error/>
         }else{
             Informacion = <div className="container col-md-5 mb-10" style={styles.div}>               
             <div className='row' style={styles.row}>
