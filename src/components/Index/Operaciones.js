@@ -22,6 +22,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CrudOperations from '../../components/Operaciones/crudOperations';
 import Lote from '../../components/Operaciones/Lotes';
 import store from '../../store'
+import Error from '../../components/Auxiliares/Error'
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
@@ -54,13 +55,10 @@ class Operaciones extends React.Component{
        this.devices= this.devices.bind(this);
     }
     componentDidMount(){  
-        localStorage.setItem("Navbar", 2);     
         this.lotes()
         this.devices()  
 
-        
     }
-
     //Cambio de vistas 
     changeStateD(){
             this.setState( {devices: "block", operation:"none", lote:'none'})
@@ -90,9 +88,6 @@ class Operaciones extends React.Component{
             return response.json();
           })
           .then(json => { 
-
-            console.log("TODOS LOS LOTES");
-            console.log(json);
             var lotes = []
             var row = [];
             for(var i in json){
@@ -170,9 +165,6 @@ class Operaciones extends React.Component{
             return response.json();
           })
           .then(json => {    
-
-            console.log("TODOS LOS DISPOSITIVOS");
-            console.log(json);
             var lotes = this.state.lotes
 
             for(var i in json){
@@ -346,7 +338,7 @@ class Operaciones extends React.Component{
         var display = sessionStorage.getItem("Operators");
         var Operations
         if( display == "false" || display == null){
-            Operations = <div style={{textAlign: "center", margin: "10px 0 0 0"}}><h1>ERROR 403 Forbidden - Usted no tiene permiso para acceder a esta ruta.</h1></div>
+            Operations = <Error/>
         }else{
           Operations =
             <div className="container col-md-5" style={styles.div}>

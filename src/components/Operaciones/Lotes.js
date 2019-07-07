@@ -27,7 +27,7 @@ var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
 var prenda = new Object();
-var lote = new Array();
+var lote = []
 var id = 1;
 var row = [];
 
@@ -67,13 +67,10 @@ class Lotes extends React.Component{
 
     subscribe(){
         var lotes = store.getState().lote
-        console.log("Lotes obtenidos")
-        console.log(lotes)
         var row = []
         for(var i in lotes){           
               row.push(lotes[i]);
         }           
-        console.log("Rows")
     }
 
     onChangeCloth(event){        
@@ -101,11 +98,10 @@ class Lotes extends React.Component{
     }
 
     addLote(){
-        var token = sessionStorage.getItem("Token")
-        console.log("add lote")
+        var token = sessionStorage.getItem("TokenA")
         const request = require('request')
         request.post(back_end + '/cloth_register/create_list'+"?token="+token, {
-        headers: { 'Content-type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(lote),
         }, (error, res, body) => {
         if (error) {
@@ -118,17 +114,6 @@ class Lotes extends React.Component{
     }
     )}
 
-
-       /* fetch(back_end + '/cloth_register/create_list'+"?token="+token, {
-            method: 'POST',
-            body: JSON.stringify(lote),
-            headers: { 'Content-type': 'application/json' }
-          }).then(function(res){ this.setState({row : ""}, window.location.reload()); return res.json(); })
-          .then(function(lote){
-            
-          console.warn(lote)
-          })*/   
-
     add(){
         var hoy = new Date();
         var dd = hoy.getDate();
@@ -140,9 +125,11 @@ class Lotes extends React.Component{
         if(mm < 10){
             mm = "0"+String(mm)
         }
+        if(dd < 10){
+            dd = "0"+String(dd)
+        }
 
         var fecha = yyyy+'-'+mm+'-'+dd;
-        console.log(mm)
 
         prenda.color = this.state.color;
         prenda.id_cuarto = this.state.room;
@@ -162,20 +149,6 @@ class Lotes extends React.Component{
 
         id = id +1;
         
-        /*aux.push([this.state.color, this.state.room, this.state.marca, fecha, null, this.state.fabric, this.state.cloth,this.state.operacion ])
-        this.setState(state => {
-            const lote = [...state.lote, aux];      
-            return {
-              lote,
-            };
-          });*/
-
-        store.dispatch({
-            type:  'ADD_PRENDA',
-            payload: pren,
-        })
-        console.log("prenda enviada")
-        console.log(pren)
         row.push(pren)
 
         this.setState({row: row})

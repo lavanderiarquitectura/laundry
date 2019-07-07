@@ -50,7 +50,6 @@ class Register extends React.Component{
                 return
             }else{
                 
-                console.log("Logre registrarme")
                 return this.props.history.push('/');
     
             }
@@ -58,7 +57,7 @@ class Register extends React.Component{
             )
     }
     in(){
-        localStorage.setItem("Navbar", 0);
+        sessionStorage.setItem("Navbar", 0);
         
     }
     validate(){
@@ -66,7 +65,6 @@ class Register extends React.Component{
         var user = [this.state.name,this.state.lastname,this.state.idnumber,
             this.state.password, this.state.room]
         for(var i in user){
-            console.log(user[i])
             if( user[i] ==  ""){
                 aux = false      
             }
@@ -97,30 +95,6 @@ class Register extends React.Component{
     handleChangePass(event){
         this.setState({password: event.target.value})
     }
-
-    /*validateSingup(){
-        const data = {
-        name: this.state.name,
-        last_name: this.state.lastname,
-        personal_id: this.state.idnumber,
-        room_id: this.state.room,
-        idActive: true,
-        password: this.state.password,
-        }
-        console.log(data);
-        
-        axios.post('http://localhost:8085/api/users',{
-            method: 'post',
-            url: '/localhost:8085/api/users',
-            data: data
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }*/
 
     render(){
 
@@ -181,10 +155,22 @@ class Register extends React.Component{
 
 
         }
-        
-        return(
-            <div className='container'>
-                <div className="row">
+
+
+        var op = sessionStorage.getItem("Operators");
+        var us = sessionStorage.getItem("Users");
+        var reg
+        if( op ==  "true"){
+
+            sessionStorage.setItem("Navbar", 2);
+            this.props.history.push('/operaciones');
+        }else if( us === "true"){            
+
+            sessionStorage.setItem("Navbar", 1);
+            this.props.history.push('/informacion');
+        }else{
+            reg =         
+            <div className="row">
             <div className="container col-md-3 mb-8" style={styles.divLogin}>
                 <form>
                 <div className="form-group" style={styles.div}>
@@ -254,6 +240,12 @@ class Register extends React.Component{
                 
             </div>
             </div>
+        }
+
+        
+        return(
+        <div className='container'>
+        {reg}
         </div>
         )
     }

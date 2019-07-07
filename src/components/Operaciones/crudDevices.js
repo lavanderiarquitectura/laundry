@@ -63,8 +63,6 @@ class crudDevices extends React.Component{
           return response.json();
         })
         .then(json => {
-          console.log("Auth:");
-          console.log(json);
           var device = []
           var row = [];
           for(var i in json){
@@ -80,8 +78,6 @@ class crudDevices extends React.Component{
             device.push(row)
             row = [];
           }
-          console.log("device")
-          console.log(device)
         this.setState({devices: device})
         })
         .catch(error => {
@@ -104,7 +100,6 @@ class crudDevices extends React.Component{
               if (error) {
                 console.error(error)                                      
               }else{
-                console.log("Efectivo") 
                 window.location.reload();
                 
               }
@@ -115,8 +110,6 @@ class crudDevices extends React.Component{
 
     onChangeD(event){
         this.setState({type: event.target.value})
-
-        console.log(this.state.devices);
     }
     onChangeL(event){
         this.setState({state: event.target.value})
@@ -208,7 +201,7 @@ render(){
                 </div>
             </div>
             <div className="row" id="table">
-                <div className="col">
+                <div className="col" style={{height: "250px", overflowY: "auto"}}>
                 <Table headings={headings} rows={rows} style={{width:"100%"} } />
                 </div>
             </div>

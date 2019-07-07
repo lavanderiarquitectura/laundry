@@ -16,8 +16,9 @@ class Navbar extends React.Component {
     this.register =  this.register.bind(this);
     this.operator =  this.operator.bind(this);
     this.in =  this.in.bind(this);
-    localStorage.setItem("Navbar", 0);
 
+}
+componentDidMount(){
 }
 
 toggleCollapse = () => {
@@ -25,19 +26,20 @@ toggleCollapse = () => {
 }
 
 logOut(){
-  localStorage.setItem("Navbar", 0);
-  localStorage.setItem("Token", undefined);
-  localStorage.setItem("Operators", false);
-  localStorage.setItem("Users", false);
+  sessionStorage.setItem("Navbar", 0);
+  sessionStorage.setItem("Token", undefined);
+  sessionStorage.setItem("TokenA", undefined);
+  sessionStorage.setItem("Operators", false);
+  sessionStorage.setItem("Users", false);
 }
 register(){
-  localStorage.setItem("Navbar", 3);
+  sessionStorage.setItem("Navbar", 3);
 }
 operator(){
-  localStorage.setItem("Navbar", 2);
+  sessionStorage.setItem("Navbar", 2);
 }
 in(){
-  localStorage.setItem("Navbar", 0);
+  sessionStorage.setItem("Navbar", 0);
 }
 
 render() {
@@ -61,8 +63,10 @@ render() {
 
   }
   var navbar
-  const nav = localStorage.getItem("Navbar");
-  if(nav == 0){ //Login
+  const nav = sessionStorage.getItem("Navbar");
+
+
+  if(nav == 0 || nav == null || nav == undefined){ //Login
       navbar =
       <MDBNavbar color="grey lighten-5" dark expand="md" >
       <MDBNavbarBrand style={styles.logo}>
@@ -81,7 +85,7 @@ render() {
               <MDBNavLink to="/login/operaciones" onClick={this.register} className="indigo-text">Operator</MDBNavLink>
       </MDBNavItem>
       <MDBNavItem active style={styles.signup} >
-              <MDBNavLink to="/" onClick={this.in} className="indigo-text">About Us</MDBNavLink>
+              <MDBNavLink to="#" onClick="" className="indigo-text">About Us</MDBNavLink>
       </MDBNavItem>  
         </MDBNavbarNav>
       </MDBCollapse>
@@ -103,7 +107,7 @@ render() {
             <MDBNavLink to="/" onClick = {this.logOut} className="indigo-text">Logout</MDBNavLink>
     </MDBNavItem>         
     <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/"onClick={this.in}  className="indigo-text">About Us</MDBNavLink>
+            <MDBNavLink to="#"onClick=""className="indigo-text">About Us</MDBNavLink>
     </MDBNavItem>  
         </MDBNavbarNav>
       </MDBCollapse>
@@ -125,7 +129,7 @@ render() {
             <MDBNavLink to="/" onClick = {this.logOut} className="indigo-text">Logout</MDBNavLink>
     </MDBNavItem>         
     <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="/" onClick={this.in} className="indigo-text">About Us</MDBNavLink>
+            <MDBNavLink to="#" onClick="" className="indigo-text">About Us</MDBNavLink>
     </MDBNavItem> 
         </MDBNavbarNav>
       </MDBCollapse>
@@ -150,7 +154,7 @@ render() {
                 <MDBNavLink to="/login/operaciones" onClick={this.register} className="indigo-text">Operator</MDBNavLink>
         </MDBNavItem>     
         <MDBNavItem active style={styles.signup} >
-                <MDBNavLink to="/"onClick={this.in} className="indigo-text">About Us</MDBNavLink>
+                <MDBNavLink to="#"onClick="" className="indigo-text">About Us</MDBNavLink>
         </MDBNavItem> 
         </MDBNavbarNav>
       </MDBCollapse>

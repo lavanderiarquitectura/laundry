@@ -53,7 +53,7 @@ class LoginOper extends React.Component{
              console.log(json.data.login);
              sessionStorage.setItem("TokenA", json.data.login);   
              if(json.data.login != undefined && json.data.login != "failure"){
-                localStorage.setItem("Navbar", 2);
+                sessionStorage.setItem("Navbar", 2);
                 sessionStorage.setItem("Users", false);
                 sessionStorage.setItem("Operators", true);
                 return this.props.history.push('/operaciones');              
@@ -107,7 +107,19 @@ class LoginOper extends React.Component{
 
         }
 
-        const loginOperator = (
+        var op = sessionStorage.getItem("Operators");
+        var us = sessionStorage.getItem("Users");
+        var loginOperator
+        if( op ==  "true"){
+
+            sessionStorage.setItem("Navbar", 2);
+            this.props.history.push('/operaciones');
+        }else if( us === "true"){            
+
+            sessionStorage.setItem("Navbar", 1);
+            this.props.history.push('/informacion');
+        }else{
+        var loginOperator = 
             <div className="container col-md-2 mb-8" style={styles.divLogin}>
                 <form>
                 <div className='form-group' style={{textAlign:"center", margin:'auto'}}>
@@ -143,7 +155,8 @@ class LoginOper extends React.Component{
               </form>
                 
             </div>
-        )
+        
+    }
 
 
         return(          

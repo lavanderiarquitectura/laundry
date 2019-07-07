@@ -55,11 +55,7 @@ class Login extends React.Component{
     }
 
     addUser(){
-        store.dispatch({
-            type:  'ADD_USER',
-            payload: this.state.personal_id,
-        })
-        console.log("Fino")
+        sessionStorage.setItem("id", this.state.personal_id)
         console.log(this.state.personal_id)
     }
 
@@ -67,36 +63,13 @@ class Login extends React.Component{
 
        var cedula = this.state.personal_id
        var password = this.state.password
-       
-      /* const request = require('request')
-       request.post("http://54.147.135.22:3001/ldap-auth/api/auth/".concat(cedula,"/",password), {
-         headers: {
-              "Content-Type": "text/plain",
-              "Access-Control-Allow-Origin" : "*",
-              
-          }
-       }, (error, res, body) => {
-         if (error) {
-           console.error(error)
-           return                                       
-         }else{
-           console.log("Efectivo")
-           console.log(body)
-           
-         }
-       }                        
-       )}*/
 
         return axios.get(back_end+"/authenticate/".concat(cedula,"/",password))
         
           .then(json => {
 
             const history = createHistory();
-            console.log(json);   
-            console.log(json.data.login);
-            console.log("TPKEN");
             sessionStorage.setItem("Token", json.data.login);
-           // this.setState( {authentication: json.data.login})
            if(json.data.login != undefined ){
 
                  sessionStorage.setItem("Users", true);
@@ -105,7 +78,6 @@ class Login extends React.Component{
                 this.redirection()                
             }else{               
                 alert("Credenciales incorrectas. Intentelo de nuevo");
-                console.log(json.data.personalId);  
                 window.location.reload();
             }
                      
@@ -116,12 +88,13 @@ class Login extends React.Component{
           });
         }
       
-
-     
+    
 
 
     
     render(){
+
+      
 
 
         const theme = createMuiTheme({
@@ -181,44 +154,58 @@ class Login extends React.Component{
 
         }
 
+        var op = sessionStorage.getItem("Operators");
+        var us = sessionStorage.getItem("Users");
+        var login
+        if( op ==  "true"){
+            sessionStorage.setItem("Navbar", 2);
+            this.props.history.push('/operaciones');
+        }else if( us === "true"){    
+            sessionStorage.setItem("Navbar", 1);        
+            this.props.history.push('/informacion');
+        }else{
+            login =  
+            <form>
+            <div className="form-group" style={styles.divInput}>
+                <img id="logo" src={logo} style={styles.logo}></img>
+            </div>
+            <div className="form-group" style={styles.divInput}>
+                <TextField
+                    autoFocus
+                    id="idnumber"
+                    value={this.state.personal_id}
+                    onChange={this.handleChangeUser}
+                    label="Personal Id"
+                    margin="normal"
+                    style = {styles.inputs}
+                    variant="outlined"
+                />
+           </div>
+            <div className="form-group" style={styles.divInput}>                
+            <TextField
+                    id="password"
+                    label="Password"
+                    value={this.state.password}
+                    onChange={this.handleChangePass}
+                    type="password"
+                    style = {styles.inputs}
+                    margin="normal"
+                    variant="outlined"
+                />
+           </div>
+           <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
+            <div className="form-group" style={styles.divInput}>                
+               <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
+            </div>
+           <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a onClick={this.register}>Sign Up</a></Link></div>
+           </form>
+            
+        }
+
         return(
             
             <div className="container col-md-3 mb-8" style={styles.divLogin} theme={theme}>
-                <form>
-                <div className="form-group" style={styles.divInput}>
-                    <img id="logo" src={logo} style={styles.logo}></img>
-                </div>
-                <div className="form-group" style={styles.divInput}>
-                    <TextField
-                        autoFocus
-                        id="idnumber"
-                        value={this.state.personal_id}
-                        onChange={this.handleChangeUser}
-                        label="Personal Id"
-                        margin="normal"
-                        style = {styles.inputs}
-                        variant="outlined"
-                    />
-               </div>
-                <div className="form-group" style={styles.divInput}>                
-                <TextField
-                        id="password"
-                        label="Password"
-                        value={this.state.password}
-                        onChange={this.handleChangePass}
-                        type="password"
-                        style = {styles.inputs}
-                        margin="normal"
-                        variant="outlined"
-                    />
-               </div>
-               <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
-                <div className="form-group" style={styles.divInput}>                
-                   <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
-                </div>
-               <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a onClick={this.register}>Sign Up</a></Link></div>
-               </form>
-                
+               {login}
             </div>
             )
     }

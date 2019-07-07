@@ -148,10 +148,7 @@ class crudOperations extends React.Component{
             }
             return response.json();
           })
-          .then(json => {    
-
-            console.log("Lavado en espera");
-            console.log(json);
+          .then(json => {   
             this.setState({lavadoS: json})
             for (var i = 0; i < json.length; i++) {
                 lotWash.push(<MenuItem value={this.state.lavadoS[i]["id"]}>{this.state.lavadoS[i]["id"]}</MenuItem>);
@@ -180,9 +177,6 @@ class crudOperations extends React.Component{
           return response.json();
         })
         .then(json => {    
-
-          console.log("Lavado en lavado");
-          console.log(json);
           this.setState({lavadoW: json})
           for (var i = 0; i < json.length; i++) {
               lotEnd.push(<MenuItem value={this.state.lavadoW[i]["id"]}>{this.state.lavadoW[i]["id"]}</MenuItem>);
@@ -212,8 +206,6 @@ class crudOperations extends React.Component{
       })
       .then(json => {    
 
-        console.log("Plancha en espera");
-        console.log(json);
         this.setState({ironS: json})
         for (var i = 0; i < json.length; i++) {
             lotIron.push(<MenuItem value={this.state.ironS[i]["id"]}>{this.state.ironS[i]["id"]}</MenuItem>);
@@ -241,9 +233,6 @@ async plIron(){
         return response.json();
       })
       .then(json => {    
-
-        console.log("Plancha en plancha");
-        console.log(json);
         this.setState({ironI: json})
         for (var i = 0; i < json.length; i++) {
             lotEnd.push(<MenuItem value={this.state.ironI[i]["id"]}>{this.state.ironI[i]["id"]}</MenuItem>);
@@ -273,8 +262,6 @@ async fullStandBy(){
       })
       .then(json => {    
 
-        console.log("Full en espera");
-        console.log(json);
         this.setState({fullS: json})
         for (var i = 0; i < json.length; i++) {
             lotWash.push(<MenuItem value={this.state.fullS[i]["id"]}>{this.state.fullS[i]["id"]}</MenuItem>);
@@ -303,9 +290,6 @@ async fullWash(){
       return response.json();
     })
     .then(json => {    
-
-      console.log("Full en lavado");
-      console.log(json);
       this.setState({fullW: json})
       for (var i = 0; i < json.length; i++) {
           lotIron.push(<MenuItem value={this.state.fullW[i]["id"]}>{this.state.fullW[i]["id"]}</MenuItem>);
@@ -334,9 +318,6 @@ async fullIron(){
       return response.json();
     })
     .then(json => {    
-
-      console.log("Full en plancha");
-      console.log(json);
       this.setState({fullI: json})
       for (var i = 0; i < json.length; i++) {
           lotEnd.push(<MenuItem value={this.state.fullI[i]["id"]}>{this.state.fullI[i]["id"]}</MenuItem>);
@@ -366,8 +347,6 @@ async washer(){
     })
     .then(json => {          
       this.setState({washer: json})
-
-      console.log("Lavadoras");
       for (var i = 0; i < json.length; i++) {
         washers.push(<MenuItem value={this.state.washer[i]["id"]}>{this.state.washer[i]["id"]}</MenuItem>);
       }
@@ -446,7 +425,6 @@ async iron(){
     })
     .then(json => {          
       this.setState({iron: json})
-      console.log("Planchas");
       for (var i = 0; i < json.length; i++) {
           irons.push(<MenuItem value={this.state.iron[i]["id"]}>{this.state.iron[i]["id"]}</MenuItem>);
       }
@@ -474,9 +452,7 @@ async iron(){
             console.error(error)
             return
         }else{
-          console.log(this.state.devices)
-          console.log(this.state.lote)
-          console.log("sisas")
+        
           this.findServiceFabric()
 
         }
@@ -503,9 +479,6 @@ findServiceFabric(){
       return response.json();
     })
     .then(json => {
-      console.log(json)  
-      console.log(json["typeOperation"])     
-      console.log(json["typeFabric"])   
           type = json["typeOperation"]
           fabric = json["typeFabric"]
       this.changeStateLoteP(type, fabric)
@@ -584,7 +557,6 @@ delLotetoLav(id){
 }
 
 delLotetoPla(id){
-  console.log("PLANCAAAAAAAAAA")
   var token = sessionStorage.getItem("TokenA") 
   const request = require('request')
       request.put(back_end + "/devices/"+id+"?token="+token, {
@@ -599,8 +571,6 @@ delLotetoPla(id){
           console.error(error)
           return
       }else{
-        console.log("Ajuste de la plancha "+id)
-
       }
       }
       )
@@ -650,7 +620,6 @@ findService(){
       return response.json();
     })
     .then(json => {
-      console.log(json)
         if(json["typeOperation"] == 2 ){
           this.changeStateLoteF(1,2,json["typeFabric"])
         }else if(json["typeOperation"] == 3){
@@ -697,10 +666,8 @@ findDevWithLotF(){
     }
   }
   for (var i = 0;  i < this.state.ironO.length; i++) {
-    console.log(this.state.ironO[i]["lotId"] )
     if(this.state.ironO[i]["lotId"] == this.state.loteF){
         var id = this.state.ironO[i]["id"]
-        console.log("Encontre mi dispositivo "+id)
         this.delLotetoPla(id)
         this.findServiceF()
         
@@ -725,7 +692,6 @@ findServiceF(){
       return response.json();
     })
     .then(json => {
-      console.log(json)      
           if(json["typeOperation"] == 1){
             this.changeStateLoteX(2, 1, json["typeFabric"])
           }else if(json["typeOperation"] == 2){
