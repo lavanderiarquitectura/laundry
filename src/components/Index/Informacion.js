@@ -36,7 +36,7 @@ class Informacion extends React.Component{
           room: '',
           cloths: '0',
           invoice: 'none',
-          clothes: 'none',
+          clothes: 'block',
           id: '',
         };
         this.changeStateC = this.changeStateC.bind(this);

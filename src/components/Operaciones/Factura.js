@@ -23,13 +23,9 @@ class Factura extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {          
-<<<<<<< HEAD
-            total: ""
-=======
-            total: "0",
+        this.state = {    
+            total: "",
             prendas: []
->>>>>>> 1089ec2eb42c4c602bde395e22d38722aee41e87
 
         };
       //  this.changeState = this.changeState.bind(this);
@@ -139,13 +135,12 @@ class Factura extends React.Component{
               return response.json();
             })
             .then(json => {   
-<<<<<<< HEAD
+
             console.log("Costo por prenda"); 
               console.log(json);
               console.log(json["total"]);
               this.setState({total: json["total"] })
-=======
->>>>>>> 1089ec2eb42c4c602bde395e22d38722aee41e87
+
             })
             .catch(error => {
               console.log(error);
