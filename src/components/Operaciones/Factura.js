@@ -24,7 +24,7 @@ class Factura extends React.Component{
     constructor(props) {
         super(props);
         this.state = {          
-            total: "0"
+            total: ""
 
         };
       //  this.changeState = this.changeState.bind(this);
@@ -90,6 +90,8 @@ class Factura extends React.Component{
             .then(json => {   
             console.log("Costo por prenda"); 
               console.log(json);
+              console.log(json["total"]);
+              this.setState({total: json["total"] })
             })
             .catch(error => {
               console.log(error);
