@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import store from '../../store'
 import createHistory from "history/createBrowserHistory";
 
@@ -26,6 +29,9 @@ class LoginOper extends React.Component{
         };
        this.handleChangeUser = this.handleChangeUser.bind(this);
        this.handleChangePass = this.handleChangePass.bind(this);
+       this.handleClose = this.handleClose.bind(this);
+       this.notificar = this.notificar.bind(this);
+
        this.obtenerAuth = this.obtenerAuth.bind(this);
     }
 
@@ -35,14 +41,24 @@ class LoginOper extends React.Component{
     handleChangePass(event){
         this.setState({password: event.target.value})
     }
+    notificar(mss){
+        this.setState({setOpen: true, open: true, message: mss})
+    }   
 
+    handleClose() {        
+        this.setState({setOpen: false, open: false})
+      }
    
 
     async obtenerAuth() {
 
         var user = this.state.user
         var password = this.state.password
-           
+
+        if( user == "" || password==""){
+            this.notificar("Login failed. Enter your credentials.");
+           }
+    
  
          return axios.get(back_end+"/authenticate_operator/".concat(user,"/",password))
          
@@ -58,8 +74,8 @@ class LoginOper extends React.Component{
                 sessionStorage.setItem("Operators", true);
                 return this.props.history.push('/operaciones');              
              }else{
-                alert("Credenciales incorrectas. Intentelo de nuevo");
-                 window.location.reload();
+                this.notificar("Login failed. Invalid user or password.");
+                 this.setState({password:"", user: ""})
              }
                       
                          
@@ -162,6 +178,31 @@ class LoginOper extends React.Component{
         return(          
             <div>
                 {loginOperator}
+                <Snackbar
+           variant="error"
+           anchorOrigin={{
+           vertical: 'bottom',
+           horizontal: 'left',
+           }}
+           open={this.state.open}
+           autoHideDuration={6000}
+           onClose={this.handleClose}
+           ContentProps={{
+           'aria-describedby': 'message-id',
+           }}
+           message={<span id="message-id">{this.state.message}</span>}
+           action={[                    
+           <IconButton
+               key="close"
+               aria-label="Close"
+               color="inherit"
+               onClick={this.handleClose}
+           >
+               <CloseIcon />
+           </IconButton>,
+           ]}
+           
+       />
             </div>  
                    
             )

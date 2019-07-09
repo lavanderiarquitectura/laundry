@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 import axios from 'axios';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import store from '../../store'
 import createHistory from "history/createBrowserHistory";
 
@@ -29,6 +32,8 @@ class Login extends React.Component{
         this.handleChangePass = this.handleChangePass.bind(this);
         this.obtenerAuth = this.obtenerAuth.bind(this);
         this.redirection = this.redirection.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.notificar = this.notificar.bind(this);
 
         this.register = this.register.bind(this);
     }
@@ -64,6 +69,10 @@ class Login extends React.Component{
        var cedula = this.state.personal_id
        var password = this.state.password
 
+       if( cedula == "" || password==""){
+        this.notificar("Login failed. Enter your credentials.");
+       }
+
         return axios.get(back_end+"/authenticate/".concat(cedula,"/",password))
         
           .then(json => {
@@ -77,8 +86,8 @@ class Login extends React.Component{
                 this.addUser()
                 this.redirection()                
             }else{               
-                alert("Credenciales incorrectas. Intentelo de nuevo");
-                window.location.reload();
+                this.notificar("Login failed. Invalid identificacion number or password.");
+                this.setState({password: ""})
             }
                      
                         
@@ -87,9 +96,16 @@ class Login extends React.Component{
             console.log(error);
           });
         }
-      
+    
+    notificar(mss){
+        this.setState({setOpen: true, open: true, message: mss})
+    }
+
     
 
+    handleClose() {        
+        this.setState({setOpen: false, open: false})
+      }
 
     
     render(){
@@ -175,7 +191,7 @@ class Login extends React.Component{
                     id="idnumber"
                     value={this.state.personal_id}
                     onChange={this.handleChangeUser}
-                    label="Number identificacion"
+                    label="Identificacion Number"
                     margin="normal"
                     style = {styles.inputs}
                     variant="outlined"
@@ -199,6 +215,8 @@ class Login extends React.Component{
             </div>
            <div className="form-group" style={styles.signup}><a>Don't an account? </a><Link to='/register'><a onClick={this.register}>Sign Up</a></Link></div>
            </form>
+           
+       
             
         }
 
@@ -206,6 +224,31 @@ class Login extends React.Component{
             
             <div className="container col-md-3 mb-8" style={styles.divLogin} theme={theme}>
                {login}
+               <Snackbar
+           variant="error"
+           anchorOrigin={{
+           vertical: 'bottom',
+           horizontal: 'left',
+           }}
+           open={this.state.open}
+           autoHideDuration={6000}
+           onClose={this.handleClose}
+           ContentProps={{
+           'aria-describedby': 'message-id',
+           }}
+           message={<span id="message-id">{this.state.message}</span>}
+           action={[                    
+           <IconButton
+               key="close"
+               aria-label="Close"
+               color="inherit"
+               onClick={this.handleClose}
+           >
+               <CloseIcon />
+           </IconButton>,
+           ]}
+           
+       />
             </div>
             )
     }

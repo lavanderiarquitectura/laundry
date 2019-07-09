@@ -4,6 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 import axios from 'axios';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
@@ -17,13 +20,20 @@ class Register extends React.Component{
             lastname:"",
             idnumber:"",
             room:"",
-            password:""
+            password:"",
+            setOpen: false,
+            open: false,
         }
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeLastname = this.handleChangeLastname.bind(this);
         this.handleChangeIdNumber = this.handleChangeIdNumber.bind(this);
         this.handleChangeRoom = this.handleChangeRoom.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
+
+
+        this.handleClose = this.handleClose.bind(this);
+        this.notificar = this.notificar.bind(this);
+
         this.register = this.register.bind(this);
         this.in = this.in.bind(this);
 
@@ -60,6 +70,9 @@ class Register extends React.Component{
         sessionStorage.setItem("Navbar", 0);
         
     }
+    notificar(mss){
+        this.setState({setOpen: true, open: true, message: mss})
+    }
 
     validatePass(){
         var nums = [0,1,2,3,4,5,6,7,8,9]
@@ -85,15 +98,15 @@ class Register extends React.Component{
         if( aux.length >= 9){
             tam = true
         }
-        if( numeros ==  true && tam == true && mayus == true){
-            this.validate()
+        if( numeros ==  true && tam == true && mayus == true){            
+          this.register()
         }else{
             if( numeros == false){
-                alert("The password must have at least one number"); 
+                this.notificar("The password must have at least one number."); 
             }else if( mayus == false){
-                alert("The password must have at least one upper case letter"); 
+                this.notificar("The password must have at least one upper case letter."); 
             }else if( tam == false){
-                alert("The password must have more than 8 letters"); 
+                this.notificar("The password must have more than 8 caracters."); 
             }
         }
 }
@@ -111,13 +124,17 @@ class Register extends React.Component{
         }
 
         if( aux == true ){
-          this.register()
+          this.validatePass()
 
         }else{
-            alert("Please, complete the entire form");
+            this.notificar("Please, complete the form.");
         }
         }
     
+    
+    handleClose() {        
+        this.setState({setOpen: false, open: false})
+      }
 
     handleChangeName(event){        
         this.setState({name: event.target.value})
@@ -271,11 +288,35 @@ class Register extends React.Component{
                 </div>
                 <div className="form-group" style={styles.divInput}>                
               
-                    <Button variant="outlined" onClick={this.validatePass} style={styles.botonInicio} color="primary">Register</Button>
+                    <Button variant="outlined" onClick={this.validate} style={styles.botonInicio} color="primary">Register</Button>
                 </div>
                 <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a onClick={this.in} > Sign in</a></Link></div>
                 
                </form>
+               <Snackbar
+                    variant="error"
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                    }}
+                    open={this.state.open}
+                    autoHideDuration={6000}
+                    onClose={this.handleClose}
+                    ContentProps={{
+                    'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{this.state.message}</span>}
+                    action={[                    
+                    <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        onClick={this.handleClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>,
+                    ]}
+                />
                 
             </div>
             </div>
