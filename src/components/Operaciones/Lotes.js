@@ -266,6 +266,7 @@ render(){
                                 onChange={this.onChangeRoom}
                                 label="Room"
                                 margin="normal"
+                                max = "999"
                                 style = {styles.selector}
                             />
                     </div>

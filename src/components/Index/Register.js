@@ -25,10 +25,10 @@ class Register extends React.Component{
         this.handleChangeRoom = this.handleChangeRoom.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.register = this.register.bind(this);
-
         this.in = this.in.bind(this);
 
         this.validate = this.validate.bind(this);
+        this.validatePass = this.validatePass.bind(this);
 
     }
 
@@ -60,6 +60,46 @@ class Register extends React.Component{
         sessionStorage.setItem("Navbar", 0);
         
     }
+
+    validatePass(){
+        var nums = [0,1,2,3,4,5,6,7,8,9]
+        var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+        var aux = this.state.password
+        var numeros = false
+        var mayus = false
+        var tam = false
+        console.log(aux)
+        for(var i in aux){
+            for(var j in nums){
+                if( aux[i] == nums[j]){
+                    numeros = true
+                }
+            }
+            for(var k in letters){
+                if( aux[i] == letters[k]){
+                    mayus = true
+            }
+            
+        }
+    }
+        if( aux.length >= 9){
+            tam = true
+        }
+        if( numeros ==  true && tam == true && mayus == true){
+            this.validate()
+        }else{
+            if( numeros == false){
+                alert("The password must have at least one number"); 
+            }else if( mayus == false){
+                alert("The password must have at least one upper case letter"); 
+            }else if( tam == false){
+                alert("The password must have more than 8 letters"); 
+            }
+        }
+}
+
+
+
     validate(){
         var aux = true;
         var user = [this.state.name,this.state.lastname,this.state.idnumber,
@@ -74,8 +114,7 @@ class Register extends React.Component{
           this.register()
 
         }else{
-            alert("Faltan datos. Complete todo el formulario.");                    
-            window.location.reload()
+            alert("Please, complete the entire form");
         }
         }
     
@@ -232,7 +271,7 @@ class Register extends React.Component{
                 </div>
                 <div className="form-group" style={styles.divInput}>                
               
-                    <Button variant="outlined" onClick={this.validate} style={styles.botonInicio} color="primary">Register</Button>
+                    <Button variant="outlined" onClick={this.validatePass} style={styles.botonInicio} color="primary">Register</Button>
                 </div>
                 <div className="form-group" style={styles.signin}><a>Already have an account?</a><Link to='/'><a onClick={this.in} > Sign in</a></Link></div>
                 

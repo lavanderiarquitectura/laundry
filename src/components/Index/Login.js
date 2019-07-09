@@ -175,7 +175,7 @@ class Login extends React.Component{
                     id="idnumber"
                     value={this.state.personal_id}
                     onChange={this.handleChangeUser}
-                    label="Personal Id"
+                    label="Number identificacion"
                     margin="normal"
                     style = {styles.inputs}
                     variant="outlined"
@@ -193,7 +193,7 @@ class Login extends React.Component{
                     variant="outlined"
                 />
            </div>
-           <div className="form-group" style={styles.olvidaste}><a>Forgot </a><Link to='/'><a>password</a></Link><a>?</a></div>
+           <div className="form-group" style={styles.olvidaste}><a> </a><Link to='/'><a></a></Link><a></a></div>
             <div className="form-group" style={styles.divInput}>                
                <Button onClick={this.obtenerAuth} variant="outlined" focusVisible style={styles.botonInicio} color="primary">Login</Button>
             </div>

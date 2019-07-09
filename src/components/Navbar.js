@@ -84,9 +84,6 @@ render() {
       <MDBNavItem active style={styles.signup} >
               <MDBNavLink to="/login/operaciones" onClick={this.register} className="indigo-text">Operator</MDBNavLink>
       </MDBNavItem>
-      <MDBNavItem active style={styles.signup} >
-              <MDBNavLink to="#" onClick="" className="indigo-text">About Us</MDBNavLink>
-      </MDBNavItem>  
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
@@ -105,10 +102,7 @@ render() {
         <MDBNavbarNav right>
         <MDBNavItem active style={styles.signup} >
             <MDBNavLink to="/" onClick = {this.logOut} className="indigo-text">Logout</MDBNavLink>
-    </MDBNavItem>         
-    <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="#"onClick=""className="indigo-text">About Us</MDBNavLink>
-    </MDBNavItem>  
+    </MDBNavItem>
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
@@ -127,10 +121,7 @@ render() {
         <MDBNavbarNav right>
         <MDBNavItem active style={styles.signup} >
             <MDBNavLink to="/" onClick = {this.logOut} className="indigo-text">Logout</MDBNavLink>
-    </MDBNavItem>         
-    <MDBNavItem active style={styles.signup} >
-            <MDBNavLink to="#" onClick="" className="indigo-text">About Us</MDBNavLink>
-    </MDBNavItem> 
+    </MDBNavItem>  
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
@@ -152,10 +143,7 @@ render() {
         </MDBNavItem>    
         <MDBNavItem active style={styles.signup} >
                 <MDBNavLink to="/login/operaciones" onClick={this.register} className="indigo-text">Operator</MDBNavLink>
-        </MDBNavItem>     
-        <MDBNavItem active style={styles.signup} >
-                <MDBNavLink to="#"onClick="" className="indigo-text">About Us</MDBNavLink>
-        </MDBNavItem> 
+        </MDBNavItem>            
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
