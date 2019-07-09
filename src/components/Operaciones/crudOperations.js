@@ -507,7 +507,12 @@ changeStateLoteP(t, f){
           console.error(error)
           return
       }else{
-        window.location.reload()
+        washers = []
+        lotWash = []
+        lotIron = []
+        lotEnd = []
+        irons = []
+        this.componentDidMount()
 
       }
       }
@@ -647,7 +652,12 @@ const request = require('request')
         console.error(error)
         return
     }else{
-     window.location.reload()
+      washers = []
+      lotWash = []
+      lotIron = []
+      lotEnd = []
+      irons = []
+      this.componentDidMount()
 
     }
     }
@@ -723,7 +733,12 @@ changeStateLoteX(state, type, fabric){
           return
       }else{
   
-        window.location.reload()
+        washers = []
+        lotWash = []
+        lotIron = []
+        lotEnd = []
+        irons = []
+        this.componentDidMount()
       }
       }
       )

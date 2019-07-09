@@ -100,7 +100,7 @@ class crudDevices extends React.Component{
               if (error) {
                 console.error(error)                                      
               }else{
-                window.location.reload();
+                this.componentWillMount()
                 
               }
             }                        
