@@ -29,6 +29,8 @@ import AddCircle from '@material-ui/icons/AddCircle';
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
+var devices = []
+
 class crudDevices extends React.Component{
 
     constructor(props) {
@@ -36,17 +38,152 @@ class crudDevices extends React.Component{
         this.state = {
           devices: [],
           type: "",
-          state: true,
+          washer: [],
+          washerO: [],
+          iron: [],
+          ironO: [],
+          state: "",
+          stateM: "",
+          idDev: "",
+          typeDev: ""
         };
        this.onChangeD = this.onChangeD.bind(this);
        this.onChangeL = this.onChangeL.bind(this);
+       this.onChangeDM = this.onChangeDM.bind(this);
+       this.onChangeLM = this.onChangeLM.bind(this);
+       this.washerOff = this.washerOff.bind(this);
+       this.ironOff = this.ironOff.bind(this);
+       this.iron = this.iron.bind(this);
+       this.washer= this.washer.bind(this);
        this.createDevice = this.createDevice.bind(this);
+
+       this.findDevice = this.findDevice.bind(this);
+
+       this.changeDevice = this.changeDevice.bind(this);
       
        this.componentWillMount = this.componentWillMount.bind(this); 
     }
+
+    async washer(){
+      var token = sessionStorage.getItem("TokenA")    
+      return fetch(back_end + "/devices/byTypeAndState/Washer/true"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {          
+          this.setState({washer: json})
+          for (var i = 0; i < json.length; i++) {
+            devices.push(<MenuItem value={this.state.washer[i]["id"]}>{this.state.washer[i]["id"]}</MenuItem>);
+          }
+              
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
     
-    async componentWillMount(){      
+    async washerOff(){
+      var token = sessionStorage.getItem("TokenA")    
+      return fetch(back_end + "/devices/byTypeAndState/Washer/false"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {   
+          this.setState({washerO: json})       
+          for (var i = 0; i < json.length; i++) {
+            devices.push(<MenuItem value={this.state.washerO[i]["id"]}>{this.state.washerO[i]["id"]}</MenuItem>);
+          } 
+              
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    async ironOff(){
+      var token = sessionStorage.getItem("TokenA")    
+      return fetch(back_end + "/devices/byTypeAndState/Iron/false"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {   
+          this.setState({ironO: json}) 
+          for (var i = 0; i < json.length; i++) {
+            devices.push(<MenuItem value={this.state.ironO[i]["id"]}>{this.state.ironO[i]["id"]}</MenuItem>);
+          }        
+              
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    
+    async iron(){
+      var token = sessionStorage.getItem("TokenA")  
+      return fetch(back_end + "/devices/byTypeAndState/Iron/true"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {          
+          this.setState({iron: json})
+          for (var i = 0; i < json.length; i++) {
+            devices.push(<MenuItem value={this.state.iron[i]["id"]}>{this.state.iron[i]["id"]}</MenuItem>);
+          }
+              
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    async componentDidMount(){ 
+      this.washer() //Obtener lavadoras por estado: On
+      this.washerOff() //Obtener lavadoras por estado: Off
+      this.iron() //Obtener planchas por estado; On
+      this.ironOff() //Obtener planchas por estado; On  
+    }
+    async componentWillMount(){   
       
+       
       var token = sessionStorage.getItem("TokenA")
       return fetch(back_end + "/devices"+"?token="+token, {
           method: "GET",
@@ -83,8 +220,70 @@ class crudDevices extends React.Component{
         .catch(error => {
           console.log(error);
         });
+  
+      
+     
     }
 
+    async findDevice(){    
+  
+      
+      var token = sessionStorage.getItem("TokenA")
+      return fetch(back_end + "/devices"+"?token="+token, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin" : "*"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            
+          }
+          return response.json();
+        })
+        .then(json => {
+          for(var i in json){
+            for(var j in (json[i])){
+              if(json[i]["id"] == this.state.idDev){
+              this.setState({typeDev: json[i]["type"] })
+              }
+            }            
+            }        
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    async changeDevice(){
+      this.findDevice()
+      var token = sessionStorage.getItem("TokenA") 
+      var id = this.state.idDev
+      console.log(id)
+      const request = require('request')
+        request.put(back_end + "/devices/"+id+"?token="+token, {
+        headers: { 'Content-type': 'application/json' },
+        json: {			
+                lotId : 0,
+                state: this.state.stateM,
+                type: this.state.typeDev
+        }
+        }, (error, res, body) => {
+        if (error) {
+            console.error(error)
+            return
+        }else{
+          var devices = []
+          this.setState({washer: [],
+            washerO: [],
+            iron: [],
+            ironO: [],})
+          this.componentWillMount()
+        }
+        }
+        )}
     
   
        async createDevice(){
@@ -100,6 +299,11 @@ class crudDevices extends React.Component{
               if (error) {
                 console.error(error)                                      
               }else{
+                var devices = []
+                this.setState({washer: [],
+                  washerO: [],
+                  iron: [],
+                  ironO: [],})
                 this.componentWillMount()
                 
               }
@@ -114,6 +318,12 @@ class crudDevices extends React.Component{
     onChangeL(event){
         this.setState({state: event.target.value})
     }
+    onChangeDM(event){
+      this.setState({idDev: event.target.value})
+  }
+  onChangeLM(event){
+      this.setState({stateM: event.target.value})
+  }
     
 render(){
     const ColorButtonB = withStyles(theme => ({
@@ -259,16 +469,69 @@ render(){
                  </div>     
                  </div>
  
+               </div>  
+               </form>
+                </div>            
+            </div>
+
+            <div className="row">
+                <div className="container">
+
+                <form className="row" style={{marginLeft: "0"}}> 
+
+                <div className="container">
+                  <div className="form-group col-md" style={styles.titleS}>
+                      <h3 style={styles.text}>Change State</h3>
+                </div>
                </div>
 
-                
+               <div className="container">
+               <div className="row">
+               <div className="form-group col-md-4" style={styles.divInput}>
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                    Id Device
+                    </InputLabel>
+                    <Select
+                    value={this.state.idDev}
+                    input={<Input name="id" id="age-label-placeholder" />}
+                    onChange = {this.onChangeDM}                 
+                    name="id"
+                    className=""
+                    >
+                   {devices}
+                    </Select>
+                </FormControl>
+               </div>
+               <div className="form-group col-md-4" style={styles.divInput}>
+               <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                    State Device
+                    </InputLabel>
+                    <Select
+                    value={this.state.stateM}
+                    input={<Input name="device" id="age-label-placeholder" />}
+                    onChange = {this.onChangeLM}             
+                    name="device"
+                    className=""
+                    >
+                    <MenuItem value={true}>On</MenuItem>
+                    <MenuItem value={false}>Off</MenuItem>
+                    </Select>
+                </FormControl>
+               </div>
                
-                    
-             
+               <div className="form-group col-md-4" style={styles.divB}>
+                 <Link to="/operaciones"><ColorButtonB  color="primary"  onClick={this.changeDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB></Link>
+                 </div>     
+                 </div>
+ 
+               </div>
                </form>
                 </div>
             
             </div>
+
         </div>
 
     );

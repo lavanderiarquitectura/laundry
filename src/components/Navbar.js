@@ -31,6 +31,9 @@ logOut(){
   sessionStorage.setItem("TokenA", undefined);
   sessionStorage.setItem("Operators", false);
   sessionStorage.setItem("Users", false);
+  sessionStorage.setItem("devices", "none")
+  sessionStorage.setItem("operation", "none")
+  sessionStorage.setItem("lote", "none")
 }
 register(){
   sessionStorage.setItem("Navbar", 3);
@@ -72,8 +75,8 @@ render() {
       <MDBNavbarBrand style={styles.logo}>
          <MDBNavLink to="/" className="indigo-text" onClick={this.in} style={styles.text}>Cruise Laundry</MDBNavLink>
       </MDBNavbarBrand>
-      <MDBNavbarToggler onClick={this.toggleCollapse} />
-      <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+      <MDBNavbarToggler onClick={this.toggleCollapse} style={{backgroundColor: "#3f51b7"}} />
+      <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar >
         <MDBNavbarNav left>
  
         </MDBNavbarNav>
@@ -94,7 +97,7 @@ render() {
       <MDBNavbarBrand style={styles.logo}>
          <MDBNavLink to="/" className="indigo-text" onClick={this.in} style={styles.text}>Cruise Laundry</MDBNavLink>
       </MDBNavbarBrand>
-      <MDBNavbarToggler onClick={this.toggleCollapse} />
+      <MDBNavbarToggler onClick={this.toggleCollapse} style={{backgroundColor: "#3f51b7"}}/>
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav left>
  
@@ -113,7 +116,7 @@ render() {
       <MDBNavbarBrand style={styles.logo}>
          <MDBNavLink to="/" className="indigo-text" onClick={this.in} style={styles.text}>Cruise Laundry</MDBNavLink>
       </MDBNavbarBrand>
-      <MDBNavbarToggler onClick={this.toggleCollapse} />
+      <MDBNavbarToggler onClick={this.toggleCollapse} style={{backgroundColor: "#3f51b7"}}/>
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav left>
  
@@ -132,7 +135,7 @@ render() {
       <MDBNavbarBrand style={styles.logo}>
          <MDBNavLink to="/" className="indigo-text" onClick={this.in} style={styles.text}>Cruise Laundry</MDBNavLink>
       </MDBNavbarBrand>
-      <MDBNavbarToggler onClick={this.toggleCollapse} />
+      <MDBNavbarToggler onClick={this.toggleCollapse} style={{backgroundColor: "#3f51b7"}} />
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav left>
  

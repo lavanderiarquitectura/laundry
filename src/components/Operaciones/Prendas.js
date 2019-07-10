@@ -63,6 +63,8 @@ class Prendas extends React.Component{
     }
 
     obtenerRopa(){
+
+         this.setState({prendas: []})
         
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token") 
@@ -109,7 +111,6 @@ class Prendas extends React.Component{
         }
 
     componentDidMount(){
-
       this.obtenerRopa()
       }
     

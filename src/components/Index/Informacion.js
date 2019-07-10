@@ -56,7 +56,7 @@ class Informacion extends React.Component{
             this.setState( {clothes: "none", invoice:"block"})
     }  
 
-    obtenerUser(){
+    async obtenerUser(){
         var token = sessionStorage.getItem("Token") 
         var id = sessionStorage.getItem("id") 
         this.setState({id: id})

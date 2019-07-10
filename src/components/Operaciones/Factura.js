@@ -73,7 +73,7 @@ class Factura extends React.Component{
       }
   }
 
-      obtenerRopa(){
+  async obtenerRopa(){
         
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token") 
@@ -115,7 +115,7 @@ class Factura extends React.Component{
             });
         }
 
-       obtenerPrecios(){           
+        async obtenerPrecios(){           
      
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token")
