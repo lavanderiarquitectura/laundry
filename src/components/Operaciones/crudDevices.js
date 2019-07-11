@@ -25,6 +25,8 @@ import store from '../../store'
 import { withRouter } from "react-router";
 import createHistory from "history/createBrowserHistory";
 import AddCircle from '@material-ui/icons/AddCircle';
+
+import Edit from '@material-ui/icons/Edit';
 //+"?token="+token
 
 var config_data = require('../../ipconfig.json')
@@ -522,7 +524,7 @@ render(){
                </div>
                
                <div className="form-group col-md-4" style={styles.divB}>
-                 <Link to="/operaciones"><ColorButtonB  color="primary"  onClick={this.changeDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><AddCircle/></ColorButtonB></Link>
+                 <Link to="/operaciones"><ColorButtonB  color="primary"  onClick={this.changeDevice} variant="contained" aria-label="Add" style={styles.buttonAdd}><Edit/></ColorButtonB></Link>
                  </div>     
                  </div>
  
