@@ -109,7 +109,7 @@ class Prendas extends React.Component{
         }
 
     componentDidMount(){
-
+      this.setState({prendas: []})
       this.obtenerRopa()
       }
     
