@@ -23,8 +23,8 @@ class Factura extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {          
-            total: "0",
+        this.state = {    
+            total: "",
             prendas: []
 
         };
@@ -73,7 +73,7 @@ class Factura extends React.Component{
       }
   }
 
-      obtenerRopa(){
+  async obtenerRopa(){
         
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token") 
@@ -115,7 +115,7 @@ class Factura extends React.Component{
             });
         }
 
-       obtenerPrecios(){           
+        async obtenerPrecios(){           
      
         var room = sessionStorage.getItem("Room") 
         var token = sessionStorage.getItem("Token")
@@ -135,6 +135,12 @@ class Factura extends React.Component{
               return response.json();
             })
             .then(json => {   
+
+            console.log("Costo por prenda"); 
+              console.log(json);
+              console.log(json["total"]);
+              this.setState({total: json["total"] })
+
             })
             .catch(error => {
               console.log(error);

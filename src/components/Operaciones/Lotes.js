@@ -22,6 +22,9 @@ import Input from '@material-ui/core/Input';
 
 import AddCircle from '@material-ui/icons/AddCircle';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
@@ -47,6 +50,9 @@ class Lotes extends React.Component{
           operacion: "",
           lote: [],
           row: [],
+
+          setOpen: false,
+          open: false,
         };
        this.changeState = this.changeState.bind(this);
        this.onChangeCloth = this.onChangeCloth.bind(this);
@@ -57,6 +63,16 @@ class Lotes extends React.Component{
        this.onChangeOperacion = this.onChangeOperacion.bind(this);
        this.addLote = this.addLote.bind(this);
        this.add = this.add.bind(this);
+
+       this.convertColor = this.convertColor.bind(this);
+       this.convertPrenda = this.convertPrenda.bind(this);
+       this.convertTela = this.convertTela.bind(this);
+
+       this.convertService = this.convertService.bind(this);
+
+
+       this.handleClose = this.handleClose.bind(this);
+       this.notificar = this.notificar.bind(this);
 
        this.subscribe = this.subscribe.bind(this);
     }
@@ -98,23 +114,46 @@ class Lotes extends React.Component{
     }
 
     addLote(){
-        var token = sessionStorage.getItem("TokenA")
-        const request = require('request')
-        request.post(back_end + '/cloth_register/create_list'+"?token="+token, {
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(lote),
-        }, (error, res, body) => {
-        if (error) {
-            console.error(error)
-            return
+        console.log(lote)
+        if( lote.length == 0){
+            this.notificar("You have not registered clothes yet. Try again.")
         }else{
-            this.setState({row : []})
-            window.location.reload()
+            var token = sessionStorage.getItem("TokenA")
+            const request = require('request')
+            request.post(back_end + '/cloth_register/create_list'+"?token="+token, {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(lote),
+            }, (error, res, body) => {
+            if (error) {
+                console.error(error)
+                return
+            }else{
+                this.setState({row : [], color: "",
+                room: "",
+                marca: "",
+                cloth: "",
+                fabric: "",
+                operacion: "", room: "" })
+                window.location.reload()
+            }
         }
+        )
+        }
+        }
+
+    notificar(mss){
+        this.setState({setOpen: true, open: true, message: mss})
     }
-    )}
+
+    handleClose() {        
+        this.setState({setOpen: false, open: false})
+      }
 
     add(){
+        if( this.state.room == "" || this.state.cloth == "" || this.state.color== "" || this.state.fabric == "" ||this.state.operacion== "" || this.state.marca== ""){
+            this.notificar("Please, complete the form.");
+        }else{
+        
         var hoy = new Date();
         var dd = hoy.getDate();
         var mm = hoy.getMonth()+1;
@@ -141,10 +180,10 @@ class Lotes extends React.Component{
         prenda.tipo_prenda_id_tipo_prenda = this.state.cloth;
         
         pren.push(id)
-        pren.push(this.state.cloth)
-        pren.push(this.state.color)
-        pren.push(this.state.fabric)
-        pren.push(this.state.operacion)
+        pren.push(this.convertPrenda(this.state.cloth))
+        pren.push(this.convertColor(this.state.color))
+        pren.push(this.convertTela(this.state.fabric))
+        pren.push(this.convertService(this.state.operacion))
         pren.push(this.state.marca)
 
         id = id +1;
@@ -155,7 +194,41 @@ class Lotes extends React.Component{
 
         lote.push(prenda)
         }
-
+    }
+    convertColor(id){
+        var color = ['Blue',"Green","Red","Brown", "Yellow", "Gray", "Black", "White", "Orange", "Purple", "Pink", "Beige", "Various"]
+        for( var i in color){
+            if( i == id-1){
+                return color[i]
+            }
+        }
+    }
+    convertPrenda(id){
+        
+        var prenda = ['T-Shirt',"Shirt","Sweater","Jacket", "Coat", "Jeans", "Pants", "Socks", "Shorts", "Skirt", "Dress", "Blouse", "Briefs"]
+        for( var i in prenda ){
+            if( i == id-1){
+                return prenda[i]
+            }
+        }
+    }
+    convertService(id){
+        
+        var service = ['Washing',"Ironing","Full Service"]
+        for( var i in service ){
+            if( i == id-1){
+                return service[i]
+            }
+        }
+    }
+    convertTela(id){
+        var tela = ['Acrylic',"Cotton","Denim","Flannel", "Leather", "Linen", "Silk", "Velvet", "Wool"]
+        for( var i in tela){
+            if( i == id-1){
+                return tela[i]
+            }
+        }
+    }
 
 
 render(){
@@ -227,7 +300,7 @@ render(){
                     'Cloth',
                     'Color', 
                     'Fabric',
-                    'Operation',
+                    'Service',
                     'Marca'
                 ];
     
@@ -263,9 +336,11 @@ render(){
                     <TextField
                                 autoFocus
                                 id="room"
+                                value={this.state.room}
                                 onChange={this.onChangeRoom}
                                 label="Room"
                                 margin="normal"
+                                max = "999"
                                 style = {styles.selector}
                             />
                     </div>
@@ -392,7 +467,31 @@ render(){
                     <Button  color="secondary" onClick={this.addLote} variant="contained" aria-label="Add" style={styles.button}>Add Lote</Button>
                
                </div>                
-               </form>          
+               </form>  
+               <Snackbar
+                    variant="error"
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                    }}
+                    open={this.state.open}
+                    autoHideDuration={6000}
+                    onClose={this.handleClose}
+                    ContentProps={{
+                    'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{this.state.message}</span>}
+                    action={[                    
+                    <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        onClick={this.handleClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>,
+                    ]}
+                />        
          
                 </div>
             

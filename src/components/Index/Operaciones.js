@@ -30,6 +30,8 @@ var back_end = config_data.backIP
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
+
+
 class Operaciones extends React.Component{
 
 
@@ -40,9 +42,9 @@ class Operaciones extends React.Component{
           name: 'Juan Felipe Contreras',
           room: '401',
           cloths: '2',
-          operation: 'none',
-          devices: 'none',
-          lote: 'none',
+          operation: sessionStorage.getItem("operation"),
+          devices: sessionStorage.getItem("devices"),
+          lote: sessionStorage.getItem("lote"),
 
           lotes: [],
           dispositivos: [],
@@ -62,16 +64,29 @@ class Operaciones extends React.Component{
     //Cambio de vistas 
     changeStateD(){
             this.setState( {devices: "block", operation:"none", lote:'none'})
+            sessionStorage.setItem("devices", "block")
+            sessionStorage.setItem("operation", "none")
+            sessionStorage.setItem("lote", "none")
+
     }
     changeStateO(){
             this.setState( {devices: "none", operation:"block", lote:'none'})
+
+            sessionStorage.setItem("devices", "none")
+            sessionStorage.setItem("operation", "block")
+            sessionStorage.setItem("lote", "none")
+
     }
     changeStateL(){
             this.setState( {devices: "none", operation:"none", lote:'block'})
+            sessionStorage.setItem("lote", "block")
+            sessionStorage.setItem("devices", "none")
+            sessionStorage.setItem("operation", "none")
+
     }
 
  
-    lotes(){
+    async lotes(){
         var token = sessionStorage.getItem("TokenA") 
         return fetch(back_end + "/lots"+"?token="+token, {
             method: "GET",
@@ -148,7 +163,7 @@ class Operaciones extends React.Component{
         
     }
 
-    devices(){
+    async devices(){
       var token = sessionStorage.getItem("TokenA")   
         return fetch(back_end + "/devices"+"?token="+token, {
             method: "GET",

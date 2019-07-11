@@ -20,11 +20,13 @@ import Input from '@material-ui/core/Input';
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
+
 var washers = []
 var lotWash = []
 var lotIron = []
 var lotEnd = []
 var irons = []
+
 
 class crudOperations extends React.Component{
 
@@ -647,7 +649,7 @@ const request = require('request')
         console.error(error)
         return
     }else{
-     window.location.reload()
+      window.location.reload()
 
     }
     }
@@ -722,7 +724,7 @@ changeStateLoteX(state, type, fabric){
           console.error(error)
           return
       }else{
-  
+        
         window.location.reload()
       }
       }
