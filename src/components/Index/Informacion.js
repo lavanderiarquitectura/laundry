@@ -21,10 +21,15 @@ import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 
 import store from '../../store'
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 import Error from '../../components/Auxiliares/Error'
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
+var back_reg = config_data.backRegistro
 
 class Informacion extends React.Component{
 
@@ -38,12 +43,21 @@ class Informacion extends React.Component{
           invoice: 'none',
           clothes: 'block',
           id: '',
+          state: false,
+          setOpen: false,
+          open: false,
         };
         this.changeStateC = this.changeStateC.bind(this);
        this.changeStateI = this.changeStateI.bind(this);
 
+       this.State = this.State.bind(this);
+       this.verifyState = this.verifyState.bind(this);
+
        this.obtenerUser = this.obtenerUser.bind(this);
      
+       this.handleClose = this.handleClose.bind(this);
+       this.notificar = this.notificar.bind(this);
+
        
       //  this.changeState = this.changeState.bind(this);
     }
@@ -55,6 +69,81 @@ class Informacion extends React.Component{
     changeStateI(){
             this.setState( {clothes: "none", invoice:"block"})
     }  
+
+
+    verifyState(){
+        var token = sessionStorage.getItem("Token") 
+        return fetch(back_end + "/gethabitacionescostfree?token="+token, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              
+            }
+            return response.json();
+          })
+          .then(json => {
+            for( var i in json["ids_habitaciones"]){
+                if(sessionStorage.getItem("Room")  == json["ids_habitaciones"][i]){
+                    
+                    this.setState({state: true, value: "In Operation"})
+                }else{
+                    this.setState({state: false, value: "Not Operation"})
+                }
+            }
+
+                
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        
+    }
+
+    notificar(mss){
+        this.setState({setOpen: true, open: true, message: mss})
+    }
+    handleClose() {        
+        this.setState({setOpen: false, open: false})
+      }
+
+    State(){
+        if( this.state.state == false){
+        const room = sessionStorage.getItem("Room") 
+        const request = require('request')
+        request.post(back_reg + '/peticion/create', {
+            headers: { "Access-Control-Allow-Origin" : "*" },
+            json: {			
+                       id_room: room
+            }
+            }, (error, res, body) => {
+            if (error) {
+                console.error(error)
+                return
+            }else{
+
+                this.notificar("Se ha solicitado el servicio de lavanderia")
+                this.setState({value: "Await"})
+                console.log(body)
+    
+            }
+            }
+            )
+        }else{
+            this.notificar("Ya se encuentra en servicio")
+            
+        }
+        //Endpoint de habitaciones con pedido
+        //if existe la room sessionStorage.getItem("Room") en el json obtenido
+        //setState({state: "inService"})
+        //else{ setState({state: "sin servicio"})}
+
+    }
 
     async obtenerUser(){
         var token = sessionStorage.getItem("Token") 
@@ -95,6 +184,7 @@ class Informacion extends React.Component{
     componentDidMount(){       
 	
         this.obtenerUser()
+        this.verifyState()
       
       }
 
@@ -110,8 +200,8 @@ class Informacion extends React.Component{
 
             },
             botonInicio:{
-                width: '90%',
-                height: '45px',
+                width: '85%',
+                height: '40px',
                 marginBottom: '0px',
                 marginTop:'5px',
             },
@@ -156,9 +246,10 @@ class Informacion extends React.Component{
             information:{
                 paddingTop:"16px",
                 paddingRight:"0",
+                paddingLeft:"0",
             },
             buttons:{
-                padding:"10px 0 0 0",
+                padding:"2px 0 0 0",
             },
             divInfo:{
                 paddingLeft:"5px",
@@ -188,6 +279,7 @@ class Informacion extends React.Component{
         
         var display = sessionStorage.getItem("Users");
         var Informacion
+        
         if( display == "false" || display == null){
             Informacion = <Error/>
         }else{
@@ -239,8 +331,11 @@ class Informacion extends React.Component{
                             </InputAdornment>
                         ),
                         }}
-                    />
-                    </div>                        
+                    />                    
+                    </div>   
+                    <div className="row" style={{margin: "3px 0 0 5px", padding: "0", height: "25px"}}>
+                        <p>State:  </p><p style={{margin: "0 0 0 5px"}}> {this.state.value}</p>
+                    </div>                     
                 </div>
                 <div className='col-md-3' style={styles.buttons}>
                     <div className="" style={styles.divInput}>                
@@ -248,6 +343,9 @@ class Informacion extends React.Component{
                     </div>
                     <div className="" style={styles.divInput}>                
                     <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Billing</Button></Link>
+                    </div>
+                    <div className="" style={styles.divInput}>                
+                    <Link to='#'><Button onClick={this.State}  variant="outlined" focusVisible style={styles.botonInicio} color="secondary">Get Service</Button></Link>
                     </div>
                 </div>
             </div>
@@ -262,6 +360,30 @@ class Informacion extends React.Component{
         return(
             <div>
                 {Informacion}
+                <Snackbar
+                    variant="error"
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                    }}
+                    open={this.state.open}
+                    autoHideDuration={6000}
+                    onClose={this.handleClose}
+                    ContentProps={{
+                    'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{this.state.message}</span>}
+                    action={[                    
+                    <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        onClick={this.handleClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>,
+                    ]}
+                />
             </div>
             )
     }

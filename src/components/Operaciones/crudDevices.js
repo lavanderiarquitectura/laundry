@@ -14,6 +14,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { ThemeProvider } from '@material-ui/styles';
 import green from '@material-ui/core/colors/green';

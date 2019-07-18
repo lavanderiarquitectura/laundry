@@ -1,5 +1,6 @@
 {
      "backIP": "http://52.7.78.51:3005",
-     "backlocal": "http://localhost:3005"
+     "backlocal": "http://localhost:3005",
+     "backRegistro" :"http://3.92.2.102:8082"
      
 }

@@ -52,15 +52,15 @@ class Register extends React.Component{
                         personal_id: this.state.idnumber,
                         password: this.state.password,
                         room_id: this.state.room,
-                        username: this.state.idnumber
+                        username: this.state.idnumber,
             }
             }, (error, res, body) => {
             if (error) {
                 console.error(error)
                 return
             }else{
-                
-                return this.props.history.push('/');
+                console.log(body)
+              //  return this.props.history.push('/');
     
             }
             }

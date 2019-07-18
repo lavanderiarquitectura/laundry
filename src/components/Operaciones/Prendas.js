@@ -10,6 +10,8 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Table from "../Auxiliares/Table";
 import { identity } from 'rxjs';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
 
@@ -17,7 +19,10 @@ class Prendas extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            prendas: []
+            prendas: [],
+
+          loadinga: false,
+          loadingb: false,
         }
         this.convertColor = this.convertColor.bind(this);
         this.convertPrenda = this.convertPrenda.bind(this);
@@ -101,7 +106,7 @@ class Prendas extends React.Component{
 
           lotes.push(row)
           row = [];
-          this.setState({prendas: lotes})
+          this.setState({prendas: lotes, loadinga: true})
         }
 
             })
@@ -111,10 +116,7 @@ class Prendas extends React.Component{
         }
 
     componentDidMount(){
-<<<<<<< HEAD
-      this.setState({prendas: []})
-=======
->>>>>>> 474e6a46a9e939304a232adaffb7ad98e2f3319e
+      this.setState({prendas: ""})
       this.obtenerRopa()
       }
     
@@ -139,6 +141,13 @@ render(){
                 ];
     
     const rows = this.state.prendas;
+    var Tabla
+
+    if( this.state.loadinga == true || this.state.prendas.length == 0 ){
+        Tabla =  <Table headings={headings} rows={rows} style={{width:"100%"}} />
+    }else{
+      Tabla = <CircularProgress style={{margin: "20px auto"}}/>
+    }
 
     
     return(
@@ -150,9 +159,9 @@ render(){
             </div>
             <div className="row" id="table">
                 <div className="col" style={{height: "250px", overflowY: "auto"}}>
-                <Table headings={headings} rows={rows} style={{width:"100%"}} />
+                {Tabla}
                 </div>
-            </div>
+            </div>            
         </div>
 
     );

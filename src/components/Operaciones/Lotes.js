@@ -28,7 +28,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
-
+var back_reg = config_data.backRegistro
 var prenda = new Object();
 var lote = []
 var id = 1;
@@ -134,7 +134,8 @@ class Lotes extends React.Component{
                 cloth: "",
                 fabric: "",
                 operacion: "", room: "" })
-                window.location.reload()
+                console.log(body)
+                //window.location.reload()
             }
         }
         )

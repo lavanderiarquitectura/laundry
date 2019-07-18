@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MeetingRoom from '@material-ui/icons/MeetingRoom';
@@ -17,6 +19,8 @@ import blue from '@material-ui/core/colors/blue';
 
 import Table from "../../components/Auxiliares/Table";
 import CrudDevices from '../../components/Operaciones/crudDevices';
+
+import Facturas from '../../components/Operaciones/Facturas';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import CrudOperations from '../../components/Operaciones/crudOperations';
@@ -40,11 +44,14 @@ class Operaciones extends React.Component{
         super(props);
         this.state = {
           name: 'Juan Felipe Contreras',
-          room: '401',
+          room: "",
           cloths: '2',
           operation: sessionStorage.getItem("operation"),
           devices: sessionStorage.getItem("devices"),
           lote: sessionStorage.getItem("lote"),
+          facturas: sessionStorage.getItem("facturas"),
+          loadinga: false,
+          loadingb: false,
 
           lotes: [],
           dispositivos: [],
@@ -52,6 +59,7 @@ class Operaciones extends React.Component{
        this.changeStateD = this.changeStateD.bind(this);
        this.changeStateL = this.changeStateL.bind(this);
        this.changeStateO = this.changeStateO.bind(this);
+       this.changeStateF = this.changeStateF.bind(this);
 
        this.lotes= this.lotes.bind(this);
        this.devices= this.devices.bind(this);
@@ -63,27 +71,41 @@ class Operaciones extends React.Component{
     }
     //Cambio de vistas 
     changeStateD(){
-            this.setState( {devices: "block", operation:"none", lote:'none'})
+            this.setState( {devices: "block", operation:"none", lote:'none', facturas:'none'})
             sessionStorage.setItem("devices", "block")
             sessionStorage.setItem("operation", "none")
             sessionStorage.setItem("lote", "none")
+            sessionStorage.setItem("factura", "none")
 
     }
     changeStateO(){
-            this.setState( {devices: "none", operation:"block", lote:'none'})
+            this.setState( {devices: "none", operation:"block", lote:'none', facturas:'none'})
 
             sessionStorage.setItem("devices", "none")
             sessionStorage.setItem("operation", "block")
             sessionStorage.setItem("lote", "none")
+            sessionStorage.setItem("factura", "none")
+
 
     }
     changeStateL(){
-            this.setState( {devices: "none", operation:"none", lote:'block'})
+            this.setState( {devices: "none", operation:"none", lote:'block', facturas:'none'})
             sessionStorage.setItem("lote", "block")
             sessionStorage.setItem("devices", "none")
             sessionStorage.setItem("operation", "none")
+            sessionStorage.setItem("factura", "none")
+
 
     }
+    changeStateF(){
+      this.setState( {devices: "none", operation:"none", lote:'none', facturas:'block'})
+      sessionStorage.setItem("lote", "none")
+      sessionStorage.setItem("devices", "none")
+      sessionStorage.setItem("operation", "none")
+      sessionStorage.setItem("factura", "block")
+
+
+}
 
  
     async lotes(){
@@ -152,7 +174,7 @@ class Operaciones extends React.Component{
                 }
                 lotes.push(row)
                 row = [];
-                this.setState({lotes: lotes})
+                this.setState({lotes: lotes, loadinga: true})
             }
 
           })
@@ -196,7 +218,7 @@ class Operaciones extends React.Component{
                 }
                
             }
-            this.setState({lotes: lotes})
+            this.setState({lotes: lotes, loadingb: true})
           })
           .catch(error => {
             console.log(error);
@@ -266,6 +288,10 @@ class Operaciones extends React.Component{
                 marginBottom: '0px',
                 marginTop:'5px',
             },
+            botonBill:{
+              width: '100%',
+              height: '37px',
+          },
             label:{
                 color: 'white',
             },
@@ -352,6 +378,14 @@ class Operaciones extends React.Component{
         }
         var display = sessionStorage.getItem("Operators");
         var Operations
+        var Tabla
+
+        if( this.state.loadinga == true && this.state.loadingb == true){
+            Tabla =  <Table headings={headings} rows={rows} style={{width:"100%"}} />
+        }else{
+          Tabla = <CircularProgress style={{margin: "20px auto"}} />
+        }
+
         if( display == "false" || display == null){
             Operations = <Error/>
         }else{
@@ -361,14 +395,18 @@ class Operaciones extends React.Component{
                 <div className='col-md-2'>
                     <img id="logo" src={logo} style={styles.logo}></img>
                 </div>
-                <div className='col-md-8' style={{textAlign:"center", margin:'auto'}}>
+                <div className='col-md-7' style={{textAlign:"center", margin:'auto'}}>
                  <h3 style={styles.text}>Operations in Progress</h3>
                </div>
-               <div className='col-2'> </div>
+               <div className='col-2' style={{margin: "auto"}}> 
+               <Link to='#'><Button onClick={this.changeStateF}   variant="outlined" focusVisible style={styles.botonBill} color="secondary">Billing</Button></Link>
+
+               </div>             
+                  
             </div>
             <div className='row' style={styles.rowBottom}>
                 <div className='col' style={{textAlign:"center", margin:'5px 0px 0px 0px', height: "250px", overflowY: "auto", padding: "0"}}>
-                <Table headings={headings} rows={rows} style={{width:"100%"}} />
+                           {Tabla}                 
                </div>
             </div>
             <div className='row' style={styles.rowBottom}>
@@ -387,6 +425,7 @@ class Operaciones extends React.Component{
                 <CrudDevices display={this.state.devices}/>
                 <CrudOperations display={this.state.operation}/> 
                 <Lote display={this.state.lote}/>        
+                <Facturas display={this.state.facturas}/> 
             </div>
         </div>        
 

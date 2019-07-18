@@ -34,6 +34,7 @@ logOut(){
   sessionStorage.setItem("devices", "none")
   sessionStorage.setItem("operation", "none")
   sessionStorage.setItem("lote", "none")
+  sessionStorage.setItem("facturas", "none")
 }
 register(){
   sessionStorage.setItem("Navbar", 3);

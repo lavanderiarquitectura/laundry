@@ -12,21 +12,32 @@ import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from '@material-ui/styles';
 import red from '@material-ui/core/colors/red';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 import store from '../../store'
+import Input from '@material-ui/core/Input';
+
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PDF from '@material-ui/icons/PictureAsPdf';
 
-
+var peticiones = []
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
-class Factura extends React.Component{
+var back_reg = config_data.backRegistro
+class Facturas extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {    
+        this.state = { 
+            room: "",
             total: "",
             prendas: [],
+            peticiones: [],
 
           loadinga: false,
           loadingb: false,
@@ -37,15 +48,24 @@ class Factura extends React.Component{
       this.obtenerPrecios = this.obtenerPrecios.bind(this);
       this.obtenerRopa = this.obtenerRopa.bind(this);
 
+      this.onChangeR = this.onChangeR.bind(this);
+
       this.convertColor = this.convertColor.bind(this);
       this.convertPrenda = this.convertPrenda.bind(this);
       this.convertService = this.convertService.bind(this);
+
+      this.getRoom = this.getRoom.bind(this);
+
+
+      this.payBill = this.payBill.bind(this);
+    }
+    onChangeR(event){
+        this.setState({room: event.target.value, prendas: []})        
+        this.obtenerRopa()
     }
 
-
     componentDidMount(){
-
-        this.obtenerRopa()
+      this.getRoom()
       }
 
 
@@ -78,8 +98,8 @@ class Factura extends React.Component{
 
   async obtenerRopa(){
         
-        var room = sessionStorage.getItem("Room") 
-        var token = sessionStorage.getItem("Token") 
+        var room = this.state.room
+        var token = sessionStorage.getItem("TokenA") 
         var aux = room
           return fetch(back_end + "/cloth_register/get/room/"+aux+"?token="+token, {
               method: "GET",
@@ -122,8 +142,8 @@ class Factura extends React.Component{
 
         async obtenerPrecios(){           
      
-        var room = sessionStorage.getItem("Room") 
-        var token = sessionStorage.getItem("Token")
+        var room = this.state.room
+        var token = sessionStorage.getItem("TokenA")
         var aux = room
           return fetch(back_end + "/getfacturaglobal/"+aux+"/?token="+token, {
               method: "GET",
@@ -165,7 +185,57 @@ class Factura extends React.Component{
               console.log(error);
             });
         }
+
+        async getRoom(){
+            var token = sessionStorage.getItem("TokenA")  
+            return fetch(back_reg + "/petition/get?token="+token, {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin" : "*"
+                }
+              })
+              .then(response => {
+                if (!response.ok) {
+                  
+                }
+                return response.json();
+              })
+              .then(json => {    
+        
+                this.setState({peticiones: json})
+                console.log(this.state.peticiones[0]["id_room"])
+                for (var i = 0; i < json.length; i++) {
+                   peticiones.push(<MenuItem value={this.state.peticiones[i]["id_room"]}>{this.state.peticiones[i]["id_room"]}</MenuItem>);
+                }
+        
+              })
+              .catch(error => {
+                console.log(error);
+              });
+        }
       
+
+        async payBill(){            
+            var token = sessionStorage.getItem("TokenA") 
+            var room = this.state.room
+            const request = require('request')
+              request.patch(back_end + "/payfactura/"+room+"?token="+token, {
+              headers: { 'Content-type': 'application/json' },
+              }, (error, res, body) => {
+              if (error) {
+                  console.error(error)
+                  return
+              }else{
+
+                sessionStorage.setItem("facturas", "none")
+                window.location.reload()
+               
+              }
+              }
+              )}
+          
 render(){
 
     const styles={
@@ -194,6 +264,9 @@ render(){
             textAlign: "right",
             padding: "0"
         },
+        selector:{
+            width: "90%",
+        }
     }
 
    const headings = [
@@ -219,7 +292,6 @@ render(){
           }))(Button);
 
     var Tabla
-          console.log(this.state.prendas.length)
           if( this.state.loadinga == true && this.state.loadingb == true || this.state.prendas.length == 0){
               Tabla =  <Table headings={headings} rows={rows} style={{width:"100%"}} />
           }else{
@@ -227,12 +299,30 @@ render(){
           }
       
     return(
-        <div className="container"style={{display: this.props.display}}>
+        <div className="container" style={{display: this.props.display}}>
 
             <div className="row" id="Head">
+                <div className="col">
+                </div>  
                 <div className="col" id="title">
                     <h3 style={styles.title}>Billing</h3>
-                </div>               
+                </div> 
+                <div className="col" id="title">
+                <FormControl style={styles.selector}>
+                    <InputLabel shrink >
+                    Room
+                    </InputLabel>
+                    <Select
+                    value={this.state.room}
+                    input={<Input name="device" id="age-label-placeholder" />}                   
+                    onChange = {this.onChangeR}        
+                    name="device"
+                    className=""
+                    >
+                    {peticiones}
+                    </Select>
+                </FormControl>
+                </div>                
             </div>
 
             <div className="row" id="table">
@@ -247,7 +337,7 @@ render(){
                 </div>
 
                 <div className="col" style={styles.totalDiv}>
-                <Link to='#'><ColorButtonB onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="red"><PDF/></ColorButtonB></Link>
+                <Link to='#'><ColorButtonB onClick={this.payBill} variant="outlined" focusVisible style={styles.botonInicio} color="red">Pay Off</ColorButtonB></Link>
                 
                 
                 <TextField
@@ -272,4 +362,4 @@ render(){
 }
 }
 
-export default Factura;
+export default Facturas;
