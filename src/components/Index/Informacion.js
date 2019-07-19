@@ -201,9 +201,9 @@ class Informacion extends React.Component{
             },
             botonInicio:{
                 width: '85%',
-                height: '40px',
+                height: '45px',
                 marginBottom: '0px',
-                marginTop:'5px',
+                marginTop:'10px',
             },
             label:{
                 color: 'white',
@@ -332,9 +332,6 @@ class Informacion extends React.Component{
                         ),
                         }}
                     />                    
-                    </div>   
-                    <div className="row" style={{margin: "3px 0 0 5px", padding: "0", height: "25px"}}>
-                        <p>State:  </p><p style={{margin: "0 0 0 5px"}}> {this.state.value}</p>
                     </div>                     
                 </div>
                 <div className='col-md-3' style={styles.buttons}>
@@ -343,9 +340,6 @@ class Informacion extends React.Component{
                     </div>
                     <div className="" style={styles.divInput}>                
                     <Link to='#'><Button onClick={this.changeStateI}  variant="outlined" focusVisible style={styles.botonInicio} color="primary"><MonetizacionOn/>Billing</Button></Link>
-                    </div>
-                    <div className="" style={styles.divInput}>                
-                    <Link to='#'><Button onClick={this.State}  variant="outlined" focusVisible style={styles.botonInicio} color="secondary">Get Service</Button></Link>
                     </div>
                 </div>
             </div>

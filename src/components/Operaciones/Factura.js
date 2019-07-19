@@ -247,9 +247,6 @@ render(){
                 </div>
 
                 <div className="col" style={styles.totalDiv}>
-                <Link to='#'><ColorButtonB onClick="" variant="outlined" focusVisible style={styles.botonInicio} color="red"><PDF/></ColorButtonB></Link>
-                
-                
                 <TextField
                             disabled
                             id="input-with-icon-textfield"

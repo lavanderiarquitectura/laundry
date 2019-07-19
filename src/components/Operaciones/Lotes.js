@@ -114,10 +114,11 @@ class Lotes extends React.Component{
     }
 
     addLote(){
-        console.log(lote)
+        console.log(lote.length )
         if( lote.length == 0){
             this.notificar("You have not registered clothes yet. Try again.")
-        }else{
+        }else if(lote.length >= 0){
+            console.log(lote.length )
             var token = sessionStorage.getItem("TokenA")
             const request = require('request')
             request.post(back_end + '/cloth_register/create_list'+"?token="+token, {
@@ -135,7 +136,7 @@ class Lotes extends React.Component{
                 fabric: "",
                 operacion: "", room: "" })
                 console.log(body)
-                //window.location.reload()
+                window.location.reload()
             }
         }
         )
