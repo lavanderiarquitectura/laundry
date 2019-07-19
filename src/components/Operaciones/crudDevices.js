@@ -1,30 +1,16 @@
 import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import logo from '../../img/logo.png';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import {  withStyles } from "@material-ui/core/styles";
 import Table from "../../components/Auxiliares/Table";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-import { ThemeProvider } from '@material-ui/styles';
-import green from '@material-ui/core/colors/green';
-import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 
 import Input from '@material-ui/core/Input';
-import store from '../../store'
-import { withRouter } from "react-router";
-import createHistory from "history/createBrowserHistory";
 import AddCircle from '@material-ui/icons/AddCircle';
 
 import Edit from '@material-ui/icons/Edit';
@@ -278,7 +264,6 @@ class crudDevices extends React.Component{
             console.error(error)
             return
         }else{
-          var devices = []
           this.setState({washer: [],
             washerO: [],
             iron: [],
@@ -302,7 +287,6 @@ class crudDevices extends React.Component{
               if (error) {
                 console.error(error)                                      
               }else{
-                var devices = []
                 this.setState({washer: [],
                   washerO: [],
                   iron: [],

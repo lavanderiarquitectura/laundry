@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import { Link} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
@@ -9,11 +8,10 @@ import axios from 'axios';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import store from '../../store'
 import createHistory from "history/createBrowserHistory";
 
 
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 
 var config_data = require('../../ipconfig.json')

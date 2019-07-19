@@ -1,14 +1,6 @@
-import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import logo from '../../img/logo.png';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+
+import React from 'react';
 import Table from "../Auxiliares/Table";
-import { identity } from 'rxjs';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 

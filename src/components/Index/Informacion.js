@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
@@ -12,14 +12,10 @@ import Prendas from "../../components/Operaciones/Prendas";
 
 import Factura from "../../components/Operaciones/Factura";
 
-import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from '@material-ui/styles';
-import red from '@material-ui/core/colors/red';
 
 import Person from '@material-ui/icons/Person';
 import MonetizacionOn from '@material-ui/icons/MonetizationOn';
 
-import store from '../../store'
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';

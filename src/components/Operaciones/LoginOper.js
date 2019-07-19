@@ -1,15 +1,11 @@
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import React, {Component} from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import store from '../../store'
 import createHistory from "history/createBrowserHistory";
 
 var config_data = require('../../ipconfig.json')

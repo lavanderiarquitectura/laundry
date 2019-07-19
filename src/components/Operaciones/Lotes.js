@@ -1,12 +1,8 @@
-import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
+
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import logo from '../../img/logo.png';
-import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Table from "../Auxiliares/Table";
 
 
@@ -15,7 +11,6 @@ import store from '../../store'
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
@@ -28,7 +23,6 @@ import CloseIcon from '@material-ui/icons/Close';
 
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP
-var back_reg = config_data.backRegistro
 var prenda = new Object();
 var lote = []
 var id = 1;
@@ -135,7 +129,6 @@ class Lotes extends React.Component{
                 cloth: "",
                 fabric: "",
                 operacion: "", room: "" })
-                console.log(body)
                 window.location.reload()
             }
         }

@@ -1,10 +1,7 @@
-import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+
+import React from 'react';
 import Cell from './Cell';
 import './Table.css'
-import logo from '../../img/logo.png';
 
 class Table extends React.Component{
 

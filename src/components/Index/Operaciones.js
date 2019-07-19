@@ -1,18 +1,11 @@
 import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import logo from '../../img/logo.png';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MeetingRoom from '@material-ui/icons/MeetingRoom';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
-
-import { createMuiTheme, withStyles, makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
@@ -21,11 +14,8 @@ import Table from "../../components/Auxiliares/Table";
 import CrudDevices from '../../components/Operaciones/crudDevices';
 
 import Facturas from '../../components/Operaciones/Facturas';
-
-import MenuItem from '@material-ui/core/MenuItem';
 import CrudOperations from '../../components/Operaciones/crudOperations';
 import Lote from '../../components/Operaciones/Lotes';
-import store from '../../store'
 import Error from '../../components/Auxiliares/Error'
 var config_data = require('../../ipconfig.json')
 var back_end = config_data.backIP

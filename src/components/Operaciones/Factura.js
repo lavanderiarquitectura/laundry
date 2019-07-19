@@ -1,21 +1,15 @@
-import {Link} from 'react-router-dom';
-import React, {Component} from 'react';
+
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import logo from '../../img/logo.png';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 import Table from "../Auxiliares/Table";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MonetizacionOn from '@material-ui/icons/MonetizationOn';
-import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from '@material-ui/styles';
+import {  withStyles } from "@material-ui/core/styles";
+
 import red from '@material-ui/core/colors/red';
-import store from '../../store'
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PDF from '@material-ui/icons/PictureAsPdf';
 
 
 var config_data = require('../../ipconfig.json')

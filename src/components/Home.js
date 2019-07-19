@@ -1,8 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
 import Login from './Index/Login';
-import Register from './Index/Register';
-import Table from './Auxiliares/Table';
 
 
 class Home extends React.Component{
